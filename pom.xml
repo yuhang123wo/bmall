@@ -11,6 +11,9 @@
 		<module>bmall-prouct</module>
 		<module>bmall-admin</module>
 		<module>generator</module>
+		<module>bmall-pojo</module>
+		<module>bmall-eureka</module>
+		<module>bmall-config</module>
 	</modules>
 	<!-- 配置变量 -->
 	<properties>
