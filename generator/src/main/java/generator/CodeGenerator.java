@@ -24,11 +24,11 @@ import com.baomidou.mybatisplus.generator.engine.FreemarkerTemplateEngine;
 public class CodeGenerator {
 
 	private static final String model = "mall";
-	private static final String JDBC_URL = "jdbc:mysql://106.12.204.95:3306/mall?useUnicode=true&useSSL=false&characterEncoding=utf8";
+	private static final String JDBC_URL = "jdbc:mysql://47.96.162.123:3306/db_prd?useUnicode=true&useSSL=false&characterEncoding=utf8";
 	private static final String JDBC_DRIVER = "com.mysql.jdbc.Driver";
-	private static final String JDBC_USERNAME = "root";
-	private static final String JDBC_PWD = "yuhang123!wo";
-	private static final String PATH = "D://autoCode/mall";
+	private static final String JDBC_USERNAME = "cqdev";
+	private static final String JDBC_PWD = "cqdev";
+	private static final String PATH = "D://autoCode/prd";
 
 	public static void main(String[] args) {
 		// 代码生成器
