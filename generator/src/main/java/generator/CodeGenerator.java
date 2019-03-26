@@ -2,11 +2,7 @@ package generator;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Scanner;
 
-import org.apache.commons.lang3.StringUtils;
-
-import com.baomidou.mybatisplus.core.exceptions.MybatisPlusException;
 import com.baomidou.mybatisplus.core.toolkit.StringPool;
 import com.baomidou.mybatisplus.generator.AutoGenerator;
 import com.baomidou.mybatisplus.generator.InjectionConfig;
@@ -24,11 +20,12 @@ import com.baomidou.mybatisplus.generator.engine.FreemarkerTemplateEngine;
 public class CodeGenerator {
 
 	private static final String model = "mall";
-	private static final String JDBC_URL = "jdbc:mysql://47.96.162.123:3306/db_prd?useUnicode=true&useSSL=false&characterEncoding=utf8";
-	private static final String JDBC_DRIVER = "com.mysql.jdbc.Driver";
-	private static final String JDBC_USERNAME = "cqdev";
-	private static final String JDBC_PWD = "cqdev";
-	private static final String PATH = "D://autoCode/prd";
+	private static final String JDBC_URL = "jdbc:mysql://106.12.204.95:3306/mall?useUnicode=true&useSSL=false&characterEncoding=utf8";
+	private static final String JDBC_DRIVER = "com.mysql.cj.jdbc.Driver";
+	private static final String JDBC_USERNAME = "root";
+	private static final String JDBC_PWD = "yuhang123wo";
+	private static final String PATH = "D://autoCode/mall";
+	private static final String basePackage = "cn.yh.st";
 
 	public static void main(String[] args) {
 		// 代码生成器
@@ -57,7 +54,7 @@ public class CodeGenerator {
 		// 包配置
 		PackageConfig pc = new PackageConfig();
 		pc.setModuleName(model);
-		pc.setParent("cn.yh.st");
+		pc.setParent(basePackage);
 		mpg.setPackageInfo(pc);
 
 		// 自定义配置
@@ -104,7 +101,7 @@ public class CodeGenerator {
 		StrategyConfig strategy = new StrategyConfig();
 		strategy.setNaming(NamingStrategy.underline_to_camel);
 		strategy.setColumnNaming(NamingStrategy.underline_to_camel);
-		strategy.setSuperEntityClass("com.baomidou.ant.common.BaseEntity");
+		strategy.setSuperEntityClass("cn.yh.st.pojo.Entity");
 		strategy.setRestControllerStyle(true);
 		strategy.setSuperControllerClass("com.baomidou.ant.common.BaseController");
 //		strategy.setInclude("test");

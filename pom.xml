@@ -7,13 +7,12 @@
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>pom</packaging>
 	<modules>
-		<module>bmall-user</module>
-		<module>bmall-prouct</module>
-		<module>bmall-admin</module>
 		<module>generator</module>
-		<module>bmall-pojo</module>
 		<module>bmall-eureka</module>
 		<module>bmall-config</module>
+		<module>bmall-common</module>
+		<module>bmall-user</module>
+		<module>bmall-pojo</module>
 	</modules>
 	<!-- 配置变量 -->
 	<properties>
@@ -30,6 +29,10 @@
 		<http.client.version>4.4.1</http.client.version>
 		<validator.version>6.0.10.Final</validator.version>
 		<alibaba.fastjson.version>1.2.49</alibaba.fastjson.version>
+		<spring.boot.version>2.0.3.RELEASE</spring.boot.version>
+		<mysql.connector.version>8.0.13</mysql.connector.version>
+		<mybatis.plus.version>3.1.0</mybatis.plus.version>
+		<swagger.version>2.9.2</swagger.version>
 	</properties>
 	<parent>
 		<groupId>org.springframework.boot</groupId>
@@ -44,6 +47,11 @@
 				<version>${spring-cloud.version}</version>
 				<type>pom</type>
 				<scope>import</scope>
+			</dependency>
+			<dependency>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-starter-web</artifactId>
+				<version>1.5.6.RELEASE</version>
 			</dependency>
 			<dependency>
 				<groupId>org.apache.commons</groupId>
@@ -103,7 +111,27 @@
 				<artifactId>hibernate-validator</artifactId>
 				<version>${validator.version}</version>
 			</dependency>
-
+			<!-- https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-web -->
+			<dependency>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-starter-web</artifactId>
+				<version>${spring.boot.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>mysql</groupId>
+				<artifactId>mysql-connector-java</artifactId>
+				<version>${mysql.connector.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.baomidou</groupId>
+				<artifactId>mybatis-plus-boot-starter</artifactId>
+				<version>${mybatis.plus.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>io.springfox</groupId>
+				<artifactId>springfox-swagger2</artifactId>
+				<version>${swagger.version}</version>
+			</dependency>
 		</dependencies>
 	</dependencyManagement>
 	<!-- 设定主仓库，按设定顺序进行查找。 -->
