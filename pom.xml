@@ -13,6 +13,7 @@
 		<module>bmall-common</module>
 		<module>bmall-user</module>
 		<module>bmall-pojo</module>
+		<module>bmall-zuul</module>
 	</modules>
 	<!-- 配置变量 -->
 	<properties>
