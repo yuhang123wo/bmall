@@ -22,6 +22,12 @@ import com.baomidou.mybatisplus.extension.plugins.OptimisticLockerInterceptor;
 import com.baomidou.mybatisplus.extension.plugins.PaginationInterceptor;
 import com.baomidou.mybatisplus.extension.spring.MybatisSqlSessionFactoryBean;
 
+/**
+ * mybatis plus相关配置
+ * 
+ * @author Administrator
+ *
+ */
 @Configuration
 @MapperScan("cn.yh.user.mapper")
 public class MybatisPlusConfig {
@@ -58,6 +64,7 @@ public class MybatisPlusConfig {
 		globalConfig.getDbConfig().setIdType(IdType.AUTO);
 		sqlSessionFactory.setGlobalConfig(globalConfig);
 		sqlSessionFactory.setConfiguration(configuration);
+		//枚举
 		sqlSessionFactory.setTypeEnumsPackage(handlersPackage);
 		sqlSessionFactory.setTypeAliasesPackage(aliasesPackage);
 		sqlSessionFactory.setMapperLocations(new PathMatchingResourcePatternResolver().getResources(locations));

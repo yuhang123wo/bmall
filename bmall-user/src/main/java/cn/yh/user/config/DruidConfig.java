@@ -14,6 +14,12 @@ import com.alibaba.druid.pool.DruidDataSource;
 import com.alibaba.druid.support.http.StatViewServlet;
 import com.alibaba.druid.support.http.WebStatFilter;
 
+/**
+ * druid 相关配置
+ * 
+ * @author Administrator
+ *
+ */
 @Configuration
 public class DruidConfig {
 	private static final Logger logger = LoggerFactory.getLogger(DruidConfig.class);

@@ -8,9 +8,12 @@ import org.springframework.web.bind.annotation.RestController;
 import cn.yh.pojo.user.User;
 import cn.yh.st.common.api.ApiResponseEnity;
 import cn.yh.user.service.IUserService;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 
 @RestController
 @RequestMapping("user")
+@Api(tags = "用户相关接口")
 public class UserController {
 
 	@Autowired
@@ -23,7 +26,9 @@ public class UserController {
 	 * @return
 	 */
 	@GetMapping("getUserInfoById")
+	@ApiOperation("取用户基本信息")
 	public ApiResponseEnity<User> getUserInfoById(Long userId) {
 		return new ApiResponseEnity<User>(userService.getById(userId));
 	}
+
 }
