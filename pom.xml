@@ -35,6 +35,7 @@
 		<mybatis.plus.version>3.1.0</mybatis.plus.version>
 		<swagger.version>2.9.2</swagger.version>
 		<druid.version>1.1.12</druid.version>
+		<slf4j.version>1.7.7</slf4j.version>
 	</properties>
 	<parent>
 		<groupId>org.springframework.boot</groupId>
@@ -43,18 +44,6 @@
 	</parent>
 	<dependencyManagement>
 		<dependencies>
-			<dependency>
-				<groupId>org.springframework.cloud</groupId>
-				<artifactId>spring-cloud-dependencies</artifactId>
-				<version>${spring-cloud.version}</version>
-				<type>pom</type>
-				<scope>import</scope>
-			</dependency>
-			<dependency>
-				<groupId>org.springframework.boot</groupId>
-				<artifactId>spring-boot-starter-web</artifactId>
-				<version>1.5.6.RELEASE</version>
-			</dependency>
 			<dependency>
 				<groupId>org.apache.commons</groupId>
 				<artifactId>commons-lang3</artifactId>
@@ -80,17 +69,6 @@
 				<artifactId>springfox-swagger-ui</artifactId>
 				<version>${swagger.version}</version>
 			</dependency>
-
-
-			<!-- httpclient start -->
-			<!-- <dependency> <groupId>org.apache.httpcomponents</groupId> <artifactId>httpclient</artifactId> 
-				<version>${http.client.version}</version> </dependency> <dependency> <groupId>org.apache.httpcomponents</groupId> 
-				<artifactId>httpcore</artifactId> <version>${http.client.version}</version> 
-				<type>jar</type> <scope>compile</scope> </dependency> <dependency> <groupId>org.apache.httpcomponents</groupId> 
-				<artifactId>httpclient</artifactId> <version>${http.client.version}</version> 
-				<type>jar</type> <scope>compile</scope> </dependency> <dependency> <groupId>org.apache.httpcomponents</groupId> 
-				<artifactId>httpmime</artifactId> <version>${http.client.version}</version> 
-				<type>jar</type> <scope>compile</scope> </dependency> -->
 			<dependency>
 				<groupId>com.alibaba</groupId>
 				<artifactId>fastjson</artifactId>
@@ -123,12 +101,36 @@
 				<artifactId>springfox-swagger2</artifactId>
 				<version>${swagger.version}</version>
 			</dependency>
-
 			<dependency>
 				<groupId>com.alibaba</groupId>
 				<artifactId>druid</artifactId>
 				<version>${druid.version}</version>
 			</dependency>
+
+			<!-- LOGGING begin -->
+			<dependency>
+				<groupId>org.slf4j</groupId>
+				<artifactId>slf4j-api</artifactId>
+				<version>${slf4j.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.slf4j</groupId>
+				<artifactId>slf4j-log4j12</artifactId>
+				<version>${slf4j.version}</version>
+			</dependency>
+			<!-- common-logging 实际调用slf4j -->
+			<dependency>
+				<groupId>org.slf4j</groupId>
+				<artifactId>jcl-over-slf4j</artifactId>
+				<version>${slf4j.version}</version>
+			</dependency>
+			<!-- java.util.logging 实际调用slf4j -->
+			<dependency>
+				<groupId>org.slf4j</groupId>
+				<artifactId>jul-to-slf4j</artifactId>
+				<version>${slf4j.version}</version>
+			</dependency>
+			<!-- LOGGING end -->
 		</dependencies>
 	</dependencyManagement>
 	<!-- 设定主仓库，按设定顺序进行查找。 -->

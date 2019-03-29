@@ -22,6 +22,12 @@ public class ApiResponseEnity<T> {
 		this.msg = msg;
 	}
 
+	public ApiResponseEnity<T> fail(String msg) {
+		this.code = CODE_FAIL;
+		this.msg = msg;
+		return this;
+	}
+
 	public String getCode() {
 		return code;
 	}
