@@ -1,6 +1,15 @@
 package cn.yh.user.controller;
 
+import java.util.Set;
+
+import javax.validation.ConstraintViolation;
+import javax.validation.Valid;
+import javax.validation.Validator;
+import javax.validation.constraints.NotNull;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -26,6 +35,8 @@ public class UserController {
 
 	@Autowired
 	private IUserMetaService userMetaService;
+	@Autowired
+	private Validator globalValidator;
 
 	/**
 	 * 取用户信息
@@ -35,11 +46,12 @@ public class UserController {
 	 */
 	@GetMapping("getUserBaseInfoById")
 	@ApiOperation("取用户基本信息")
-	public ApiResponseEnity<UserVo> getUserBaseInfoById(Long userId) {
-		User user = userService.getById(userId);
+	public ApiResponseEnity<UserVo> getUserBaseInfoById(@Validated UserIn in, BindingResult result) {
+		User user = userService.getById(in.getUserId());
 		if (user == null) {
 			return new ApiResponseEnity<UserVo>().fail("用户不存在");
 		}
+
 		UserVo vo = ConvertUtil.convert(user, UserVo.class);
 		return new ApiResponseEnity<UserVo>(vo);
 	}

@@ -28,7 +28,7 @@
 		<commons.lang.version>2.5</commons.lang.version>
 		<commons.io.version>2.5</commons.io.version>
 		<!-- <http.client.version>4.5.5</http.client.version> -->
-		<validator.version>6.0.10.Final</validator.version>
+	<!-- 	<validator.version>6.0.10.Final</validator.version> -->
 		<alibaba.fastjson.version>1.2.49</alibaba.fastjson.version>
 		<spring.boot.version>2.0.3.RELEASE</spring.boot.version>
 		<mysql.connector.version>8.0.13</mysql.connector.version>
@@ -75,17 +75,11 @@
 				<version>${alibaba.fastjson.version}</version>
 			</dependency>
 			<!-- https://mvnrepository.com/artifact/org.hibernate.validator/hibernate-validator -->
-			<dependency>
+			<!-- <dependency>
 				<groupId>org.hibernate.validator</groupId>
 				<artifactId>hibernate-validator</artifactId>
 				<version>${validator.version}</version>
-			</dependency>
-			<!-- https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-web -->
-			<dependency>
-				<groupId>org.springframework.boot</groupId>
-				<artifactId>spring-boot-starter-web</artifactId>
-				<version>${spring.boot.version}</version>
-			</dependency>
+			</dependency> -->
 			<dependency>
 				<groupId>mysql</groupId>
 				<artifactId>mysql-connector-java</artifactId>
