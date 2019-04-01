@@ -46,7 +46,7 @@ public class UserController {
 	 */
 	@GetMapping("getUserBaseInfoById")
 	@ApiOperation("取用户基本信息")
-	public ApiResponseEnity<UserVo> getUserBaseInfoById(@Validated UserIn in, BindingResult result) {
+	public ApiResponseEnity<UserVo> getUserBaseInfoById(@Validated UserIn in) {
 		User user = userService.getById(in.getUserId());
 		if (user == null) {
 			return new ApiResponseEnity<UserVo>().fail("用户不存在");

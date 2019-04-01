@@ -13,8 +13,8 @@ import javax.validation.constraints.NotNull;
  */
 public class UserIn {
 
-	@NotNull
-	@Min(1)
+	@NotNull(message = "用户缺失")
+	@Min(value = 1, message = "用户ID最小值为1")
 	private Long userId;
 
 	public Long getUserId() {
