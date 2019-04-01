@@ -8,7 +8,6 @@
 		<version>0.0.1-SNAPSHOT</version>
 	</parent>
 	<artifactId>bmall-pojo</artifactId>
-
 	<dependencies>
 		<dependency>
 			<groupId>io.springfox</groupId>

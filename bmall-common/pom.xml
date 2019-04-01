@@ -12,6 +12,7 @@
 		<dependency>
 			<groupId>org.apache.commons</groupId>
 			<artifactId>commons-lang3</artifactId>
+			<version>${common.lang3.verson}</version>
 		</dependency>
 	</dependencies>
 </project>
