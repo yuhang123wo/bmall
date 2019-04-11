@@ -1,22 +1,20 @@
 package cn.yh.user.controller;
 
-import java.util.Set;
-
-import javax.validation.ConstraintViolation;
-import javax.validation.Valid;
-import javax.validation.Validator;
-import javax.validation.constraints.NotNull;
+import java.util.Date;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import cn.yh.pojo.user.MRole;
 import cn.yh.pojo.user.User;
 import cn.yh.pojo.user.UserMeta;
 import cn.yh.st.common.api.ApiResponseEnity;
+import cn.yh.user.service.IAuthService;
 import cn.yh.user.service.IUserMetaService;
 import cn.yh.user.service.IUserService;
 import cn.yh.util.ConvertUtil;
@@ -35,8 +33,9 @@ public class UserController {
 
 	@Autowired
 	private IUserMetaService userMetaService;
+
 	@Autowired
-	private Validator globalValidator;
+	private IAuthService authService;
 
 	/**
 	 * 取用户信息
@@ -73,6 +72,21 @@ public class UserController {
 		UserMeta meta = userMetaService.getById(user.getId());
 		vo.setMeta(meta);
 		return new ApiResponseEnity<UserAllVo>(vo);
+	}
+
+	/**
+	 * 
+	 * @param userId
+	 * @return
+	 */
+	@PostMapping("addRole")
+	@ApiOperation("取用户信息")
+	public ApiResponseEnity<?> addRole(@Validated MRole mRole) {
+		int n = authService.saveRole(mRole);
+		if (n > 0) {
+			return new ApiResponseEnity<>();
+		}
+		return new ApiResponseEnity<>().fail("新增失败稍后再试");
 	}
 
 }

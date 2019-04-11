@@ -1,11 +1,19 @@
+/**
+ * 
+ */
 package cn.yh.pojo.eumn;
 
 import com.baomidou.mybatisplus.annotation.EnumValue;
 
-public enum UserType {
-	PURCHASE(1, "采购"), SUPPLIER(2, "厂商");
+/**
+ * @author yuhang
+ * @date 2019年4月11日
+ * @desc
+ */
+public enum State {
+	DISABLE(0, "禁用"), ENABLE(1, "启用");
 
-	UserType(int code, String remark) {
+	State(int code, String remark) {
 		this.code = code;
 		this.remark = remark;
 	}
@@ -30,5 +38,4 @@ public enum UserType {
 	public void setRemark(String remark) {
 		this.remark = remark;
 	}
-
 }

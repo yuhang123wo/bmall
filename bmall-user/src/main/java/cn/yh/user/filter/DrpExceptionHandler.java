@@ -37,6 +37,7 @@ public class DrpExceptionHandler {
 			return new ApiResponseEnity<>().fail(((MethodArgumentNotValidException) ex).getBindingResult()
 					.getAllErrors().get(0).getDefaultMessage());
 		}
+		
 		return new ApiResponseEnity<>().fail("系统异常");
 	}
 }
