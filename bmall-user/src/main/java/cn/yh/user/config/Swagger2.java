@@ -23,6 +23,6 @@ public class Swagger2 {
 
 	private ApiInfo apiInfo() {
 		return new ApiInfoBuilder().title("user相关接口").description("user服务接口").termsOfServiceUrl("http://www.baidu.com")
-				.contact(new Contact("yuhang", "http://www.baidu.com", "591057762@qq.com")).version("1.0").build();
+				.contact(new Contact("yuhang", "http://www.baidu.com", "591057762@qq.com")).version("2.0").build();
 	}
 }
