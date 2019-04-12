@@ -27,6 +27,7 @@
 		<swagger.version>2.9.2</swagger.version>
 		<druid.version>1.1.12</druid.version>
 		<alibaba.fastjson.version>1.2.49</alibaba.fastjson.version>
+		<common.codec.version>1.12</common.codec.version>
 	</properties>
 	<dependencyManagement>
 		<dependencies>
@@ -73,6 +74,16 @@
 				<groupId>com.baomidou</groupId>
 				<artifactId>mybatis-plus-boot-starter</artifactId>
 				<version>${mybatis.plus.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>commons-codec</groupId>
+				<artifactId>commons-codec</artifactId>
+				<version>${common.codec.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>commons-io</groupId>
+				<artifactId>commons-io</artifactId>
+				<version>2.6</version>
 			</dependency>
 		</dependencies>
 	</dependencyManagement>
