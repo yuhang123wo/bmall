@@ -85,7 +85,7 @@ public class BodyDecryptFilter extends ZuulFilter {
 			ctx.setSendZuulResponse(false);
 			ctx.setResponseStatusCode(401);
 			String responseBody = String
-					.format("{\"code\":\"401\",\"message\":\"%s\",\"data\":\"\",\"subMessages\":[]}", "数据解密失败");
+					.format("{\"code\":\"401\",\"message\":\"%s\",\"data\":\"\"}", "unauthorized");
 			ctx.setResponseBody(encryptionResponseBody(responseBody));
 			return null;
 		}
