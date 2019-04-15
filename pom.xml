@@ -14,6 +14,7 @@
 		<module>bmall-user</module>
 		<module>bmall-pojo</module>
 		<module>bmall-zuul</module>
+		<module>bmall-backstage</module>
 	</modules>
 	<!-- 配置变量 -->
 	<properties>
@@ -110,6 +111,14 @@
 				<artifactId>maven-javadoc-plugin</artifactId>
 				<configuration>
 					<charset>${project.build.Encoding}</charset>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-war-plugin</artifactId>
+				<version>2.6</version>
+				<configuration>
+					<failOnMissingWebXml>false</failOnMissingWebXml>
 				</configuration>
 			</plugin>
 		</plugins>

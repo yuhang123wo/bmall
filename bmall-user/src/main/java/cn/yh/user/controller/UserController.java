@@ -1,5 +1,8 @@
 package cn.yh.user.controller;
 
+import javax.validation.Valid;
+import javax.validation.constraints.NotEmpty;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -60,7 +63,7 @@ public class UserController {
 	 */
 	@GetMapping("getUserAllInfoById")
 	@ApiOperation("取用户信息")
-	public ApiResponseEnity<UserAllVo> getUserAllInfoById(Long userId) {
+	public ApiResponseEnity<UserAllVo> getUserAllInfoById(@Validated Long userId) {
 		User user = userService.getById(userId);
 		if (user == null) {
 			return new ApiResponseEnity<UserAllVo>().fail("用户不存在");
