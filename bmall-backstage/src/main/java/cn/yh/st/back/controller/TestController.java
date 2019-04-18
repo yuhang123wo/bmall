@@ -3,12 +3,10 @@
  */
 package cn.yh.st.back.controller;
 
-import javax.annotation.PostConstruct;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
 
 import cn.yh.st.back.service.UserService;
 
@@ -17,7 +15,7 @@ import cn.yh.st.back.service.UserService;
  * @date 2019年4月15日
  * @desc
  */
-@RestController
+@Controller
 @RequestMapping("test")
 public class TestController {
 
@@ -27,10 +25,14 @@ public class TestController {
 	@Autowired
 	private UserService userService;
 
-	@PostConstruct
 	public void getTest() {
 		System.out.println(port);
 
 		System.out.println(userService.sayHiFromClientOne(1L));
+	}
+
+	@RequestMapping("index")
+	public String index() {
+		return "index";
 	}
 }
