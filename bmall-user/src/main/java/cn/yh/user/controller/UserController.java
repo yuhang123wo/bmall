@@ -1,8 +1,5 @@
 package cn.yh.user.controller;
 
-import javax.validation.Valid;
-import javax.validation.constraints.NotEmpty;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
