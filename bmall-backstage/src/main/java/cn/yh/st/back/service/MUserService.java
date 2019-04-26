@@ -8,8 +8,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import cn.yh.pojo.user.MUser;
 import cn.yh.st.common.api.ApiResponseEnity;
+import cn.yh.vo.MUserVo;
 
 /**
  * @author yuhang
@@ -20,5 +20,5 @@ import cn.yh.st.common.api.ApiResponseEnity;
 public interface MUserService {
 
 	@RequestMapping(value = "/sys/user/findMUserByUserName", method = RequestMethod.GET)
-	ApiResponseEnity<MUser> findMUserByUserName(@RequestParam(value = "userName") String userName);
+	ApiResponseEnity<MUserVo> findMUserByUserName(@RequestParam(value = "userName") String userName);
 }
