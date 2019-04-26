@@ -25,11 +25,16 @@ public class MyUserDetailsService implements UserDetailsService {
 
 	@Override
 	public UserDetails loadUserByUsername(String userName) throws UsernameNotFoundException {
-		ApiResponseEnity<MUser> sysUser = mUserService.findMUserByUserName(userName);
-		if (null == sysUser || null == sysUser.getData()) {
-			throw new UsernameNotFoundException(userName);
-		}
+//		ApiResponseEnity<MUser> sysUser = mUserService.findMUserByUserName(userName);
+//		if (null == sysUser || null == sysUser.getData()) {
+//			throw new UsernameNotFoundException(userName);
+//		}
 		List<SimpleGrantedAuthority> authorities = new ArrayList<SimpleGrantedAuthority>();
-		return new User(sysUser.getData().getUserName(), sysUser.getData().getPwd(), authorities);
+//		return new User(sysUser.getData().getUserName(), sysUser.getData().getPwd(), authorities);
+
+		MUser muser = new MUser();
+		muser.setUserName("yuhang");
+		muser.setPwd("$2a$10$XlDq.qzrKea.LXFuESj66uI0dOBeuRCjgTBjGadobHNvt2Sboa6ry");
+		return new User(muser.getUserName(), muser.getPwd(), authorities);
 	}
 }
