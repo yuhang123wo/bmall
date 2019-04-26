@@ -3,6 +3,10 @@
  */
 package cn.yh.st.back.controller;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -14,13 +18,23 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 public class LoginController {
 
-	@RequestMapping("/login")
+	/**
+	 * 登录接口
+	 * 
+	 * @return
+	 */
+	@RequestMapping("login")
 	public String login() {
-		System.out.println(1);
 		return "login";
 	}
 
 	@RequestMapping("index")
 	public String index() {
-		return "index";}
+		return "index";
+	}
+
+	@RequestMapping("logout")
+	public String logout() {
+		return "login";
+	}
 }
