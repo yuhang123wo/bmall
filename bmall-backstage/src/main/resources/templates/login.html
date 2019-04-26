@@ -9,9 +9,9 @@
 <p th:if="${loginError}" class="error">用户名或密码错误</p>
 <form th:action="@{/login}" method="POST">
     <label for="username">Username</label>:
-    <input type="text" id="username" name="username" autofocus="autofocus" /> <br />
+    <input type="text" id="username" name="username" autofocus="autofocus"  value="yuhang"/> <br />
     <label for="password">Password</label>:
-    <input type="password" id="password" name="password" /> <br />
+    <input type="password" id="password" name="password" value="123456"/> <br />
     <input type="submit" value="Login" />
 </form>
 </body>
