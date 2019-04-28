@@ -1,7 +1,10 @@
 package cn.yh.user.service;
 
+import java.util.List;
+
 import com.baomidou.mybatisplus.extension.service.IService;
 
+import cn.yh.pojo.user.MRole;
 import cn.yh.pojo.user.MUser;
 
 /**
@@ -14,4 +17,11 @@ import cn.yh.pojo.user.MUser;
  */
 public interface IMUserService extends IService<MUser> {
 
+	/**
+	 * 根据用户ID获取角色
+	 * 
+	 * @param userId
+	 * @return
+	 */
+	List<MRole> getRolesByUserId(long userId);
 }

@@ -79,10 +79,6 @@ public class UserController {
 	@PostMapping("addRole")
 	@ApiOperation("取用户信息")
 	public ApiResponseEnity<?> addRole(@Validated MRole mRole) {
-		int n = authService.saveRole(mRole);
-		if (n > 0) {
-			return new ApiResponseEnity<>();
-		}
 		return new ApiResponseEnity<>().fail("新增失败稍后再试");
 	}
 

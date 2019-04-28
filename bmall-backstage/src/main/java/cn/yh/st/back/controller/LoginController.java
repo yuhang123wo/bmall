@@ -32,7 +32,7 @@ public class LoginController {
 
 	@RequestMapping("index")
 	public String index() {
-		return "layout";
+		return "index";
 	}
 
 	/**

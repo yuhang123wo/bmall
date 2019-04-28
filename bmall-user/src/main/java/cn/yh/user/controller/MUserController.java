@@ -3,6 +3,9 @@
  */
 package cn.yh.user.controller;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 
@@ -13,9 +16,13 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 
+import cn.yh.pojo.user.MAuth;
 import cn.yh.pojo.user.MUser;
 import cn.yh.st.common.api.ApiResponseEnity;
+import cn.yh.user.service.IAuthService;
 import cn.yh.user.service.IMUserService;
+import cn.yh.util.ConvertUtil;
+import cn.yh.vo.MUserVo;
 
 /**
  * @author yuhang
@@ -28,6 +35,8 @@ public class MUserController {
 
 	@Autowired
 	private IMUserService mUserService;
+	@Autowired
+	private IAuthService authService;
 
 	/**
 	 * 根据用户名查询
@@ -36,9 +45,31 @@ public class MUserController {
 	 * @return
 	 */
 	@GetMapping("findMUserByUserName")
-	public ApiResponseEnity<MUser> findMUserByUserName(@Valid @NotNull String userName) {
+	public ApiResponseEnity<MUserVo> findMUserByUserName(@Valid @NotNull String userName) {
 		MUser muser = mUserService.getOne(new QueryWrapper<MUser>().eq("user_name", userName));
-		return new ApiResponseEnity<MUser>(muser);
+		return new ApiResponseEnity<MUserVo>(getMUserVo(muser));
+	}
+
+	/**
+	 * 
+	 * @param user
+	 * @return
+	 */
+	private MUserVo getMUserVo(MUser user) {
+		if (user == null) {
+			return null;
+		}
+		MUserVo vo = ConvertUtil.convert(user, MUserVo.class);
+		vo.setRoles(mUserService.getRolesByUserId(user.getId()));
+		List<MAuth> list = new ArrayList<MAuth>();
+		if (null != vo.getRoles() && vo.getRoles().size() > 0) {
+			for (int i = 0; i < vo.getRoles().size(); i++) {
+				list.addAll(authService.getAuthsByRoleId(vo.getRoles().get(i).getId()));
+			}
+
+		}
+		vo.setAuths(list);
+		return vo;
 	}
 
 	/**
@@ -48,8 +79,8 @@ public class MUserController {
 	 * @return
 	 */
 	@GetMapping("findMUserByUserId")
-	public ApiResponseEnity<MUser> findMUserByUserId(@Valid @NotNull Long userId) {
+	public ApiResponseEnity<MUserVo> findMUserByUserId(@Valid @NotNull Long userId) {
 		MUser muser = mUserService.getById(userId);
-		return new ApiResponseEnity<MUser>(muser);
+		return new ApiResponseEnity<MUserVo>(getMUserVo(muser));
 	}
 }

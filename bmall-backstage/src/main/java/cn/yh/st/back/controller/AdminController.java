@@ -21,4 +21,10 @@ public class AdminController {
 	public String role(Model model) {
 		return "admin/role-list";
 	}
+	
+	
+	@GetMapping("user")
+	public String userList(Model model) {
+		return "admin/user-list";
+	}
 }
