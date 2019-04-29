@@ -1,302 +1,222 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<html lang="en" xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout">
 	<head>
-		<title>网站后台管理系统  </title>
-		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-		<link href="/assets/css/bootstrap.min.css" rel="stylesheet" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+		<meta charset="utf-8" />
+		<title>首页</title>
+
+		<meta name="description" content="This is page-header (.page-header &gt; h1)" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
+
+		<link rel="stylesheet" href="/assets/css/bootstrap.min.css" />
 		<link rel="stylesheet" href="/assets/css/font-awesome.min.css" />
-		<!--[if IE 7]>
-		  <link rel="stylesheet" href="/assets/css/font-awesome-ie7.min.css" />
+		<link rel="stylesheet" href="/assets/css/ace.min.css" id="main-ace-style" />
+		<!--[if lte IE 9]>
+			<link rel="stylesheet" href="/assets/css/ace-part2.min.css" />
 		<![endif]-->
-		<link rel="stylesheet" href="/assets/css/ace.min.css" />
-		<link rel="stylesheet" href="/assets/css/ace-rtl.min.css" />
 		<link rel="stylesheet" href="/assets/css/ace-skins.min.css" />
-        <link rel="stylesheet" href="/css/style.css"/>
-		<!--[if lte IE 8]>
+		<link rel="stylesheet" href="/assets/css/ace-rtl.min.css" />
+		<!--[if lte IE 9]>
 		  <link rel="stylesheet" href="/assets/css/ace-ie.min.css" />
 		<![endif]-->
-		<script src="/assets/js/ace-extra.min.js"></script>
-		<!--[if lt IE 9]>
-		<script src="/assets/js/html5shiv.js"></script>
+		<!--[if lte IE 8]>
+		<script src="/assets/js/html5shiv.min.js"></script>
 		<script src="/assets/js/respond.min.js"></script>
 		<![endif]-->
-        <!--[if !IE]> -->
-		<script src="/js/jquery-1.9.1.min.js"></script>        
+			<!--[if !IE]> -->
+			<script type="text/javascript">
+				window.jQuery || document.write("<script src='/assets/js/jquery.min.js'>"+"<"+"/script>");
+			</script>
 		<!-- <![endif]-->
 		<!--[if IE]>
-         <script type="text/javascript">window.jQuery || document.write("<script src='/assets/js/jquery-1.10.2.min.js'>"+"<"+"script>");</script>
-        <![endif]-->
+			<script type="text/javascript">
+			 window.jQuery || document.write("<script src='/assets/js/jquery1x.min.js'>"+"<"+"/script>");
+			</script>
+		<![endif]-->
 		<script type="text/javascript">
-			if("ontouchend" in document) document.write("<script src='/assets/js/jquery.mobile.custom.min.js'>"+"<"+"script>");
+			if('ontouchstart' in document.documentElement) document.write("<script src='/assets/js/jquery.mobile.custom.min.js'>"+"<"+"/script>");
 		</script>
 		<script src="/assets/js/bootstrap.min.js"></script>
-		<script src="/assets/js/typeahead-bs2.min.js"></script>
 		<!--[if lte IE 8]>
 		  <script src="/assets/js/excanvas.min.js"></script>
 		<![endif]-->
-		<script src="/assets/js/ace-elements.min.js"></script>
+		<script src="/assets/js/jquery-ui.custom.min.js"></script>
+		<script src="/assets/js/jquery.ui.touch-punch.min.js"></script>
 		<script src="/assets/js/ace.min.js"></script>
-        <script src="/assets/layer/layer.js" type="text/javascript"></script>
-		<script src="/assets/laydate/laydate.js" type="text/javascript"></script>
-        <script src="/js/jquery.nicescroll.js" type="text/javascript"></script>
-        
-<script type="text/javascript">	
- $(function(){
- var cid = $('#nav_list> li>.submenu');
-	  cid.each(function(i){ 
-         $(this).attr('id',"Sort_link_"+i);
-    })  
- })
- $(function(){
-	 var name = $("#content").attr("seq");
-	 var cid = $('#nav_list> li>.submenu>li');
-	    cid.each(function(i){ 
-	    	$(this).removeClass('active');
-	    	var seqs = $(this).attr("seq");
-	    	if(seqs==name){
-	    		$(this).addClass("active");
-	    		var ids = $(this).parent().attr("id");
-	    		$("#"+ids).css("display","block");
-	    	}
-	    	
-    }) 
- })
- jQuery(document).ready(function(){ 	
-    $.each($(".submenu"),function(){
-	var $aobjs=$(this).children("li");
-	var rowCount=$aobjs.size();
-	var divHeigth=$(this).height();
-    $aobjs.height(divHeigth/rowCount);	  	
-  }); 
-    //初始化宽度、高度
-
-    $("#main-container").height($(window).height()-76); 
-	$("#iframe").height($(window).height()-140); 
-	 
-	$(".sidebar").height($(window).height()-99); 
-    var thisHeight = $("#nav_list").height($(window).outerHeight()-173); 
-	$(".submenu").height();
-	$("#nav_list").children(".submenu").css("height",thisHeight);
-	
-    //当文档窗口发生改变时 触发  
-    $(window).resize(function(){
-	$("#main-container").height($(window).height()-76); 
-	$("#iframe").height($(window).height()-140);
-	$(".sidebar").height($(window).height()-99); 
-	
-	var thisHeight = $("#nav_list").height($(window).outerHeight()-173); 
-	$(".submenu").height();
-	$("#nav_list").children(".submenu").css("height",thisHeight);
-  });
-		
-});
-</script>	
 	</head>
-	<body>
-		<div class="navbar navbar-default" id="navbar">
-        <script type="text/javascript">
-				try{ace.settings.check('navbar' , 'fixed')}catch(e){}
-			</script>
+
+	<body class="no-skin">
+		<div id="navbar" class="navbar navbar-default">
 			<div class="navbar-container" id="navbar-container">
+
+				<button type="button" class="navbar-toggle menu-toggler pull-left" id="menu-toggler">
+					<span class="sr-only">Toggle sidebar</span>
+
+					<span class="icon-bar"></span>
+
+					<span class="icon-bar"></span>
+
+					<span class="icon-bar"></span>
+				</button>
+
+				<!-- /section:basics/sidebar.mobile.toggle -->
 				<div class="navbar-header pull-left">
-					<a href="#" class="navbar-brand">
-						<small>					
-						<img src="/images/logo.png" width="470px">
+					<!-- #section:basics/navbar.layout.brand -->
+					<a href="index.html" class="navbar-brand">
+						<small>
+							<img src="/assets/avatars/logo.png" alt="" />
 						</small>
-					</a><!-- /.brand -->
-				</div><!-- /.navbar-header -->
-				<div class="navbar-header operating pull-left">
-				
+					</a>
 				</div>
-			   <div class="navbar-header pull-right" role="navigation">
-               <ul class="nav ace-nav">	
-                <li class="light-blue">
-				<a data-toggle="dropdown" href="#" class="dropdown-toggle">
-				 <span class="user-info"><small>欢迎光临,</small>超级管理员</span>
-				 <i class="icon-caret-down"></i>
-				</a>
-				<ul class="user-menu pull-right dropdown-menu dropdown-yellow dropdown-caret dropdown-close">
-				 <li><a href="javascript:void(0" name="Systems.html" title="系统设置" class="iframeurl"><i class="icon-cog"></i>网站设置</a></li>
-				 <li><a href="javascript:void(0)" name="admin_info.html" title="个人信息" class="iframeurl"><i class="icon-user"></i>个人资料</a></li>
-				 <li class="divider"></li>
-				 <li><a href="logout" id="Exit_system"><i class="icon-off"></i>退出</a></li>
-				</ul>
-			   </li>
-				 </ul>
-                </div>
-			</div>
+
+				<div class="navbar-buttons navbar-header pull-right" role="navigation">
+					<ul class="nav ace-nav">
+						<!-- #section:basics/navbar.user_menu -->
+						<li class="light-blue">
+							<a data-toggle="dropdown" href="#" class="dropdown-toggle">
+								<img class="nav-user-photo" src="/assets/avatars/user.jpg" alt="Jason's Photo" />
+								<span class="user-info">
+									欢迎您<br />
+								</span>
+
+								<i class="ace-icon fa fa-caret-down"></i>
+							</a>
+
+							<ul class="user-menu dropdown-menu-right dropdown-menu dropdown-yellow dropdown-caret dropdown-close">
+								<li>
+									<a href="#">
+										<i class="ace-icon fa fa-cog"></i>
+										系统设置
+									</a>
+								</li>
+
+								<li>
+									<a href="profile.html">
+										<i class="ace-icon fa fa-user"></i>
+										个人信息设置
+									</a>
+								</li>
+
+								<li class="divider"></li>
+
+								<li>
+									<a href="/logout">
+										<i class="ace-icon fa fa-power-off"></i>
+										登出
+									</a>
+								</li>
+							</ul>
+						</li>
+
+						<!-- /section:basics/navbar.user_menu -->
+					</ul>
+				</div>
+
+				<!-- /section:basics/navbar.dropdown -->
+			</div><!-- /.navbar-container -->
 		</div>
+
+		<!-- /section:basics/navbar.layout -->
 		<div class="main-container" id="main-container">
-        <script type="text/javascript">
-				try{ace.settings.check('main-container' , 'fixed')}catch(e){}
-			</script>
-			<div class="main-container-inner">
-				<a class="menu-toggler" id="menu-toggler" href="#">
-					<span class="menu-text"></span>
-				</a>
-				<div class="sidebar" id="sidebar">
-                   <script type="text/javascript">
-						try{ace.settings.check('sidebar' , 'fixed')}catch(e){}
-					</script>
-					<div class="sidebar-shortcuts" id="sidebar-shortcuts">
-						<div class="sidebar-shortcuts-large" id="sidebar-shortcuts-large">
-							<a class="btn btn-success">
-								<i class="icon-signal"></i>
-							</a>
 
-							<a class="btn btn-info">
-								<i class="icon-pencil"></i>
-							</a>
+			<!-- #section:basics/sidebar -->
+			<div id="sidebar" class="sidebar responsive">
 
-							<a class="btn btn-warning">
-								<i class="icon-group"></i>
-							</a>
 
-							<a class="btn btn-danger">
-								<i class="icon-cogs"></i>
-							</a>
-						</div>
+				<ul class="nav nav-list">
+					<li class="active">
+						<a href="index.html">
+							<i class="menu-icon fa fa-tachometer"></i>
+							<span class="menu-text"> 总控制台 </span>
+						</a>
 
-						<div class="sidebar-shortcuts-mini" id="sidebar-shortcuts-mini">
-							<span class="btn btn-success"></span>
+						<b class="arrow"></b>
+					</li>
 
-							<span class="btn btn-info"></span>
+					<li class="">
+						<a href="#" class="dropdown-toggle">
+							<i class="menu-icon fa fa-desktop"></i>
+							<span class="menu-text"> 系统设置 </span>
 
-							<span class="btn btn-warning"></span>
+							<b class="arrow fa fa-angle-down"></b>
+						</a>
 
-							<span class="btn btn-danger"></span>
-						</div>
-					</div><!-- #sidebar-shortcuts -->
-					<div id="menu_style" class="menu_style">
-					<ul class="nav nav-list" id="nav_list">
-				     <li class="home"><a href="javascript:void(0)" name="index" class="iframeurl" title=""><i class="icon-home"></i><span class="menu-text"> 系统首页 </span></a></li>
-                    <!--  <li><a href="#" class="dropdown-toggle"><i class="icon-desktop"></i><span class="menu-text"> 产品管理 </span><b class="arrow icon-angle-down"></b></a>
-					   <ul class="submenu">
-                         <li class="home"><a  href="javascript:void(0)" name="Products_List.html"  title="产品类表" class="iframeurl"><i class="icon-double-angle-right"></i>产品类表</a></li>
-						 <li class="home"><a  href="javascript:void(0)" name="Brand_Manage.html" title="品牌管理"  class="iframeurl"><i class="icon-double-angle-right"></i>品牌管理</a></li>
-						 <li class="home"><a href="javascript:void(0)" name="Category_Manage.html" title="分类管理"  class="iframeurl"><i class="icon-double-angle-right"></i>分类管理</a></li>
+						<b class="arrow"></b>
 
+						<ul class="submenu">
+
+							<li class="">
+								<a href="/admin/role">
+									<i class="menu-icon fa fa-caret-right"></i>
+									角色管理
+								</a>
+
+								<b class="arrow"></b>
+							</li>
+
+							<li class="">
+								<a href="/admin/user">
+									<i class="menu-icon fa fa-caret-right"></i>
+									用户管理
+								</a>
+
+								<b class="arrow"></b>
+							</li>
 						</ul>
 					</li>
-					<li>
-					<a href="#" class="dropdown-toggle"><i class="icon-picture "></i><span class="menu-text"> 图片管理 </span><b class="arrow icon-angle-down"></b></a>
-						<ul class="submenu">
-						<li class="home"><a href="javascript:void(0)" name="advertising.html" title="广告管理" class="iframeurl"><i class="icon-double-angle-right"></i>广告管理</a></li>
-						<li class="home"><a href="javascript:void(0)" name="Sort_ads.html" title="分类管理"  class="iframeurl"><i class="icon-double-angle-right"></i>分类管理</a></li>
-							</ul>
-						</li>
-					<li>
-					<a href="#" class="dropdown-toggle"><i class="icon-list"></i><span class="menu-text"> 交易管理 </span><b class="arrow icon-angle-down"></b></a>
-                    <ul class="submenu">
-                    <li class="home"><a href="javascript:void(0)" name="transaction.html" title="交易信息"  class="iframeurl"><i class="icon-double-angle-right"></i>交易信息</a></li>
-					<li class="home"><a href="javascript:void(0)" name="Order_Chart.html" title="交易订单（图）"  class="iframeurl"><i class="icon-double-angle-right"></i>交易订单(图)</a></li>
-                    <li class="home"><a href="javascript:void(0)" name="Orderform.html" title="订单管理"  class="iframeurl"><i class="icon-double-angle-right"></i>订单管理</a></li>
-                    <li class="home"><a href="javascript:void(0)" name="Amounts.html" title="交易金额"  class="iframeurl"><i class="icon-double-angle-right"></i>交易金额</a></li>
-                    <li class="home"><a href="javascript:void(0)" name="Order_handling.html" title="订单处理"  class="iframeurl"><i class="icon-double-angle-right"></i>订单处理</a></li>
-					  <li class="home"><a href="javascript:void(0)" name="Refund.html" title="退款管理"  class="iframeurl"><i class="icon-double-angle-right"></i>退款管理</a></li>
-                   </ul>
-				  </li>
-                   <li>
-				   <a href="#" class="dropdown-toggle"><i class="icon-credit-card"></i><span class="menu-text"> 支付管理 </span><b class="arrow icon-angle-down"></b></a>
-				     <ul class="submenu">
-						<li class="home"><a href="javascript:void(0)" name="Cover_management.html" title="账户管理" class="iframeurl"><i class="icon-double-angle-right"></i>账户管理</a></li>
-						 <li class="home"><a href="javascript:void(0)" name="payment_method.html" title="支付方式" class="iframeurl"><i class="icon-double-angle-right"></i>支付方式</a></li>
-						  <li class="home"><a href="javascript:void(0)" name="Payment_Configure.html" title="支付配置" class="iframeurl"><i class="icon-double-angle-right"></i>支付配置</a></li>
-							</ul>
-						</li>
-                  <li>
-					<a href="#" class="dropdown-toggle"><i class="icon-user"></i><span class="menu-text"> 会员管理 </span><b class="arrow icon-angle-down"></b></a>
-                    <ul class="submenu">
-                    <li class="home"><a href="javascript:void(0)" name="user_list.html" title="会员列表"  class="iframeurl"><i class="icon-double-angle-right"></i>会员列表</a></li>
-                    <li class="home"><a href="javascript:void(0)" name="member-Grading.html" title="等级管理"  class="iframeurl"><i class="icon-double-angle-right"></i>等级管理</a></li>
-                    <li class="home"><a href="javascript:void(0)" name="integration.html" title="会员记录管理"  class="iframeurl"><i class="icon-double-angle-right"></i>会员记录管理</a></li>
 
-                   </ul>
-				  </li>
-				  <li><a href="#" class="dropdown-toggle"><i class="icon-laptop"></i><span class="menu-text"> 店铺管理 </span><b class="arrow icon-angle-down"></b></a>
-							<ul class="submenu">
-								<li class="home"><a href="javascript:void(0)" name="Shop_list.html" title="店铺列表" class="iframeurl"><i class="icon-double-angle-right"></i>店铺列表</a></li>
-                                <li class="home"><a href="javascript:void(0)" name="Shops_Audit.html" title="店铺审核" class="iframeurl"><i class="icon-double-angle-right"></i>店铺审核<span class="badge badge-danger">5</span></a></li>
-							</ul>
-						</li>
-						<li><a href="#" class="dropdown-toggle"><i class="icon-comments-alt"></i><span class="menu-text"> 消息管理 </span><b class="arrow icon-angle-down"></b></a>
-							<ul class="submenu">
-								<li class="home"><a href="javascript:void(0)" name="Guestbook.html" title="留言列表" class="iframeurl"><i class="icon-double-angle-right"></i>留言列表</a></li>
-                                <li class="home"><a href="javascript:void(0)" name="Feedback.html" title="意见反馈" class="iframeurl"><i class="icon-double-angle-right"></i>意见反馈</a></li>
-							</ul>
-						</li>
-						<li><a href="#" class="dropdown-toggle"><i class="icon-bookmark"></i><span class="menu-text"> 文章管理 </span><b class="arrow icon-angle-down"></b></a>
-							<ul class="submenu">
-								<li class="home"><a href="javascript:void(0)" name="article_list.html" title="文章列表" class="iframeurl"><i class="icon-double-angle-right"></i>文章列表</a></li>
-                                <li class="home"><a href="javascript:void(0)" name="article_Sort.html" title="分类管理" class="iframeurl"><i class="icon-double-angle-right"></i>分类管理</a></li>
-							</ul>
-						</li>
-                        	<li><a href="#" class="dropdown-toggle"><i class="icon-cogs"></i><span class="menu-text"> 系统管理 </span><b class="arrow icon-angle-down"></b></a>
-							<ul class="submenu">
-								<li class="home"><a href="javascript:void(0)" name="Systems.html" title="系统设置" class="iframeurl"><i class="icon-double-angle-right"></i>系统设置</a></li>
-								<li class="home"><a href="javascript:void(0)" name="System_section.html" title="系统栏目管理" class="iframeurl"><i class="icon-double-angle-right"></i>系统栏目管理</a></li>
-							
-                                <li class="home"><a href="javascript:void(0)" name="System_Logs.html" title="系统日志" class="iframeurl"><i class="icon-double-angle-right"></i>系统日志</a></li>
-							</ul>
-						</li> -->
-                        <li><a href="#" class="dropdown-toggle"><i class="icon-group"></i><span class="menu-text"> 管理员管理 </span><b class="arrow icon-angle-down"></b></a>
-							<ul class="submenu">
-							
-								<li class="home"  seq="11"><a href="/admin/role" title="权限管理"  class="iframeurl"><i class="icon-double-angle-right"></i>权限管理</a></li>
-                                <li class="home"  seq="12"><a href="/admin/user" name="administrator.html" title="管理员列表" class="iframeurl"><i class="icon-double-angle-right"></i>管理员列表</a></li>
-								<li class="home"  seq="13"><a href="javascript:void(0)" name="admin_info.html" title="个人信息" class="iframeurl"><i class="icon-double-angle-right"></i>个人信息</a></li>
-							</ul>
-						</li>
-					</ul>
-					</div>
-					<script type="text/javascript">
-           $("#menu_style").niceScroll({  
-	        cursorcolor:"#888888",  
-	        cursoropacitymax:1,  
-         	touchbehavior:false,  
-	        cursorwidth:"5px",  
-	        cursorborder:"0",  
-	        cursorborderradius:"5px"  
-            }); 
-          </script>
-					<div class="sidebar-collapse" id="sidebar-collapse">
-						<i class="icon-double-angle-left" data-icon1="icon-double-angle-left" data-icon2="icon-double-angle-right"></i>
-					</div>
-                    <script type="text/javascript">
-						try{ace.settings.check('sidebar' , 'collapsed')}catch(e){}
-					</script>
+				</ul><!-- /.nav-list -->
+
+				<!-- #section:basics/sidebar.layout.minimize -->
+				<div class="sidebar-toggle sidebar-collapse" id="sidebar-collapse">
+					<i class="ace-icon fa fa-angle-double-left" data-icon1="ace-icon fa fa-angle-double-left" data-icon2="ace-icon fa fa-angle-double-right"></i>
 				</div>
 
-				<div class="main-content">
-                <script type="text/javascript">
-							try{ace.settings.check('breadcrumbs' , 'fixed')}catch(e){}
-						</script>
-					<div class="breadcrumbs" id="breadcrumbs">
-						<ul class="breadcrumb">
-							<li>
-								<i class="icon-home home-icon"></i>
-								<a href="index">首页</a>
-							</li>
-							<li class="active"><span class="Current_page iframeurl"></span></li>
-                            <li class="active" id="parentIframe"><span class="parentIframe iframeurl"></span></li>
-							<li class="active" id="parentIfour"><span class="parentIfour iframeurl"></span></li>
-						</ul>
-						     <div layout:fragment="content"></div>
+			</div>
+
+			<!-- /section:basics/sidebar -->
+			<div class="main-content">
+				<!-- #section:basics/content.breadcrumbs -->
+				<div class="breadcrumbs" id="breadcrumbs">
+					<ul class="breadcrumb">
+						<li>
+							<i class="ace-icon fa fa-home home-icon"></i>
+							<a href="index.html">UI库首页</a>
+						</li>
+					</ul><!-- /.breadcrumb -->
+
+					<!-- #section:basics/content.searchbox -->
+					<div class="nav-search" id="nav-search">
+						<form class="form-search">
+							<span class="input-icon">
+								<input type="text" placeholder="请输入关键字 ..." class="nav-search-input" id="nav-search-input" autocomplete="off" />
+								<i class="ace-icon fa fa-search nav-search-icon"></i>
+							</span>
+						</form>
+					</div><!-- /.nav-search -->
+
+					<!-- /section:basics/content.searchbox -->
+				</div>
+
+				<div layout:fragment="content"></div>
+			</div><!-- /.main-content -->
+
+			<div class="footer">
+				<div class="footer-inner">
+					<!-- #section:basics/footer -->
+					<div class="footer-content">
+						<span class="bigger-120">
+							 统一开发平台-UI库 &copy; 2014  更多模板：<a href="http://www.mycodes.net/" target="_blank">源码之家</a>
+						</span>
 					</div>
-               
-<!-- /.page-content -->
-				</div><!-- /.main-content -->	
-	</div><!-- /.main-container-inner -->
-			
-		</div>
-         <!--底部样式-->
-       
-         <div class="footer_style" id="footerstyle">  
-		 <script type="text/javascript">try{ace.settings.check('footerstyle' , 'fixed')}catch(e){}</script>
-          <p class="c_f">版权所有：yuhang123wo</p>
-         </div>
-        <!-- /.main-container -->
-		<!-- basic scripts -->
-		
-</body>
+
+					<!-- /section:basics/footer -->
+				</div>
+			</div>
+
+			<a href="#" id="btn-scroll-up" class="btn-scroll-up btn btn-sm btn-inverse">
+				<i class="ace-icon fa fa-angle-double-up icon-only bigger-110"></i>
+			</a>
+		</div><!-- /.main-container -->
+	</body>
 </html>
