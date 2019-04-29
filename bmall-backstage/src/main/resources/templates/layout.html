@@ -145,7 +145,7 @@
 
 						<ul class="submenu">
 
-							<li class="">
+							<li class="" id="11">
 								<a href="/admin/role">
 									<i class="menu-icon fa fa-caret-right"></i>
 									角色管理
@@ -154,7 +154,7 @@
 								<b class="arrow"></b>
 							</li>
 
-							<li class="">
+							<li class="" id="12">
 								<a href="/admin/user">
 									<i class="menu-icon fa fa-caret-right"></i>
 									用户管理
@@ -175,26 +175,15 @@
 			</div>
 
 			<!-- /section:basics/sidebar -->
-			<div class="main-content">
+			<div class="main-content" id="content">
 				<!-- #section:basics/content.breadcrumbs -->
 				<div class="breadcrumbs" id="breadcrumbs">
 					<ul class="breadcrumb">
 						<li>
 							<i class="ace-icon fa fa-home home-icon"></i>
-							<a href="index.html">UI库首页</a>
+							<a href="index">首页</a>
 						</li>
 					</ul><!-- /.breadcrumb -->
-
-					<!-- #section:basics/content.searchbox -->
-					<div class="nav-search" id="nav-search">
-						<form class="form-search">
-							<span class="input-icon">
-								<input type="text" placeholder="请输入关键字 ..." class="nav-search-input" id="nav-search-input" autocomplete="off" />
-								<i class="ace-icon fa fa-search nav-search-icon"></i>
-							</span>
-						</form>
-					</div><!-- /.nav-search -->
-
 					<!-- /section:basics/content.searchbox -->
 				</div>
 
@@ -206,7 +195,7 @@
 					<!-- #section:basics/footer -->
 					<div class="footer-content">
 						<span class="bigger-120">
-							 统一开发平台-UI库 &copy; 2014  更多模板：<a href="http://www.mycodes.net/" target="_blank">源码之家</a>
+							 管理后台 &copy; 2019  <a href="http://yuhang123wo/" target="_blank">yuhang123wo</a>
 						</span>
 					</div>
 
@@ -219,4 +208,23 @@
 			</a>
 		</div><!-- /.main-container -->
 	</body>
+	
+	<script type="text/javascript">
+		$(function(){
+			setMenuOption();
+		});
+		//设置菜单属性
+		function setMenuOption(){
+			var seq = $("#content").find("div[class='page-content']").attr("seq");
+			$("#sidebar li").each(function(){
+			    	$(this).removeClass("active");
+			});
+		    $("#"+seq).addClass("active");
+		    console.log(seq);
+		    $("#"+seq).parent().parent().addClass("open");
+		    $("#"+seq).parent().addClass("nav-show");
+		    $("#"+seq).parent().css('display','block'); 	
+		}
+		
+	 </script>
 </html>
