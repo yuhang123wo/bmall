@@ -9,6 +9,7 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
 
 		<link rel="stylesheet" href="/assets/css/bootstrap.min.css" />
+		<link rel="stylesheet" href="/assets/css/jquery-ui.min.css" />
 		<link rel="stylesheet" href="/assets/css/font-awesome.min.css" />
 		<link rel="stylesheet" href="/assets/css/ace.min.css" id="main-ace-style" />
 		<!--[if lte IE 9]>
@@ -41,8 +42,59 @@
 		  <script src="/assets/js/excanvas.min.js"></script>
 		<![endif]-->
 		<script src="/assets/js/jquery-ui.custom.min.js"></script>
+		<script src="/assets/js/jquery-ui.min.js"></script>
 		<script src="/assets/js/jquery.ui.touch-punch.min.js"></script>
 		<script src="/assets/js/ace.min.js"></script>
+			
+	<script type="text/javascript">
+		$(function(){
+			setMenuOption();
+			setDate();
+		});
+		//设置菜单属性
+		function setMenuOption(){
+			var seq = $("#content").find("div[class='page-content']").attr("seq");
+			$("#sidebar li").each(function(){
+			    	$(this).removeClass("active");
+			});
+		    $("#"+seq).addClass("active");
+		    console.log(seq);
+		    $("#"+seq).parent().parent().addClass("open");
+		    $("#"+seq).parent().addClass("nav-show");
+		    $("#"+seq).parent().css('display','block'); 	
+		}
+	
+		function setDate() {
+			$("input[class='datePicker']").each(function() {
+				$(this).datepicker({
+					language : 'zh-CN',
+					showOtherMonths : true,
+					selectOtherMonths : false,
+				});
+			})
+
+			$.datepicker.regional['zh-CN'] = {
+				closeText : '关闭',
+				prevText : '<上月',
+		        nextText: '下月>',
+				currentText : '今天',
+				monthNames : [ '一月', '二月', '三月', '四月', '五月', '六月', '七月', '八月',
+						'九月', '十月', '十一月', '十二月' ],
+				monthNamesShort : [ '一', '二', '三', '四', '五', '六', '七', '八',
+						'九', '十', '十一', '十二' ],
+				dayNames : [ '星期日', '星期一', '星期二', '星期三', '星期四', '星期五', '星期六' ],
+				dayNamesShort : [ '周日', '周一', '周二', '周三', '周四', '周五', '周六' ],
+				dayNamesMin : [ '日', '一', '二', '三', '四', '五', '六' ],
+				weekHeader : '周',
+				dateFormat : 'yy-mm-dd',
+				firstDay : 1,
+				isRTL : false,
+				showMonthAfterYear : true,
+				yearSuffix : '年'
+			};
+			$.datepicker.setDefaults($.datepicker.regional['zh-CN']);
+		}
+	</script>
 	</head>
 
 	<body class="no-skin">
@@ -208,23 +260,4 @@
 			</a>
 		</div><!-- /.main-container -->
 	</body>
-	
-	<script type="text/javascript">
-		$(function(){
-			setMenuOption();
-		});
-		//设置菜单属性
-		function setMenuOption(){
-			var seq = $("#content").find("div[class='page-content']").attr("seq");
-			$("#sidebar li").each(function(){
-			    	$(this).removeClass("active");
-			});
-		    $("#"+seq).addClass("active");
-		    console.log(seq);
-		    $("#"+seq).parent().parent().addClass("open");
-		    $("#"+seq).parent().addClass("nav-show");
-		    $("#"+seq).parent().css('display','block'); 	
-		}
-		
-	 </script>
 </html>
