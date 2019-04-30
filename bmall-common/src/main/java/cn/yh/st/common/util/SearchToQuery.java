@@ -6,6 +6,8 @@ package cn.yh.st.common.util;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 
+import org.apache.commons.lang3.StringUtils;
+
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 
 import cn.yh.st.common.annotation.SearchFieldAnnotation;
@@ -38,7 +40,7 @@ public class SearchToQuery {
 				continue;
 			}
 			Object obj = getFieldValue(f, vo);
-			if (obj != null) {
+			if (obj != null && StringUtils.isNotBlank(obj.toString())) {
 				SearchFieldAnnotation sf = f.getAnnotation(SearchFieldAnnotation.class);
 				String cloumnName = sf.column();
 				SearchType type = sf.type();

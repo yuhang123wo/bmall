@@ -25,11 +25,11 @@ public class RoleVo {
 	private String roleName;
 
 	@ApiModelProperty("开始时间(YYYY-MM-DD)")
-	@SearchFieldAnnotation(column = "createTime", type = SearchType.ge)
+	@SearchFieldAnnotation(column = "create_time", type = SearchType.ge)
 	private String starTime;
 
 	@ApiModelProperty("结束时间(YYYY-MM-DD)")
-	@SearchFieldAnnotation(column = "createTime", type = SearchType.le)
+	@SearchFieldAnnotation(column = "create_time", type = SearchType.le)
 	private String endTime;
 
 	@ApiModelProperty("状态(1:有效,0:无效)")

@@ -7,14 +7,20 @@
 				<div class="row">
 					<div class="col-xs-12">
 					    <div class="">
-				        <div class="col-md-3">角色名：<input type="text" size="20" /></div>
-				        <div class="col-md-3">角色名：<input type="text" size="20" /></div>
-                        <div class="col-md-5">创建时间：<input type="text" size="20" class="datePicker" /> 至 <input type="text" size="20"
-									class="datePicker" /></div>
-                        <div class="col-md-1"><button class="btn btn-primary pull-right col-sm-12 tbl-search"
-										data-dismiss="modal">
-										搜索 <i class="ace-icon fa fa-search"></i>
-									</button></div>
+					    <form action="/admin/role">
+					        <div class="col-md-3">角色：<input type="text" size="15" name="roleName"/></div>
+					        <div class="col-md-3">状态：<input type="text" size="15" name="state"/></div>
+	                        <div class="col-md-4">创建时间：<input type="text" size="15" class="datePicker" name="startTime"/> 至 <input type="text" size="15"
+										class="datePicker" name="endTime"/></div>
+	                        <div class="col-md-1"><button class="btn btn-primary pull-right col-sm-12 tbl-search"
+											data-dismiss="modal">
+											搜索 <i class="ace-icon fa fa-search"></i>
+										</button></div>
+							<div class="col-md-1"><button class="btn btn-danger pull-right col-sm-12 "
+											data-dismiss="modal">
+											添加 <i class="ace-icon fa fa-pencil-square-o"></i>
+										</button></div>
+						 </form>
 						</div>
 						<div class="table-responsive" >
 
@@ -56,31 +62,7 @@
 									</tr>
 								</tbody>
 							</table>
-
-							<div class="modal-footer no-margin-top">
-
-								<ul class="pagination pull-right no-margin">
-									<li class="prev disabled"><a href="#"> <i
-											class="ace-icon fa fa-angle-double-left"></i>
-									</a></li>
-
-									<li class="active"><a href="#">1</a></li>
-
-									<li><a href="#">2</a></li>
-
-									<li><a href="#">3</a></li>
-
-									<li class="next"><a href="#"> <i
-											class="ace-icon fa fa-angle-double-right"></i>
-									</a></li>
-								</ul>
-							</div>
-
 						</div>
-
-
-
-
 					</div>
 				</div>
 				<!-- PAGE CONTENT ENDS -->
