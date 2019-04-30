@@ -42,7 +42,7 @@ public class ConvertUtil {
 	/**
 	 * poList-> voList 批量对象转换
 	 */
-	public <PO, VO> List<VO> convert(List<PO> fromList, Class<VO> clazz) {
+	public static <PO, VO> List<VO> convert(List<PO> fromList, Class<VO> clazz) {
 		if (CollectionUtils.isEmpty(fromList)) {
 			return null;
 		}

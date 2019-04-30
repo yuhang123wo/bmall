@@ -33,6 +33,18 @@ public class MAuth extends Entity {
 	private State state;
 
 	private Date updateTime;
+	
+	@ApiModelProperty(value="父ID")
+	private Long pId;
+
+	
+	public Long getpId() {
+		return pId;
+	}
+
+	public void setpId(Long pId) {
+		this.pId = pId;
+	}
 
 	public String getAuthName() {
 		return authName;
