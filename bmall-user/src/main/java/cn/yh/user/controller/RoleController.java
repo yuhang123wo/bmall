@@ -10,6 +10,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
@@ -27,7 +28,8 @@ import cn.yh.vo.user.RoleVo;
  * @date 2019年4月29日
  * @desc
  */
-@RestController("role")
+@RestController
+@RequestMapping("role")
 public class RoleController {
 
 	@Autowired

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout" layout:decorate="~{layout.html}">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout" layout:decorate="~{layout.html}">
 <div class="page-content" layout:fragment="content" seq="11">
 	<div class="page-content-area">
 		<div class="row">
@@ -25,31 +25,23 @@
 										<th class="center"><label class="position-relative">
 												<input type="checkbox" class="ace" /> <span class="lbl"></span>
 										</label></th>
-										<th>部门</th>
-										<th>差旅单号</th>
 										<th>名称</th>
-										<th>关联订单号</th>
-										<th>差旅单状态</th>
-										<th>创建人</th>
+										<th>状态</th>
+										<th>备注</th>
 										<th>创建日期</th>
 										<th>操作</th>
 									</tr>
 								</thead>
 
 								<tbody>
-									<tr>
+									<tr th:each="m : ${roleList}">
 										<td class="center"><label class="position-relative">
 												<input type="checkbox" class="ace" /> <span class="lbl"></span>
 										</label></td>
-
-										<td>商务研发部</td>
-										<td><a href="#" class="yuangongBtn" rel="#yuangong">CL1234567891234567</a></td>
-										<td class="hidden-480">C1234567891234</td>
-										<td class="hidden-480"><span
-											class="label label-sm label-warning">广州北京0801</span></td>
-										<td>未提交</td>
-										<td>张国立</td>
-										<td>2012-08-01</td>
+										<td th:text="${m.roleName}"></td>
+										<td th:text="${m.state}"></td>
+										<td th:text="${m.remark}"></td>
+										<td th:text="${m.createTime}">xx</td>
 										<td>
 											<div class="hidden-sm hidden-xs btn-group">
 												<button class="btn btn-xs btn-success" title="">
@@ -58,18 +50,6 @@
 
 												<button class="btn btn-xs btn-info">
 													<i class="ace-icon fa fa-pencil bigger-120"></i>
-												</button>
-
-												<button class="btn btn-xs btn-danger">
-													<i class="ace-icon fa fa-trash-o bigger-120"></i>
-												</button>
-
-												<button class="btn btn-xs btn-warning">
-													<i class="ace-icon fa fa-flag bigger-120"></i>
-												</button>
-
-												<button class="btn btn-xs btn-success">
-													<i class="ace-icon fa fa-check bigger-120"></i>
 												</button>
 											</div>
 										</td>
