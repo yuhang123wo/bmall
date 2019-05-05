@@ -3,11 +3,14 @@
  */
 package cn.yh.st.back.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import cn.yh.pojo.user.MRole;
 import cn.yh.st.back.service.MUserService;
@@ -32,13 +35,25 @@ public class AdminController {
 	 * @return
 	 */
 	@GetMapping("role")
-	public String role(Model model, RoleVo vo) {
-		model.addAttribute("roleList", mUserService.listRole(vo));
+	public String role() {
 		return "admin/role-list";
 	}
 
+	@GetMapping("roleList")
+	@ResponseBody
+	public List<MRole> roleList(RoleVo vo) {
+		return mUserService.listRole(vo);
+	}
+
+	
+	
 	@GetMapping("user")
 	public String userList(Model model) {
 		return "admin/user-list";
+	}
+
+	@GetMapping("addRoleView")
+	public String addRoleView() {
+		return "admin/add-role";
 	}
 }

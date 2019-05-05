@@ -1,26 +1,68 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout" layout:decorate="~{layout.html}">
 <div class="page-content" layout:fragment="content" seq="11">
+
+   <script type="text/javascript">
+	var $curs = {};
+	$(function(){
+	    var param={};
+		query(param);
+	});
+	function query(params){
+		$curs = params;
+		$('#myPage').html('');
+		$.ajax({
+			   type: "GET",
+			   url: '/admin/roleList',
+			   data:params,
+			   dataType:'json',
+			   success: function(result){
+				   $('#myData').empty();
+				   var template = Handlebars.compile($("#roleTemplate").html());
+				   var $tr = template(result);
+				   $('#myData').append($tr);
+			   }
+		});
+	}
+	
+	function jumpPage(page){
+		$curs.pageNo = page;
+		query($curs);
+	}
+	function startQuery(){
+		var pArray = $('#searchForm').serializeArray();
+		var params = {};
+		for(var i = 0;i < pArray.length;i++){
+			if($.trim(pArray[i].value) != ''){
+				params[pArray[i].name] = pArray[i].value;
+			}
+		}
+		query(params);
+	}
+	function toIndex(){
+		location.href="/admin/addRoleView";
+	}
+</script>
+
 	<div class="page-content-area">
 		<div class="row">
 			<div class="col-xs-12">
 				<div class="row">
 					<div class="col-xs-12">
 					    <div class="">
-					    <form action="/admin/role">
+					    <form id="searchForm">
 					        <div class="col-md-3">角色：<input type="text" size="15" name="roleName"/></div>
 					        <div class="col-md-3">状态：<input type="text" size="15" name="state"/></div>
 	                        <div class="col-md-4">创建时间：<input type="text" size="15" class="datePicker" name="startTime"/> 至 <input type="text" size="15"
 										class="datePicker" name="endTime"/></div>
-	                        <div class="col-md-1"><button class="btn btn-primary pull-right col-sm-12 tbl-search"
-											data-dismiss="modal">
+						 </form>
+						  <div class="col-md-1"><button class="btn btn-primary pull-right col-sm-12 tbl-search"
+											onclick="startQuery()">
 											搜索 <i class="ace-icon fa fa-search"></i>
 										</button></div>
-							<div class="col-md-1"><button class="btn btn-danger pull-right col-sm-12 "
-											data-dismiss="modal">
-											添加 <i class="ace-icon fa fa-pencil-square-o"></i>
+							<div class="col-md-1"><button class="btn btn-danger pull-right col-sm-12" onclick="toIndex()">
+									添加 <i class="ace-icon fa fa-pencil-square-o"></i>
 										</button></div>
-						 </form>
 						</div>
 						<div class="table-responsive" >
 
@@ -39,27 +81,7 @@
 									</tr>
 								</thead>
 
-								<tbody>
-									<tr th:each="m : ${roleList}">
-										<td class="center"><label class="position-relative">
-												<input type="checkbox" class="ace" /> <span class="lbl"></span>
-										</label></td>
-										<td th:text="${m.roleName}"></td>
-										<td th:text="${m.state}"></td>
-										<td th:text="${m.remark}"></td>
-										<td th:text="${m.createTime}">xx</td>
-										<td>
-											<div class="hidden-sm hidden-xs btn-group">
-												<button class="btn btn-xs btn-success" title="">
-													<i class="ace-icon fa fa-search-plus bigger-120"></i>
-												</button>
-
-												<button class="btn btn-xs btn-info">
-													<i class="ace-icon fa fa-pencil bigger-120"></i>
-												</button>
-											</div>
-										</td>
-									</tr>
+								<tbody id="myData">
 								</tbody>
 							</table>
 						</div>
@@ -72,5 +94,28 @@
 		<!-- /.row -->
 	</div>
 	<!-- /.page-content-area -->
+		<script id="roleTemplate" type="text/x-handlebars-template">
+	{{#each this}}
+		<tr>
+  <td class="center"><label class="position-relative">
+	<input type="checkbox" class="ace" /> <span class="lbl"></span>
+	</label></td>
+<td>{{roleName}}</td>
+<td>{{state}}</td>
+<td>{{remark}}</td>
+<td>{{createTime}}</td>
+<td>
+<div class="hidden-sm hidden-xs btn-group">
+	<button class="btn btn-xs btn-success" title="">
+		<i class="ace-icon fa fa-search-plus bigger-120"></i>
+	</button>
+<button class="btn btn-xs btn-info">
+		 <i class="ace-icon fa fa-pencil bigger-120"></i>
+ </button>
+ </div>
+ </td>
+ </tr>
+{{/each}}
+	</script>	
 </div>
 </html>
