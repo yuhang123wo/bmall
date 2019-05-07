@@ -36,11 +36,8 @@ public interface MUserService {
 	@PostMapping("/role/listRole")
 	List<MRole> listRole(RoleVo vo);
 
-	@PostMapping("addRole")
-	ApiResponseEnity<Boolean> addRole(AddRoleVo vo);
-
-	@PostMapping("updateRole")
-	ApiResponseEnity<Boolean> updateRole(MRole vo);
+	@PostMapping("/auth/editRole")
+	ApiResponseEnity<Boolean> editRole(AddRoleVo vo);
 
 	@PostMapping("/auth/getAllAuth")
 	List<Znodes> getAllAuth(Long roleId);

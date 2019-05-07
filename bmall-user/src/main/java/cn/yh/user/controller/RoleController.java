@@ -51,30 +51,6 @@ public class RoleController {
 	}
 
 	/**
-	 * 添加用户角色
-	 * 
-	 * @param vo
-	 * @return
-	 */
-	@PostMapping("addRole")
-	public ApiResponseEnity<Boolean> addRole(@Validated AddRoleVo vo) {
-		MRole m = ConvertUtil.convert(vo, MRole.class);
-		m.setCreateTime(new Date());
-		m.setUpdateTime(m.getCreateTime());
-
-		QueryWrapper<MRole> queryWrapper = SearchToQuery.getQuery(vo);
-		MRole v = mRoleService.getOne(queryWrapper);
-		if (v != null) {
-			return new ApiResponseEnity<Boolean>().fail("角色名存在");
-		}
-		boolean flag = mRoleService.save(m);
-		if (flag) {
-			return new ApiResponseEnity<Boolean>();
-		}
-		return new ApiResponseEnity<Boolean>().fail("添加失败");
-	}
-
-	/**
 	 * 
 	 * @param vo
 	 * @return

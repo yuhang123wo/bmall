@@ -3,8 +3,11 @@
  */
 package cn.yh.vo.user;
 
+import java.util.List;
+
 import javax.validation.constraints.NotNull;
 
+import cn.yh.pojo.eumn.State;
 import cn.yh.st.common.annotation.SearchFieldAnnotation;
 import cn.yh.st.common.annotation.SearchType;
 import io.swagger.annotations.ApiModel;
@@ -21,10 +24,30 @@ public class AddRoleVo {
 	@SearchFieldAnnotation(column = "role_name", type = SearchType.eq)
 	@NotNull(message = "角色名不能为空")
 	private String roleName;
-	@ApiModelProperty("状态(1:有效,0:无效)")
-	private Integer state;
+	@ApiModelProperty("状态")
+	private State state;
 	@ApiModelProperty("备注")
 	private String remark;
+
+	private String list;
+
+	private Long roleId;
+
+	public Long getRoleId() {
+		return roleId;
+	}
+
+	public void setRoleId(Long roleId) {
+		this.roleId = roleId;
+	}
+
+	public String getList() {
+		return list;
+	}
+
+	public void setList(String list) {
+		this.list = list;
+	}
 
 	public String getRoleName() {
 		return roleName;
@@ -34,11 +57,11 @@ public class AddRoleVo {
 		this.roleName = roleName;
 	}
 
-	public Integer getState() {
+	public State getState() {
 		return state;
 	}
 
-	public void setState(Integer state) {
+	public void setState(State state) {
 		this.state = state;
 	}
 

@@ -14,35 +14,43 @@ import io.swagger.annotations.ApiModel;
  * @since 2019-04-11
  */
 @TableName("role_auth")
-@ApiModel(value="RoleAuth对象", description="")
-public class RoleAuth extends Entity {
+@ApiModel(value = "RoleAuth对象", description = "")
+public class RoleAuth implements java.io.Serializable {
 
-    private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 1L;
 
-    private Long roleId;
+	private Long roleId;
 
-    private Long authId;
+	private Long authId;
 
-    public Long getRoleId() {
-        return roleId;
-    }
+	public RoleAuth() {
+		super();
+	}
 
-    public void setRoleId(Long roleId) {
-        this.roleId = roleId;
-    }
-    public Long getAuthId() {
-        return authId;
-    }
+	public RoleAuth(Long roleId, Long authId) {
+		super();
+		this.roleId = roleId;
+		this.authId = authId;
+	}
 
-    public void setAuthId(Long authId) {
-        this.authId = authId;
-    }
+	public Long getRoleId() {
+		return roleId;
+	}
 
-    @Override
-    public String toString() {
-        return "RoleAuth{" +
-        "roleId=" + roleId +
-        ", authId=" + authId +
-        "}";
-    }
+	public void setRoleId(Long roleId) {
+		this.roleId = roleId;
+	}
+
+	public Long getAuthId() {
+		return authId;
+	}
+
+	public void setAuthId(Long authId) {
+		this.authId = authId;
+	}
+
+	@Override
+	public String toString() {
+		return "RoleAuth{" + "roleId=" + roleId + ", authId=" + authId + "}";
+	}
 }

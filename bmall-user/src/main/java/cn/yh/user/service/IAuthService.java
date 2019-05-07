@@ -8,6 +8,7 @@ import java.util.List;
 import com.baomidou.mybatisplus.extension.service.IService;
 
 import cn.yh.pojo.user.MAuth;
+import cn.yh.vo.user.AddRoleVo;
 
 /**
  * @author yuhang
@@ -19,4 +20,7 @@ public interface IAuthService extends IService<MAuth>{
 	
 	
 	List<MAuth> getAuthsByRoleId(long roleId);
+	
+	
+	void addEditRoleAndAuth(AddRoleVo vo);
 }

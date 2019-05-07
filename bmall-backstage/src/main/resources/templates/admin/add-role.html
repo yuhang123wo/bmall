@@ -19,25 +19,34 @@ var setting = {
 		$.fn.zTree.init($("#treeDemo"), setting, [[${authList}]]);
 	});
     function editRole(){
-	var treeObj=$.fn.zTree.getZTreeObj("treeDemo");
-    var nodes=treeObj.getCheckedNodes(true);
-    var v="";
-    for(var i=0;i<nodes.length;i++){
-        v+=nodes[i].id + ",";
-    }
+     var treeObj=$.fn.zTree.getZTreeObj("treeDemo");
+     var nodes=treeObj.getCheckedNodes(true); 
+     var v="";
+     for(var i=0;i<nodes.length;i++){
+         v+=nodes[i].id + ",";
+     }
     var header = $("meta[name='_csrf_header']").attr("content");
     var token = $("meta[name='_csrf']").attr("content");
+	var pArray = $('#dataForm').serializeArray();
+	var params = {};
+	for(var i = 0;i < pArray.length;i++){
+		if($.trim(pArray[i].value) != ''){
+			params[pArray[i].name] = pArray[i].value;
+		}
+	}
+    params.list=v;
 	$.ajax({
 		type : "POST",
 		url : '/admin/addRole',
 		beforeSend: function(xhr){
 	        xhr.setRequestHeader(header, token);
 	    },
-		data : {authIds:v,roleId:$("#roleId").val(),remark:$("#remark").val()},
+		data : params,
 		dataType : 'json',        
 		success : function(data) {
+			console.log(data);
 		}
-	});
+	});  
 }
  function toIndex(){
 		location.href="/admin/addRoleView/0";
@@ -47,22 +56,29 @@ var setting = {
 <div class="margin clearfix" layout:fragment="content" seq="11">
   <div class="left_Competence_add">
     <div class="Competence_add">
-     <input type="hidden" id="roleId">
+     <form id="dataForm">
+     <input type="hidden" id="roleId" name="roleId">
      <div class="form-group"><label class="col-sm-2 control-label no-padding-right" for="form-field-1"> 权限名称 </label>
-       <div class="col-sm-9"><input type="text" id="roleName" placeholder=""  name="权限名称" class="col-xs-10 col-sm-5"></div>
+       <div class="col-sm-9"><input type="text" id="roleName" placeholder=""  name="roleName" class="col-xs-10 col-sm-5"></div>
 	</div>
      <div class="form-group"><label class="col-sm-2 control-label no-padding-right" for="form-field-1"> 权限描述 </label>
-       <div class="col-sm-9"><textarea id="remark" name="权限描述" class="form-control" placeholder=""></textarea></div>
+       <div class="col-sm-9"><textarea id="remark" name="remark" class="form-control" placeholder=""></textarea></div>
+	</div>
+	<div class="form-group"><label class="col-sm-2 control-label no-padding-right" for="form-field-1"> 权限描述 </label>
+       <div class="col-sm-9">
+         <label><input name="state" type="radio" class="ace" checked="checked" value="ENABLE"><span class="lbl">启用</span></label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+         <label><input name="state" type="radio" class="ace" value="DISABLE"><span class="lbl">关闭</span></label>
+       </div>
 	</div>
 	<div class="form-group"><label class="col-sm-2 control-label no-padding-right" for="form-field-1"> 权限 </label>
        <div class="col-sm-9"><ul id="treeDemo" class="ztree"></ul></div>
 	</div>
-	 
+	</form>
      
    <!--按钮操作-->
    <div class="Button_operation">
-				<button onclick="editRole();" class="btn btn-primary radius" type="submit"><i class="fa fa-save "></i> 保存并提交</button>
-				<button onclick="toIndex()" class="btn btn-secondary  btn-warning" type="button"><i class="fa fa-reply"></i> 返回上一步</button>
+	 <button onclick="editRole();" class="btn btn-primary radius" type="button"><i class="fa fa-save "></i> 保存并提交</button>
+	 <button onclick="toIndex()" class="btn btn-secondary  btn-warning" type="button"><i class="fa fa-reply"></i> 返回上一步</button>
 	</div>
    </div>
    </div>
