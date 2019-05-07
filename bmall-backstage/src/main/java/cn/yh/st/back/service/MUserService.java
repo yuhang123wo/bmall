@@ -17,6 +17,7 @@ import cn.yh.st.common.api.ApiResponseEnity;
 import cn.yh.vo.MUserVo;
 import cn.yh.vo.user.AddRoleVo;
 import cn.yh.vo.user.RoleVo;
+import cn.yh.vo.user.Znodes;
 
 /**
  * @author yuhang
@@ -40,4 +41,7 @@ public interface MUserService {
 
 	@PostMapping("updateRole")
 	ApiResponseEnity<Boolean> updateRole(MRole vo);
+
+	@PostMapping("/auth/getAllAuth")
+	List<Znodes> getAllAuth(Long roleId);
 }

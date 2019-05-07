@@ -9,11 +9,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import cn.yh.pojo.user.MRole;
 import cn.yh.st.back.service.MUserService;
+import cn.yh.st.common.api.ApiResponseEnity;
 import cn.yh.vo.user.RoleVo;
 
 /**
@@ -52,8 +55,16 @@ public class AdminController {
 		return "admin/user-list";
 	}
 
-	@GetMapping("addRoleView")
-	public String addRoleView() {
+	@GetMapping("addRoleView/{roleId}")
+	public String addRoleView(Model model,@PathVariable("roleId")Long roleId) {
+		model.addAttribute("authList", mUserService.getAllAuth(roleId) );
 		return "admin/add-role";
+	}
+	
+	@RequestMapping("addRole")
+	@ResponseBody
+	public ApiResponseEnity<String> addRole() {
+		System.out.println(1);
+		return new ApiResponseEnity<String>();
 	}
 }
