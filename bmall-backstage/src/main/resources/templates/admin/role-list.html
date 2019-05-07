@@ -38,8 +38,8 @@
 		}
 		query(params);
 	}
-	function toIndex(){
-		location.href="/admin/addRoleView/0";
+	function toIndex(id){
+		location.href="/admin/addRoleView/"+id;
 	}
 </script>
  <div class="search_style">
@@ -49,7 +49,7 @@
        <li><label class="l_f">状态</label><select name="state" style=" width:150px"><option value="">--状态--</option><option value="1">启用</option><option value="0">禁用</option></select></li>
        <li><label class="l_f">时间</label><input class="inline laydate-icon" name="startTime">—<input class="inline laydate-icon" name="endTime"></li>
        <li style="width:90px;"><button type="button" class="btn btn-info" onclick="startQuery()"><i class="fa fa-search"></i>查询</button></li>
-       <li style="width:90px;"><button type="button" class="btn btn-warning" onclick="toIndex()"><i class="fa fa-plus"></i>新增</button></li>
+       <li style="width:90px;"><button type="button" class="btn btn-warning" onclick="toIndex(0)"><i class="fa fa-plus"></i>新增</button></li>
       </ul>
       </form>
     </div>
@@ -87,7 +87,7 @@
 <td>{{remark}}</td>
 <td>{{createTime}}</td>
 <td>
-   <a title="编辑" onclick="Competence_modify('560')" href="javascript:;"  class="btn btn-xs btn-info" ><i class="fa fa-edit bigger-120"></i></a>        
+   <a title="编辑" onclick="toIndex({{id}})" href="javascript:;"  class="btn btn-xs btn-info" ><i class="fa fa-edit bigger-120"></i></a>        
    <a title="删除" href="javascript:;"  onclick="Competence_del(this,'1')" class="btn btn-xs btn-warning" ><i class="fa fa-trash  bigger-120"></i></a>
  </td>
  </tr>

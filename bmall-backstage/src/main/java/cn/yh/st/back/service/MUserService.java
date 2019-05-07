@@ -41,4 +41,7 @@ public interface MUserService {
 
 	@PostMapping("/auth/getAllAuth")
 	List<Znodes> getAllAuth(Long roleId);
+	
+	@PostMapping("/role/getRoleById")
+	MRole getRoleById(Long roleId);
 }

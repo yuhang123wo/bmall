@@ -13,6 +13,8 @@ import org.springframework.web.context.request.RequestAttributes;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
+import com.alibaba.fastjson.JSON;
+
 /**
  * 
  * @author yh
@@ -43,7 +45,8 @@ public class LoggerControllerAdvice {
 		try {
 			Object[] args = pjp.getArgs();
 			for (int i = 0; i < args.length; i++) {
-				logger.info("请求开始, 各个参数, url: {}, method: {}, uri: {}, params: {}", url, method, uri, args[i]);
+				String json = args[i]==null?"":JSON.toJSONString(args[i]);
+				logger.info("请求, url: {}, method: {}, params: {}", url, method, json);
 			}
 		} catch (Exception e) {
 			logger.info("请求开始, 各个参数, url: {}, method: {}, uri: {}, params: {}", url, method, uri, queryString);

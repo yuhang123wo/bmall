@@ -3,7 +3,6 @@
  */
 package cn.yh.st.back.controller;
 
-import java.util.Arrays;
 import java.util.List;
 
 import org.apache.commons.lang3.StringUtils;
@@ -16,7 +15,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import cn.yh.pojo.eumn.State;
 import cn.yh.pojo.user.MRole;
 import cn.yh.st.back.service.MUserService;
 import cn.yh.st.common.api.ApiResponseEnity;
@@ -60,6 +58,15 @@ public class AdminController {
 	@GetMapping("addRoleView/{roleId}")
 	public String addRoleView(Model model, @PathVariable("roleId") Long roleId) {
 		model.addAttribute("authList", mUserService.getAllAuth(roleId));
+		if (roleId != null) {
+			MRole m = mUserService.getRoleById(roleId);
+			if (null != m) {
+				model.addAttribute("roleId", m.getId());
+				model.addAttribute("roleName", m.getRoleName());
+				model.addAttribute("remark", m.getRemark());
+				model.addAttribute("state", m.getState());
+			}
+		}
 		return "admin/add-role";
 	}
 

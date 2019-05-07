@@ -3,13 +3,11 @@
  */
 package cn.yh.user.controller;
 
-import java.util.Date;
 import java.util.List;
 
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -21,8 +19,6 @@ import cn.yh.pojo.user.MRole;
 import cn.yh.st.common.api.ApiResponseEnity;
 import cn.yh.st.common.util.SearchToQuery;
 import cn.yh.user.service.IMRoleService;
-import cn.yh.util.ConvertUtil;
-import cn.yh.vo.user.AddRoleVo;
 import cn.yh.vo.user.RoleVo;
 
 /**
@@ -76,4 +72,13 @@ public class RoleController {
 		return new ApiResponseEnity<Boolean>().fail("修改失败");
 	}
 
+	/**
+	 * 
+	 * @param roleId
+	 * @return
+	 */
+	@PostMapping(value="getRoleById")
+	public MRole getRoleById(Long roleId) {
+		return mRoleService.getById(roleId);
+	}
 }
