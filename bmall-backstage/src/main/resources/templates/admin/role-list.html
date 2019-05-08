@@ -41,6 +41,37 @@
 	function toIndex(id){
 		location.href="/admin/addRoleView/"+id;
 	}
+	function modify_state(id,state){
+		  layer.confirm('是否确定修改状态？', {
+				     btn: ['是','否'] ,//按钮
+					 icon:2,
+				    }, 
+					function(index){
+				      layer.close(index);
+				      var header = $("meta[name='_csrf_header']").attr("content");
+				  	  var token = $("meta[name='_csrf']").attr("content");
+				  		$.ajax({
+				  			   type: "POST",
+				  			   url: '/admin/updateRoleState',
+				  			   data:{roleId:id,state:state},
+				  			   dataType:'json',
+				  			   beforeSend: function(xhr){
+				  			        xhr.setRequestHeader(header, token);
+				  			    },
+				  			   success: function(result){
+				  				  if(result.code=='0'){
+				  					  startQuery();
+				  				  }else{
+				  					  layer.alert(result.msg,{			
+				  					        icon:2,		
+				  					 }) 
+				  				  }
+				  			   }
+				  		});
+				    }
+				        
+		  );
+	}
 </script>
  <div class="search_style">
        <form id="searchForm">
@@ -79,17 +110,23 @@
      </div>
 	<!-- /.page-content-area -->
 <script id="roleTemplate" type="text/x-handlebars-template">
-	{{#each this}}
-		<tr>
-  <td class="center"><label><input type="checkbox" class="ace"><span class="lbl"></span></label></td>
+{{#each this}}
+<tr>
+<td class="center"><label><input type="checkbox" class="ace"><span class="lbl"></span></label></td>
 <td>{{roleName}}</td>
-<td>{{stateCN}}</td>
+<td id="td{{id}}">{{stateCN}}</td>
 <td>{{remark}}</td>
 <td>{{createTime}}</td>
 <td>
    <a title="编辑" onclick="toIndex({{id}})" href="javascript:;"  class="btn btn-xs btn-info" ><i class="fa fa-edit bigger-120"></i></a>        
-   <a title="删除" href="javascript:;"  onclick="Competence_del(this,'1')" class="btn btn-xs btn-warning" ><i class="fa fa-trash  bigger-120"></i></a>
- </td>
+   
+   {{#if_eq state 'ENABLE'}}
+   <a title="禁用" href="javascript:;"  onclick="modify_state({{id}},'DISABLE')" class="btn btn-xs btn-warning" ><i class="fa fa-trash  bigger-120"></i></a>
+   {{/if_eq}} 
+   {{#if_eq  state 'DISABLE'}}
+    <a title="启用" href="javascript:;"  onclick="modify_state({{id}},'ENABLE')" class="btn btn-xs btn-success" ><i class="fa fa-check  bigger-120"></i></a>
+   {{/if_eq}} 
+</td>
  </tr>
 {{/each}}
  </script>	

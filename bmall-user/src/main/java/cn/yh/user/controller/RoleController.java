@@ -3,9 +3,9 @@
  */
 package cn.yh.user.controller;
 
+import java.util.Date;
 import java.util.List;
 
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 
+import cn.yh.pojo.eumn.State;
 import cn.yh.pojo.user.MRole;
 import cn.yh.st.common.api.ApiResponseEnity;
 import cn.yh.st.common.util.SearchToQuery;
@@ -52,20 +53,14 @@ public class RoleController {
 	 * @param vo
 	 * @return
 	 */
-	@PostMapping("updateRole")
-	public ApiResponseEnity<Boolean> updateRole(@Validated MRole vo) {
-		MRole m = mRoleService.getById(vo.getId());
+	@PostMapping("updateRoleState")
+	public ApiResponseEnity<Boolean> updateRoleState(Long roleId,State state) {
+		MRole m = mRoleService.getById(roleId);
 		if (m == null) {
 			return new ApiResponseEnity<Boolean>().fail("角色不存在");
 		}
-		if (StringUtils.isNotBlank(vo.getRemark())) {
-			m.setRemark(vo.getRemark());
-		}
-
-		if (vo.getState() != null) {
-			m.setState(vo.getState());
-		}
-
+		m.setState(state);
+		m.setUpdateTime(new Date());
 		boolean flag = mRoleService.updateById(m);
 		if (flag) {
 			return new ApiResponseEnity<Boolean>();

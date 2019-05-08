@@ -11,10 +11,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import cn.yh.pojo.eumn.State;
 import cn.yh.pojo.user.MRole;
 import cn.yh.st.back.service.MUserService;
 import cn.yh.st.common.api.ApiResponseEnity;
@@ -77,5 +78,17 @@ public class AdminController {
 			return new ApiResponseEnity<Boolean>().fail("请选择权限");
 		}
 		return mUserService.editRole(vo);
+	}
+
+	/**
+	 * 修改角色状态
+	 * @param roleId
+	 * @param state
+	 * @return
+	 */
+	@PostMapping("updateRoleState")
+	@ResponseBody
+	public ApiResponseEnity<Boolean> updateRoleState(Long roleId, State state) {
+		return mUserService.updateRoleState(roleId, state);
 	}
 }

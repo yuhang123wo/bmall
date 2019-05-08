@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import cn.yh.pojo.eumn.State;
 import cn.yh.pojo.user.MRole;
 import cn.yh.st.common.api.ApiResponseEnity;
 import cn.yh.vo.MUserVo;
@@ -40,8 +41,11 @@ public interface MUserService {
 	ApiResponseEnity<Boolean> editRole(AddRoleVo vo);
 
 	@PostMapping("/auth/getAllAuth")
-	List<Znodes> getAllAuth(@RequestParam("roleId")Long roleId);
-	
+	List<Znodes> getAllAuth(@RequestParam("roleId") Long roleId);
+
 	@PostMapping("/role/getRoleById")
-	MRole getRoleById(@RequestParam("roleId")Long roleId);
+	MRole getRoleById(@RequestParam("roleId") Long roleId);
+
+	@PostMapping("/role/updateRoleState")
+	ApiResponseEnity<Boolean> updateRoleState(@RequestParam("roleId") Long roleId, @RequestParam("state") State state);
 }
