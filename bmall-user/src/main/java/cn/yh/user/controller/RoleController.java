@@ -11,6 +11,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
@@ -78,7 +79,7 @@ public class RoleController {
 	 * @return
 	 */
 	@PostMapping(value="getRoleById")
-	public MRole getRoleById(Long roleId) {
+	public MRole getRoleById(@RequestParam("roleId")Long roleId) {
 		return mRoleService.getById(roleId);
 	}
 }

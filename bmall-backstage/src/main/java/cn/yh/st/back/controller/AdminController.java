@@ -64,7 +64,7 @@ public class AdminController {
 				model.addAttribute("roleId", m.getId());
 				model.addAttribute("roleName", m.getRoleName());
 				model.addAttribute("remark", m.getRemark());
-				model.addAttribute("state", m.getState());
+				model.addAttribute("state", m.getState().toString());
 			}
 		}
 		return "admin/add-role";
@@ -72,7 +72,7 @@ public class AdminController {
 
 	@RequestMapping("addRole")
 	@ResponseBody
-	public ApiResponseEnity<Boolean> addRole(@RequestBody AddRoleVo vo) {
+	public ApiResponseEnity<Boolean> addRole(AddRoleVo vo) {
 		if (StringUtils.isBlank(vo.getList())) {
 			return new ApiResponseEnity<Boolean>().fail("请选择权限");
 		}

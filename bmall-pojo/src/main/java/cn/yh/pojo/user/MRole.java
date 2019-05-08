@@ -4,6 +4,7 @@ import java.util.Date;
 
 import javax.validation.constraints.NotBlank;
 
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
 
 import cn.yh.pojo.eumn.State;
@@ -38,6 +39,19 @@ public class MRole extends Entity {
 	private Date updateTime;
 
 	private Date createTime;
+	
+	@TableField(exist=false)
+	private String stateCN;
+	
+	
+	public String getStateCN() {
+		return state.getRemark();
+	}
+
+	public void setStateCN(String stateCN) {
+		this.stateCN = stateCN;
+	}
+
 
 	public String getRoleName() {
 		return roleName;

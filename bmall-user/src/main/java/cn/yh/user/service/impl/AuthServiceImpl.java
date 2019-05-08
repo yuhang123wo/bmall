@@ -44,7 +44,7 @@ public class AuthServiceImpl extends ServiceImpl<MAuthMapper, MAuth> implements 
 	@Transactional
 	@Override
 	public void addEditRoleAndAuth(AddRoleVo vo) {
-		if (vo.getRoleId() == null) {
+		if (vo.getRoleId() == null || vo.getRoleId()<=0) {
 			// 新增角色权限
 			MRole role = new MRole();
 			role.setCreateTime(new Date());

@@ -24,14 +24,14 @@ import cn.yh.vo.user.RoleVo;
  * @date 2019年4月30日
  * @desc
  */
-@RunWith(SpringRunner.class)
-@SpringBootTest(classes = UserApplication.class)
+//@RunWith(SpringRunner.class)
+//@SpringBootTest(classes = UserApplication.class)
 public class MyTest {
 
 	@Autowired
 	private IMRoleService mRoleService;
 
-	@Test
+//	@Test
 	public void testFind() {
 
 		RoleVo vo = new RoleVo();

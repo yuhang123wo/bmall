@@ -11,6 +11,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
@@ -43,15 +44,20 @@ public class AuthController {
 	 * @return
 	 */
 	@PostMapping("getAllAuth")
-	public List<Znodes> getAllAuth(Long roleId) {
+	public List<Znodes> getAllAuth(@RequestParam("roleId")Long roleId) {
 		if (roleId == null || roleId == 0) {
 			List<MAuth> list = authService.list(new QueryWrapper<MAuth>().eq("state", State.ENABLE));
 			List<MAuthNodes> result = ConvertUtil.convert(list, MAuthNodes.class);
 			return ZnodesUtil.createZnodes(result, new ArrayList<Long>());
 		} else {
+			List<MAuth> listAll = authService.list(new QueryWrapper<MAuth>().eq("state", State.ENABLE));
 			List<MAuth> list = authService.getAuthsByRoleId(roleId);
-			List<MAuthNodes> result = ConvertUtil.convert(list, MAuthNodes.class);
-			return ZnodesUtil.createZnodes(result, new ArrayList<Long>());
+			List<Long> auths = new ArrayList<Long>();
+			for(int i=0;i<list.size();i++) {
+				auths.add(list.get(i).getId());
+			}
+			List<MAuthNodes> result = ConvertUtil.convert(listAll, MAuthNodes.class);
+			return ZnodesUtil.createZnodes(result, auths);
 		}
 	}
 

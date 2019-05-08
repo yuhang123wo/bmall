@@ -40,8 +40,8 @@ public interface MUserService {
 	ApiResponseEnity<Boolean> editRole(AddRoleVo vo);
 
 	@PostMapping("/auth/getAllAuth")
-	List<Znodes> getAllAuth(Long roleId);
+	List<Znodes> getAllAuth(@RequestParam("roleId")Long roleId);
 	
 	@PostMapping("/role/getRoleById")
-	MRole getRoleById(Long roleId);
+	MRole getRoleById(@RequestParam("roleId")Long roleId);
 }

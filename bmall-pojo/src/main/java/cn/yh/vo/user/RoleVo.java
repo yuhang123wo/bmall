@@ -26,7 +26,7 @@ public class RoleVo {
 
 	@ApiModelProperty("开始时间(YYYY-MM-DD)")
 	@SearchFieldAnnotation(column = "create_time", type = SearchType.ge)
-	private String starTime;
+	private String startTime;
 
 	@ApiModelProperty("结束时间(YYYY-MM-DD)")
 	@SearchFieldAnnotation(column = "create_time", type = SearchType.le)
@@ -44,12 +44,14 @@ public class RoleVo {
 		this.roleName = roleName;
 	}
 
-	public String getStarTime() {
-		return starTime;
+
+
+	public String getStartTime() {
+		return startTime;
 	}
 
-	public void setStarTime(String starTime) {
-		this.starTime = starTime;
+	public void setStartTime(String startTime) {
+		this.startTime = startTime;
 	}
 
 	public String getEndTime() {
