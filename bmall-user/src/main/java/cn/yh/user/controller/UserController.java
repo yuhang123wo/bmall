@@ -31,9 +31,6 @@ public class UserController {
 	@Autowired
 	private IUserMetaService userMetaService;
 
-	@Autowired
-	private IAuthService authService;
-
 	/**
 	 * 取用户信息
 	 * 
@@ -76,9 +73,9 @@ public class UserController {
 	 * @param userId
 	 * @return
 	 */
-	@PostMapping("addRole")
+	@PostMapping("addUser")
 	@ApiOperation("取用户信息")
-	public ApiResponseEnity<?> addRole(@Validated MRole mRole) {
+	public ApiResponseEnity<?> addUser(@Validated MRole mRole) {
 		return new ApiResponseEnity<>().fail("新增失败稍后再试");
 	}
 

@@ -6,6 +6,7 @@ import com.baomidou.mybatisplus.extension.service.IService;
 
 import cn.yh.pojo.user.MRole;
 import cn.yh.pojo.user.MUser;
+import cn.yh.vo.user.AddMuserVo;
 
 /**
  * <p>
@@ -24,4 +25,16 @@ public interface IMUserService extends IService<MUser> {
 	 * @return
 	 */
 	List<MRole> getRolesByUserId(long userId);
+	
+	/**
+	 * 新增用户及添加角色
+	 * @param vo
+	 */
+	void addMuserAndRole(AddMuserVo vo);
+	
+	/**
+	 * 
+	 * @param vo
+	 */
+	void updateMuserAndRole(AddMuserVo vo);
 }

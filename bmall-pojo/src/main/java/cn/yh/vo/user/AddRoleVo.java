@@ -3,8 +3,6 @@
  */
 package cn.yh.vo.user;
 
-import java.util.List;
-
 import javax.validation.constraints.NotNull;
 
 import cn.yh.pojo.eumn.State;

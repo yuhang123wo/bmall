@@ -20,6 +20,7 @@ import cn.yh.pojo.user.MRole;
 import cn.yh.st.back.service.MUserService;
 import cn.yh.st.common.api.ApiResponseEnity;
 import cn.yh.vo.user.AddRoleVo;
+import cn.yh.vo.user.QueryMuserVO;
 import cn.yh.vo.user.RoleVo;
 
 /**
@@ -52,8 +53,14 @@ public class AdminController {
 	}
 
 	@GetMapping("user")
-	public String userList(Model model) {
+	public String user(Model model) {
 		return "admin/user-list";
+	}
+	
+	@GetMapping("userList")
+	@ResponseBody
+	public ApiResponseEnity<?> userList(QueryMuserVO vo) {
+		return mUserService.queryMuser(vo);
 	}
 
 	@GetMapping("addRoleView/{roleId}")
