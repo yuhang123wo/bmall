@@ -4,6 +4,7 @@
 package cn.yh.st.back.controller;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,10 +16,15 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.alibaba.fastjson.JSON;
+
 import cn.yh.pojo.eumn.State;
+import cn.yh.pojo.eumn.UserState;
 import cn.yh.pojo.user.MRole;
 import cn.yh.st.back.service.MUserService;
 import cn.yh.st.common.api.ApiResponseEnity;
+import cn.yh.vo.MUserVo;
+import cn.yh.vo.user.AddMuserVo;
 import cn.yh.vo.user.AddRoleVo;
 import cn.yh.vo.user.QueryMuserVO;
 import cn.yh.vo.user.RoleVo;
@@ -56,7 +62,7 @@ public class AdminController {
 	public String user(Model model) {
 		return "admin/user-list";
 	}
-	
+
 	@GetMapping("userList")
 	@ResponseBody
 	public ApiResponseEnity<?> userList(QueryMuserVO vo) {
@@ -89,6 +95,7 @@ public class AdminController {
 
 	/**
 	 * 修改角色状态
+	 * 
 	 * @param roleId
 	 * @param state
 	 * @return
@@ -98,4 +105,51 @@ public class AdminController {
 	public ApiResponseEnity<Boolean> updateRoleState(Long roleId, State state) {
 		return mUserService.updateRoleState(roleId, state);
 	}
+
+	/**
+	 * 
+	 * @param userId
+	 * @param state
+	 * @return
+	 */
+	@PostMapping("updateUserState")
+	@ResponseBody
+	public ApiResponseEnity<Boolean> updateUserState(Long userId, UserState state) {
+		return mUserService.updateUserState(userId, state);
+	}
+
+	/**
+	 * 
+	 * @param model
+	 * @param userId
+	 * @return
+	 */
+	@GetMapping("editUser/{userId}")
+	public String editUser(Model model, @PathVariable("userId") Long userId) {
+		List<MRole> list = mUserService.listRole(new RoleVo());
+		if (null != userId && userId > 0) {
+			ApiResponseEnity<MUserVo> user = mUserService.findMUserByUserId(userId);
+			MRole m = mUserService.getRoleByUserId(userId);
+			for (int i = 0; i < list.size(); i++) {
+				if (list.get(i).getId().floatValue() == m.getId()) {
+					list.get(i).setCheck(true);
+				}
+			}
+			model.addAllAttributes(JSON.parseObject(JSON.toJSONString(user.getData()), Map.class));
+		}
+		model.addAttribute("lisRole", list);
+		return "admin/edit-user";
+	}
+
+	/**
+	 * 
+	 * @param vo
+	 * @return
+	 */
+	@PostMapping("addOrderUpdateUser")
+	@ResponseBody
+	public ApiResponseEnity<?> editUser(AddMuserVo vo) {
+		return mUserService.editMUser(vo);
+	}
+
 }

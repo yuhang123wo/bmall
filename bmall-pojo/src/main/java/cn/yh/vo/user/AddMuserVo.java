@@ -4,6 +4,7 @@
 package cn.yh.vo.user;
 
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 import cn.yh.pojo.eumn.UserState;
 import io.swagger.annotations.ApiModelProperty;
@@ -36,8 +37,8 @@ public class AddMuserVo {
 	private String email;
 
 	@ApiModelProperty(value = "角色")
-	@NotBlank
-	private String roles;
+	@NotNull
+	private Long roleId;
 
 	private String password;
 
@@ -97,12 +98,12 @@ public class AddMuserVo {
 		this.email = email;
 	}
 
-	public String getRoles() {
-		return roles;
+	public Long getRoleId() {
+		return roleId;
 	}
 
-	public void setRoles(String roles) {
-		this.roles = roles;
+	public void setRoleId(Long roleId) {
+		this.roleId = roleId;
 	}
 
 }

@@ -39,11 +39,21 @@ public class MRole extends Entity {
 	private Date updateTime;
 
 	private Date createTime;
-	
-	@TableField(exist=false)
+
+	@TableField(exist = false)
 	private String stateCN;
-	
-	
+
+	@TableField(exist = false)
+	private boolean check;
+
+	public boolean isCheck() {
+		return check;
+	}
+
+	public void setCheck(boolean check) {
+		this.check = check;
+	}
+
 	public String getStateCN() {
 		return state.getRemark();
 	}
@@ -51,7 +61,6 @@ public class MRole extends Entity {
 	public void setStateCN(String stateCN) {
 		this.stateCN = stateCN;
 	}
-
 
 	public String getRoleName() {
 		return roleName;

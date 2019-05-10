@@ -4,6 +4,7 @@
 package cn.yh.user.controller;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.validation.Valid;
@@ -20,6 +21,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 
+import cn.yh.pojo.eumn.UserState;
 import cn.yh.pojo.user.MAuth;
 import cn.yh.pojo.user.MUser;
 import cn.yh.st.common.api.ApiResponseEnity;
@@ -119,4 +121,26 @@ public class MUserController {
 		queryWrapper.orderByDesc("id");
 		return new ApiResponseEnity<Page<MUser>>((Page<MUser>) mUserService.page(page, queryWrapper));
 	}
+	
+	/**
+	 * 更新用户状态
+	 * @param roleId
+	 * @param state
+	 * @return
+	 */
+	@PostMapping("updateUserState")
+	public ApiResponseEnity<Boolean> updateUserState(Long roleId,UserState state) {
+		MUser m = mUserService.getById(roleId);
+		if (m == null) {
+			return new ApiResponseEnity<Boolean>().fail("用户不存在");
+		}
+		m.setState(state);
+		m.setUpdateTime(new Date());
+		boolean flag = mUserService.updateById(m);
+		if (flag) {
+			return new ApiResponseEnity<Boolean>();
+		}
+		return new ApiResponseEnity<Boolean>().fail("修改失败");
+	}
+
 }

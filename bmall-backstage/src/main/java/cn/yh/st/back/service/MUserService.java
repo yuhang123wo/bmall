@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 
 import cn.yh.pojo.eumn.State;
+import cn.yh.pojo.eumn.UserState;
 import cn.yh.pojo.user.MRole;
 import cn.yh.pojo.user.MUser;
 import cn.yh.st.common.api.ApiResponseEnity;
@@ -59,5 +60,10 @@ public interface MUserService {
 	
 	@PostMapping("/sys/user/editMUser")
 	ApiResponseEnity<?> editMUser(AddMuserVo vo);
-
+	
+	@PostMapping("/sys/user/updateUserState")
+	ApiResponseEnity<Boolean> updateUserState(@RequestParam("userId") Long userId, @RequestParam("state") UserState state);
+	
+	@GetMapping("/role/getRoleByUserId")
+	MRole getRoleByUserId(@RequestParam("userId") Long userId);
 }

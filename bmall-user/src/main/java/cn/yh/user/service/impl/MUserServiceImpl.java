@@ -65,11 +65,8 @@ public class MUserServiceImpl extends ServiceImpl<MUserMapper, MUser> implements
 			throw new DefaultException("添加失败稍后再试");
 		}
 		// 添加角色
-		String[] roles = vo.getRoles().split("\\,");
-		for (int i = 0; i < roles.length; i++) {
-			UserRole userRole = new UserRole(Long.parseLong(roles[i]), m.getId());
-			userRoleMapper.insert(userRole);
-		}
+		UserRole userRole = new UserRole(vo.getRoleId(), m.getId());
+		userRoleMapper.insert(userRole);
 
 	}
 
@@ -90,7 +87,7 @@ public class MUserServiceImpl extends ServiceImpl<MUserMapper, MUser> implements
 		muser.setEmail(vo.getEmail());
 		muser.setMobile(vo.getMobile());
 		muser.setRealName(vo.getRealName());
-		muser.setPwd(new BCryptPasswordEncoder().encode(vo.getPassword()));
+//		muser.setPwd(new BCryptPasswordEncoder().encode(vo.getPassword()));
 		muser.setState(vo.getState());
 		int n = baseMapper.updateById(muser);
 		if (n != 1) {
@@ -99,11 +96,8 @@ public class MUserServiceImpl extends ServiceImpl<MUserMapper, MUser> implements
 		// 先删除
 		userRoleMapper.delete(new QueryWrapper<UserRole>().eq("user_id", muser.getId()));
 		// 添加角色
-		String[] roles = vo.getRoles().split("\\,");
-		for (int i = 0; i < roles.length; i++) {
-			UserRole userRole = new UserRole(Long.parseLong(roles[i]), muser.getId());
-			userRoleMapper.insert(userRole);
-		}
+		UserRole userRole = new UserRole(vo.getRoleId(), muser.getId());
+		userRoleMapper.insert(userRole);
 	}
 
 }

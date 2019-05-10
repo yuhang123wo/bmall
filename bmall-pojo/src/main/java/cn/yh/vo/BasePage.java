@@ -12,7 +12,7 @@ public class BasePage {
 
 	private int pageNo = 1;
 
-	private int pageSize = 8;
+	private int pageSize = 20;
 
 	public int getPageNo() {
 		return pageNo;

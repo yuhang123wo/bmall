@@ -11,7 +11,6 @@ import cn.yh.pojo.user.MRole;
 import cn.yh.pojo.user.User;
 import cn.yh.pojo.user.UserMeta;
 import cn.yh.st.common.api.ApiResponseEnity;
-import cn.yh.user.service.IAuthService;
 import cn.yh.user.service.IUserMetaService;
 import cn.yh.user.service.IUserService;
 import cn.yh.util.ConvertUtil;
