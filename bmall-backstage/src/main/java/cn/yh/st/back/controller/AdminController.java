@@ -8,6 +8,8 @@ import java.util.Map;
 
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -152,4 +154,24 @@ public class AdminController {
 		return mUserService.editMUser(vo);
 	}
 
+	/**
+	 * 
+	 * @param userId
+	 * @return
+	 */
+	@GetMapping("userinfoView")
+	public String userinfoView(Model model) {
+		UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		List<MRole> list = mUserService.listRole(new RoleVo());
+		ApiResponseEnity<MUserVo> user = mUserService.findMUserByUserName(userDetails.getUsername());
+		MRole m = mUserService.getRoleByUserId(user.getData().getId());
+		for (int i = 0; i < list.size(); i++) {
+			if (list.get(i).getId().floatValue() == m.getId()) {
+				list.get(i).setCheck(true);
+			}
+		}
+		model.addAllAttributes(JSON.parseObject(JSON.toJSONString(user.getData()), Map.class));
+		model.addAttribute("lisRole", list);
+		return "admin/user-info";
+	}
 }

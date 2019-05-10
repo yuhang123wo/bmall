@@ -46,20 +46,6 @@
      });    
 
   })
-  var setting = {
-		check: {
-			enable: true
-		},
-		data: {
-			simpleData: {
-				enable: true
-			}
-		}
-	};
-	$(document).ready(function(){
-		$.fn.zTree.init($("#treeDemo"), setting, [[${authList}]]);
-	});
-	
    function editRole(){
 	  if (!$("#dataForm").valid()) {
 	        return;
