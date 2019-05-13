@@ -66,4 +66,7 @@ public interface MUserService {
 	
 	@GetMapping("/role/getRoleByUserId")
 	MRole getRoleByUserId(@RequestParam("userId") Long userId);
+	
+	@PostMapping("/sys/user/updatePwd")
+	ApiResponseEnity<Boolean> updatePwd(@RequestParam("userId")long userId, @RequestParam("op")String op,@RequestParam("np") String np);
 }

@@ -10,6 +10,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -173,5 +174,15 @@ public class AdminController {
 		model.addAllAttributes(JSON.parseObject(JSON.toJSONString(user.getData()), Map.class));
 		model.addAttribute("lisRole", list);
 		return "admin/user-info";
+	}
+	
+	
+	
+	@PostMapping("updatePwd")
+	@ResponseBody
+	public ApiResponseEnity<Boolean> updatePwd(String op,String np) {
+		UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		ApiResponseEnity<MUserVo> user = mUserService.findMUserByUserName(userDetails.getUsername());
+		return mUserService.updatePwd(user.getData().getId(), op, np);
 	}
 }

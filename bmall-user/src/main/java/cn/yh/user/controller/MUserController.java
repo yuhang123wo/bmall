@@ -11,6 +11,7 @@ import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -121,15 +122,16 @@ public class MUserController {
 		queryWrapper.orderByDesc("id");
 		return new ApiResponseEnity<Page<MUser>>((Page<MUser>) mUserService.page(page, queryWrapper));
 	}
-	
+
 	/**
 	 * 更新用户状态
+	 * 
 	 * @param roleId
 	 * @param state
 	 * @return
 	 */
 	@PostMapping("updateUserState")
-	public ApiResponseEnity<Boolean> updateUserState(Long roleId,UserState state) {
+	public ApiResponseEnity<Boolean> updateUserState(Long roleId, UserState state) {
 		MUser m = mUserService.getById(roleId);
 		if (m == null) {
 			return new ApiResponseEnity<Boolean>().fail("用户不存在");
@@ -143,4 +145,17 @@ public class MUserController {
 		return new ApiResponseEnity<Boolean>().fail("修改失败");
 	}
 
+	@PostMapping("updatePwd")
+	public ApiResponseEnity<Boolean> updatePwd(long userId, String op, String np) {
+		MUser m = mUserService.getById(userId);
+		BCryptPasswordEncoder stf = new BCryptPasswordEncoder();
+		if (!stf.matches(op,m.getPwd())) {
+			return new ApiResponseEnity<Boolean>().fail("原密码不符");
+		}
+		m.setPwd(new BCryptPasswordEncoder().encode(np));
+		boolean flag = mUserService.updateById(m);
+		if (flag)
+			return new ApiResponseEnity<Boolean>();
+		return new ApiResponseEnity<Boolean>().fail("修改失败，稍后再试");
+	}
 }
