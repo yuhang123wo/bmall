@@ -65,7 +65,7 @@ public class Product extends Entity {
 	@ApiModelProperty(value = "状态 (0-下架，1-上架，2-删除)")
 	private Integer status;
 
-	@ApiModelProperty(value = "审核状态 -1 审核失败 0 未审核 1 审核成功")
+	@ApiModelProperty(value = "审核状态 2 审核失败 0 未审核 1 审核成功")
 	private Integer state;
 
 	private Date updateTime;
