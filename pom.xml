@@ -15,6 +15,8 @@
 		<module>bmall-pojo</module>
 		<module>bmall-zuul</module>
 		<module>bmall-backstage</module>
+		<module>bmall-product</module>
+		<module>bmall-account</module>
 	</modules>
 	<!-- 配置变量 -->
 	<properties>

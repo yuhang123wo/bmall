@@ -55,6 +55,19 @@ public class UserMeta extends Entity {
 
 	@ApiModelProperty(value = "证件号码")
 	private String idNo;
+	
+	@ApiModelProperty(value = "等级")
+	private Integer grade;
+	
+	
+
+	public Integer getGrade() {
+		return grade;
+	}
+
+	public void setGrade(Integer grade) {
+		this.grade = grade;
+	}
 
 	public String getNickName() {
 		return nickName;
