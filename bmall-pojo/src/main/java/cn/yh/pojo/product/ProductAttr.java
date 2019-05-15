@@ -20,7 +20,7 @@ public class ProductAttr extends Entity {
 
 	private static final long serialVersionUID = 1L;
 
-	@ApiModelProperty(value = "商品编码")
+	@ApiModelProperty(value = "商品ID")
 	private Integer productId;
 
 	@ApiModelProperty(value = "规格名称")
