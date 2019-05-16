@@ -27,7 +27,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	 */
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
-		http.authorizeRequests().antMatchers("/login").permitAll().anyRequest().authenticated() // 其他地址的访问均需验证权限
+		http.authorizeRequests().antMatchers("/login","/lg/**").permitAll().anyRequest().authenticated() // 其他地址的访问均需验证权限
 				.and().formLogin().loginPage("/login").defaultSuccessUrl("/index") // 登录页
 				.failureUrl("/login").permitAll().and().logout().logoutUrl("/logout").logoutSuccessUrl("/login")
 				.invalidateHttpSession(true).deleteCookies("JSESSIONID");

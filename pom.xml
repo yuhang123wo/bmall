@@ -17,6 +17,7 @@
 		<module>bmall-backstage</module>
 		<module>bmall-product</module>
 		<module>bmall-account</module>
+		<module>bmall-seller</module>
 	</modules>
 	<!-- 配置变量 -->
 	<properties>

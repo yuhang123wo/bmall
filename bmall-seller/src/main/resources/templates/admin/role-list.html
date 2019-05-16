@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout" layout:decorate="~{layout.html}">
+<div class="margin clearfix" layout:fragment="content" seq="11">
+<script type="text/javascript">
+	var $curs = {};
+	$(function(){
+	    var param={};
+		query(param);
+	});
+	function query(params){
+		$curs = params;
+		$('#myPage').html('');
+		$.ajax({
+			   type: "GET",
+			   url: '/admin/roleList',
+			   data:params,
+			   dataType:'json',
+			   success: function(result){
+				   $('#myData').empty();
+				   var template = Handlebars.compile($("#roleTemplate").html());
+				   var $tr = template(result);
+				   $('#myData').append($tr);
+			   }
+		});
+	}
+	
+	function jumpPage(page){
+		$curs.pageNo = page;
+		query($curs);
+	}
+	function startQuery(){
+		var pArray = $('#searchForm').serializeArray();
+		var params = {};
+		for(var i = 0;i < pArray.length;i++){
+			if($.trim(pArray[i].value) != ''){
+				params[pArray[i].name] = pArray[i].value;
+			}
+		}
+		query(params);
+	}
+	function toIndex(id){
+		location.href="/admin/addRoleView/"+id;
+	}
+	function modify_state(id,state){
+		  layer.confirm('是否确定修改状态？', {
+				     btn: ['是','否'] ,//按钮
+					 icon:2,
+				    }, 
+					function(index){
+				      layer.close(index);
+				      var header = $("meta[name='_csrf_header']").attr("content");
+				  	  var token = $("meta[name='_csrf']").attr("content");
+				  		$.ajax({
+				  			   type: "POST",
+				  			   url: '/admin/updateRoleState',
+				  			   data:{roleId:id,state:state},
+				  			   dataType:'json',
+				  			   beforeSend: function(xhr){
+				  			        xhr.setRequestHeader(header, token);
+				  			    },
+				  			   success: function(result){
+				  				  if(result.code=='0'){
+				  					  startQuery();
+				  				  }else{
+				  					  layer.alert(result.msg,{			
+				  					        icon:2,		
+				  					 }) 
+				  				  }
+				  			   }
+				  		});
+				    }
+				        
+		  );
+	}
+</script>
+ <div class="search_style">
+       <form id="searchForm">
+       <ul class="search_content clearfix">
+       <li><label class="l_f">角色名</label><input name="roleName" type="text" class="text_add" placeholder="角色名" style=" width:150px"></li>
+       <li><label class="l_f">状态</label><select name="state" style=" width:150px"><option value="">--状态--</option><option value="1">启用</option><option value="0">禁用</option></select></li>
+       <li><label class="l_f">时间</label><input class="inline laydate-icon" name="startTime">—<input class="inline laydate-icon" name="endTime"></li>
+       <li style="width:90px;"><button type="button" class="btn btn-info" onclick="startQuery()"><i class="fa fa-search"></i>查询</button></li>
+       <li style="width:90px;"><button type="button" class="btn btn-warning" onclick="toIndex(0)"><i class="fa fa-plus"></i>新增</button></li>
+      </ul>
+      </form>
+    </div>
+
+<!--    <div class="border clearfix">
+       <span class="l_f">
+        <a href="Competence.html" id="Competence_add" class="btn btn-warning" title="添加权限"><i class="fa fa-plus"></i> 添加权限</a>
+        <a href="javascript:ovid()" class="btn btn-danger"><i class="fa fa-trash"></i> 批量删除</a>
+       </span>
+       <span class="r_f">共：<b>5</b>类</span>
+     </div> -->
+     <div class="compete_list">
+       <table id="sample-table-1" class="table table-striped table-bordered table-hover">
+		 <thead>
+			<tr>
+			  <th class="center"><label><input type="checkbox" class="ace"><span class="lbl"></span></label></th>
+			  <th>权限名称</th>
+			  <th>状态</th>
+              <th>描述</th>
+			  <th class="hidden-480">时间</th>             
+			  <th class="hidden-480">操作</th>
+             </tr>
+		    </thead>
+             <tbody id="myData">
+		      </tbody>
+	        </table>
+     </div>
+	<!-- /.page-content-area -->
+<script id="roleTemplate" type="text/x-handlebars-template">
+{{#each this}}
+<tr>
+<td class="center"><label><input type="checkbox" class="ace"><span class="lbl"></span></label></td>
+<td>{{roleName}}</td>
+<td id="td{{id}}">{{stateCN}}</td>
+<td>{{remark}}</td>
+<td>{{createTime}}</td>
+<td>
+   <a title="编辑" onclick="toIndex({{id}})" href="javascript:;"  class="btn btn-xs btn-info" ><i class="fa fa-edit bigger-120"></i></a>        
+   
+   {{#if_eq state 'ENABLE'}}
+   <a title="禁用" href="javascript:;"  onclick="modify_state({{id}},'DISABLE')" class="btn btn-xs btn-warning" ><i class="fa fa-trash  bigger-120"></i></a>
+   {{/if_eq}} 
+   {{#if_eq  state 'DISABLE'}}
+    <a title="启用" href="javascript:;"  onclick="modify_state({{id}},'ENABLE')" class="btn btn-xs btn-success" ><i class="fa fa-check  bigger-120"></i></a>
+   {{/if_eq}} 
+</td>
+ </tr>
+{{/each}}
+ </script>	
+</div>
+</html>
