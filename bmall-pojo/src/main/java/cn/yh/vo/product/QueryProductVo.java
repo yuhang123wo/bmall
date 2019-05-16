@@ -7,13 +7,14 @@ import cn.yh.pojo.eumn.ProductState;
 import cn.yh.pojo.eumn.ProductStatus;
 import cn.yh.st.common.annotation.SearchFieldAnnotation;
 import cn.yh.st.common.annotation.SearchType;
+import cn.yh.vo.BasePage;
 
 /**
  * @author yuhang
  * @date 2019年5月15日
  * @desc
  */
-public class QueryProductVo {
+public class QueryProductVo  extends BasePage{
 
 	@SearchFieldAnnotation(column = "category_id", type = SearchType.eq)
 	private Long categoryId;

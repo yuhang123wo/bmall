@@ -3,13 +3,22 @@
  */
 package cn.yh.product.controller;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 
 import cn.yh.pojo.product.Product;
+import cn.yh.product.service.IProductService;
 import cn.yh.st.common.api.ApiResponseEnity;
+import cn.yh.st.common.util.SearchToQuery;
+import cn.yh.vo.product.AddProductVo;
+import cn.yh.vo.product.QueryProductVo;
 
 /**
  * @author yuhang
@@ -20,7 +29,32 @@ import cn.yh.st.common.api.ApiResponseEnity;
 @RequestMapping("product")
 public class ProductController {
 
-	public ApiResponseEnity<Page<Product>> listProduct() {
+	@Autowired
+	private IProductService productService;
+
+	/**
+	 * 查询商品
+	 * 
+	 * @param vo
+	 * @return
+	 */
+	@GetMapping("listProduct")
+	public ApiResponseEnity<Page<Product>> listProduct(@Validated QueryProductVo vo) {
+		Page<Product> page = new Page<Product>(vo.getPageNo(), vo.getPageSize());
+		QueryWrapper<Product> queryWrapper = SearchToQuery.getQuery(vo);
+		queryWrapper.orderByDesc("id");
+		return new ApiResponseEnity<Page<Product>>((Page<Product>) productService.page(page, queryWrapper));
+	}
+
+	/**
+	 * 
+	 * @param vo
+	 * @return
+	 */
+	@PostMapping("addProduct")
+	public ApiResponseEnity<Page<Product>> addProduct(@Validated AddProductVo vo) {
+		
+		
 		return null;
 	}
 }

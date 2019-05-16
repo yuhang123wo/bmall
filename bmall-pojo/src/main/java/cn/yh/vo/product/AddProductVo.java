@@ -1,37 +1,36 @@
-package cn.yh.pojo.product;
+/**
+ * 
+ */
+package cn.yh.vo.product;
 
 import java.math.BigDecimal;
-import com.baomidou.mybatisplus.annotation.TableName;
 
-import cn.yh.pojo.eumn.ProductState;
+import javax.validation.constraints.DecimalMin;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+
 import cn.yh.pojo.eumn.ProductStatus;
-import cn.yh.st.common.Entity;
-
-import java.util.Date;
-import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
 /**
- * <p>
- * 
- * </p>
- *
  * @author yuhang
- * @since 2019-05-15
+ * @date 2019年5月15日
+ * @desc
  */
-@TableName("product")
-@ApiModel(value = "Product对象", description = "")
-public class Product extends Entity {
-
-	private static final long serialVersionUID = 1L;
+public class AddProductVo {
 
 	@ApiModelProperty(value = "商品标题")
+	@NotBlank(message = "商品标题")
 	private String name;
 
 	@ApiModelProperty(value = "商品分类编号")
+	@NotNull(message = "未选择分类")
 	private Long categoryId;
 
 	@ApiModelProperty(value = "商家ID")
+	@NotNull(message = "商家为空")
+	@Min(0)
 	private Long userId;
 
 	@ApiModelProperty(value = "类型编号")
@@ -53,40 +52,32 @@ public class Product extends Entity {
 	private String barcode;
 
 	@ApiModelProperty(value = "商品价格")
+	@NotNull(message = "商品价格必填")
+	@DecimalMin("0")
 	private BigDecimal price;
 
 	@ApiModelProperty(value = "市场价格")
 	private BigDecimal marketPrice;
 
 	@ApiModelProperty(value = "库存量")
+	@NotNull
+	@Min(0)
 	private Integer stock;
 
 	@ApiModelProperty(value = "封面图")
+	@NotBlank
 	private String img;
 
 	@ApiModelProperty(value = "状态 (0-下架，1-上架，2-删除)")
+	@NotNull
 	private ProductStatus status;
 
-	@ApiModelProperty(value = "审核状态 2 审核失败 0 未审核 1 审核成功")
-	private ProductState state;
-
-	private Date updateTime;
-
-	private Date createTime;
-
 	@ApiModelProperty(value = "重量")
+	@NotNull
 	private BigDecimal weight;
 
 	@ApiModelProperty(value = "视频")
 	private String video;
-
-	public String getVideo() {
-		return video;
-	}
-
-	public void setVideo(String video) {
-		this.video = video;
-	}
 
 	public String getName() {
 		return name;
@@ -200,30 +191,6 @@ public class Product extends Entity {
 		this.status = status;
 	}
 
-	public ProductState getState() {
-		return state;
-	}
-
-	public void setState(ProductState state) {
-		this.state = state;
-	}
-
-	public Date getUpdateTime() {
-		return updateTime;
-	}
-
-	public void setUpdateTime(Date updateTime) {
-		this.updateTime = updateTime;
-	}
-
-	public Date getCreateTime() {
-		return createTime;
-	}
-
-	public void setCreateTime(Date createTime) {
-		this.createTime = createTime;
-	}
-
 	public BigDecimal getWeight() {
 		return weight;
 	}
@@ -231,4 +198,13 @@ public class Product extends Entity {
 	public void setWeight(BigDecimal weight) {
 		this.weight = weight;
 	}
+
+	public String getVideo() {
+		return video;
+	}
+
+	public void setVideo(String video) {
+		this.video = video;
+	}
+
 }
