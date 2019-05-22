@@ -36,6 +36,18 @@ public class QueryProductVo  extends BasePage{
 
 	@SearchFieldAnnotation(column = "name", type = SearchType.likeRight)
 	private String name;
+	
+	private Long cateId;
+	
+	
+
+	public Long getCateId() {
+		return cateId;
+	}
+
+	public void setCateId(Long cateId) {
+		this.cateId = cateId;
+	}
 
 	public Long getCategoryId() {
 		return categoryId;

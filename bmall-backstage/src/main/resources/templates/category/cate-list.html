@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout" layout:decorate="~{layout.html}">
+<head>
+  <link rel="stylesheet" href="/Widget/zTree/css/zTreeStyle/zTreeStyle.css" type="text/css">
+  <link href="/Widget/icheck/icheck.css" rel="stylesheet" type="text/css" />
+   <link rel="stylesheet" href="/css/myPagination.css" type="text/css"/>
+  <script type="text/javascript" src="/js/myPagination.js"></script>
+    <style>
+ table tbody {
+        display: block;
+        height: 300px;
+        overflow-y: scroll;
+    }
+    
+    table thead, tbody tr {
+        display: table;
+        width:100%;
+        table-layout: fixed;
+    }
+   table thead {
+        width: calc( 100% - 18px);
+    }
+ </style>
+</head>
+<div class="margin clearfix" layout:fragment="content" seq="21">
+ <script type="text/javascript" src="/js/H-ui.js"></script> 
+ <script type="text/javascript" src="/js/H-ui.admin.js"></script> 
+ <script type="text/javascript" src="/Widget/zTree/js/jquery.ztree.all-3.5.min.js"></script> 
+ <script src="/js/lrtk.js" type="text/javascript" ></script>
+ <script th:inline="javascript">
+        $(function(){
+        	//初始化宽度、高度  
+        	   $(".widget-box").height($(window).height()-215); 
+        	   $(".table_menu_list").width($(window).width()-500);
+        	   $(".table_menu_list").height($(window).height()-215);
+        	  //当文档窗口发生改变时 触发  
+        	    $(window).resize(function(){
+        		$(".widget-box").height($(window).height()-215);
+        		 $(".table_menu_list").width($(window).width()-260);
+        		  $(".table_menu_list").height($(window).height()-215);
+        		})
+        		$("#products_style").fix({
+        			float : 'left',
+        			//minStatue : true,
+        			skin : 'green',	
+        			durationTime :false,
+        			spacingw:30,//设置隐藏时的距离
+        		    spacingh:260,//设置显示时间距
+        		});
+        });
+      var setting = {
+		data: {
+			simpleData: {
+				enable: true
+			}
+		},
+		callback:{
+			onClick:zTreeOnClick
+		}
+	};
+	$(document).ready(function(){
+		$.fn.zTree.init($("#treeDemo"), setting, [[${cateList}]]);
+	});
+	
+    function zTreeOnClick(event, treeId, treeNode) {
+        $curs.cateId = treeNode.id;
+        query($curs);
+    }   
+</script>
+<script type="text/javascript">
+	var $curs = {};
+	$(function(){
+	    var param={};
+		query(param);
+	});
+	function query(params){
+		$curs = params;
+		$('#myPage').html('');
+		$.ajax({
+			   type: "GET",
+			   url: '/product/listProduct',
+			   data:params,
+			   dataType:'json',
+			   success: function(result){
+				   $('#myData').empty();
+				   var template = Handlebars.compile($("#roleTemplate").html());
+				   var $tr = template(result.data);
+				   $('#myData').append($tr);
+				   new Page({
+				        id: 'pagination',
+				        pageTotal: result.data.total, //必填,总页数
+				        pageAmount: result.data.size,  //每页多少条
+				        dataTotal: result.data.total, //总共多少条数据
+				        curPage:result.data.current, //初始页码,不填默认为1
+				        pageSize:result.data.pages, //分页个数,不填默认为5
+				        showPageTotalFlag:true, //是否显示数据统计,不填默认不显示
+				        showSkipInputFlag:true, //是否支持跳转,不填默认不显示
+				        getPage: function (page) {
+				        	$curs.pageNo = page;
+				    		query($curs);
+				        }
+				    })
+			   }
+		});
+	}
+	
+	function jumpPage(page){
+		$curs.pageNo = page;
+		query($curs);
+	}
+	function startQuery(){
+		var pArray = $('#searchForm').serializeArray();
+		var params = {};
+		for(var i = 0;i < pArray.length;i++){
+			if($.trim(pArray[i].value) != ''){
+				params[pArray[i].name] = pArray[i].value;
+			}
+		}
+		query(params);
+	}
+	function toIndex(id){
+		location.href="/admin/addRoleView/"+id;
+	}
+	function modify_state(id,state){
+		  layer.confirm('是否确定修改状态？', {
+				     btn: ['是','否'] ,//按钮
+					 icon:2,
+				    }, 
+					function(index){
+				      layer.close(index);
+				      var header = $("meta[name='_csrf_header']").attr("content");
+				  	  var token = $("meta[name='_csrf']").attr("content");
+				  		$.ajax({
+				  			   type: "POST",
+				  			   url: '/admin/updateRoleState',
+				  			   data:{roleId:id,state:state},
+				  			   dataType:'json',
+				  			   beforeSend: function(xhr){
+				  			        xhr.setRequestHeader(header, token);
+				  			    },
+				  			   success: function(result){
+				  				  if(result.code=='0'){
+				  					  startQuery();
+				  				  }else{
+				  					  layer.alert(result.msg,{			
+				  					        icon:2,		
+				  					 }) 
+				  				  }
+				  			   }
+				  		});
+				    }
+				        
+		  );
+	}
+</script>
+<div class=" page-content clearfix">
+ <div id="products_style">
+     <div class="border clearfix">
+       <span class="l_f">
+        <a href="picture-add.html" title="添加商品" class="btn btn-warning Order_form"><i class="icon-plus"></i>添加商品</a>
+        <a  title="添加分类" id="sort_add" class="btn btn-danger Order_form"><i class="icon-plus"></i>添加分类</a>
+       </span>
+       <span class="r_f">共：<b>2334</b>件商品</span>
+     </div>
+     <!--产品列表展示-->
+     <div class="h_products_list clearfix" id="products_list">
+       <div id="scrollsidebar" class="left_Treeview">
+        <div class="show_btn" id="rightArrow"><span></span></div>
+        <div class="widget-box side_content" >
+         <div class="side_title"><a title="隐藏" class="close_btn"><span></span></a></div>
+         <div class="side_list"><div class="widget-header header-color-green2"><h4 class="lighter smaller">产品类型列表</h4></div>
+         <div class="widget-body">
+          <div class="widget-main padding-8"><div id="treeDemo" class="ztree"></div></div>
+        </div>
+       </div>
+      </div>  
+     </div>
+      <div class="table_menu_list" id="testIframe">
+       <table class="table table-striped table-bordered table-hover" id="sample-table">
+		<thead>
+		 <tr>
+				<th width="50px">产品编号</th>
+				<th width="50px">产品名称</th>
+				<th width="50px">原价格</th>
+				<th width="50px">关键字</th>
+				<th width="50px">时间</th>
+                <th width="50px">审核状态</th>
+				<th width="50px">状态</th>                
+			</tr>
+		</thead>
+    <tbody id="myData">
+	 </tbody>
+    </table>
+    <div id="pagination" class="pagination"></div>    
+    </div>
+      
+  </div>
+ </div>
+</div>
+<!--添加分类-->
+<div class="sort_style_add margin" id="sort_style_add" style="display:none">
+  <div class="">
+     <ul>
+      <li><label class="label_name">分类名称</label><div class="col-sm-9"><input name="分类名称" type="text" id="form-field-1" placeholder="" class="col-xs-10 col-sm-5"></div></li>
+      <li><label class="label_name">分类说明</label><div class="col-sm-9"><textarea name="分类说明" class="form-control" id="form-field-8" placeholder="" onkeyup="checkLength(this);"></textarea><span class="wordage">剩余字数：<span id="sy" style="color:Red;">200</span>字</span></div></li>
+      <li><label class="label_name">分类状态</label>
+      <span class="add_content"> &nbsp;&nbsp;<label><input name="form-field-radio1" type="radio" checked="checked" class="ace"><span class="lbl">显示</span></label>&nbsp;&nbsp;&nbsp;
+     <label><input name="form-field-radio1" type="radio" class="ace"><span class="lbl">隐藏</span></label></span>
+     </li>
+     </ul>
+  </div>
+  </div>
+<script id="roleTemplate" type="text/x-handlebars-template">
+{{#each records}}
+<tr>
+        <td width="50px">{{id}}</td>               
+        <td width="50px"><u style="cursor:pointer" class="text-primary" onclick="">{{name}}</u></td>
+        <td width="50px">{{price}}</td>
+        <td width="50px">{{keywords}}</td> 
+        <td width="50px">{{createTime}}</td>
+        <td class="text-l" width="50px">{{state}}</td>
+        <td class="td-status" width="50px"><span class="label label-success radius">{{status}}</span></td>
+ </tr>
+{{/each}}
+ </script>	
+</div>
+</html>

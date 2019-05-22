@@ -38,7 +38,7 @@ public class Product extends Entity {
 	private Integer typeId;
 
 	@ApiModelProperty(value = "简述")
-	private String desc;
+	private String remark;
 
 	@ApiModelProperty(value = "商品关键字")
 	private String keywords;
@@ -120,12 +120,14 @@ public class Product extends Entity {
 		this.typeId = typeId;
 	}
 
-	public String getDesc() {
-		return desc;
+
+
+	public String getRemark() {
+		return remark;
 	}
 
-	public void setDesc(String desc) {
-		this.desc = desc;
+	public void setRemark(String remark) {
+		this.remark = remark;
 	}
 
 	public String getKeywords() {

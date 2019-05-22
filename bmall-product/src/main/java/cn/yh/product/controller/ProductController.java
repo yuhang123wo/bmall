@@ -5,8 +5,8 @@ package cn.yh.product.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -38,10 +38,16 @@ public class ProductController {
 	 * @param vo
 	 * @return
 	 */
-	@GetMapping("listProduct")
-	public ApiResponseEnity<Page<Product>> listProduct(@Validated QueryProductVo vo) {
+	@PostMapping("listProduct")
+	public ApiResponseEnity<Page<Product>> listProduct(@RequestBody @Validated QueryProductVo vo) {
 		Page<Product> page = new Page<Product>(vo.getPageNo(), vo.getPageSize());
 		QueryWrapper<Product> queryWrapper = SearchToQuery.getQuery(vo);
+		
+		if(vo.getCateId()!=null) {
+			
+			queryWrapper.inSql("category_id", "select id from category where id="+vo.getCateId()+" or p_id="+vo.getCateId());
+			
+		}
 		queryWrapper.orderByDesc("id");
 		return new ApiResponseEnity<Page<Product>>((Page<Product>) productService.page(page, queryWrapper));
 	}
