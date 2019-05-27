@@ -118,47 +118,13 @@
 		}
 		query(params);
 	}
-	function toIndex(id){
-		location.href="/admin/addRoleView/"+id;
-	}
-	function modify_state(id,state){
-		  layer.confirm('是否确定修改状态？', {
-				     btn: ['是','否'] ,//按钮
-					 icon:2,
-				    }, 
-					function(index){
-				      layer.close(index);
-				      var header = $("meta[name='_csrf_header']").attr("content");
-				  	  var token = $("meta[name='_csrf']").attr("content");
-				  		$.ajax({
-				  			   type: "POST",
-				  			   url: '/admin/updateRoleState',
-				  			   data:{roleId:id,state:state},
-				  			   dataType:'json',
-				  			   beforeSend: function(xhr){
-				  			        xhr.setRequestHeader(header, token);
-				  			    },
-				  			   success: function(result){
-				  				  if(result.code=='0'){
-				  					  startQuery();
-				  				  }else{
-				  					  layer.alert(result.msg,{			
-				  					        icon:2,		
-				  					 }) 
-				  				  }
-				  			   }
-				  		});
-				    }
-				        
-		  );
-	}
 </script>
 <div class=" page-content clearfix">
  <div id="products_style">
      <div class="border clearfix">
        <span class="l_f">
         <a href="picture-add.html" title="添加商品" class="btn btn-warning Order_form"><i class="icon-plus"></i>添加商品</a>
-        <a  title="添加分类" id="sort_add" class="btn btn-danger Order_form"><i class="icon-plus"></i>添加分类</a>
+        <a href="/cate/addCateView"  title="添加分类" id="sort_add" class="btn btn-danger Order_form"><i class="icon-plus"></i>添加分类</a>
        </span>
        <span class="r_f">共：<b>2334</b>件商品</span>
      </div>
@@ -197,19 +163,6 @@
   </div>
  </div>
 </div>
-<!--添加分类-->
-<div class="sort_style_add margin" id="sort_style_add" style="display:none">
-  <div class="">
-     <ul>
-      <li><label class="label_name">分类名称</label><div class="col-sm-9"><input name="分类名称" type="text" id="form-field-1" placeholder="" class="col-xs-10 col-sm-5"></div></li>
-      <li><label class="label_name">分类说明</label><div class="col-sm-9"><textarea name="分类说明" class="form-control" id="form-field-8" placeholder="" onkeyup="checkLength(this);"></textarea><span class="wordage">剩余字数：<span id="sy" style="color:Red;">200</span>字</span></div></li>
-      <li><label class="label_name">分类状态</label>
-      <span class="add_content"> &nbsp;&nbsp;<label><input name="form-field-radio1" type="radio" checked="checked" class="ace"><span class="lbl">显示</span></label>&nbsp;&nbsp;&nbsp;
-     <label><input name="form-field-radio1" type="radio" class="ace"><span class="lbl">隐藏</span></label></span>
-     </li>
-     </ul>
-  </div>
-  </div>
 <script id="roleTemplate" type="text/x-handlebars-template">
 {{#each records}}
 <tr>

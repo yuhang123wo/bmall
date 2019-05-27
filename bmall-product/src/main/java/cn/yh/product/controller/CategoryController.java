@@ -7,6 +7,7 @@ import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -53,7 +54,7 @@ public class CategoryController {
 	 * @return
 	 */
 	@PostMapping("addOrderCategory")
-	public ApiResponseEnity<Boolean> addOrderCategory(@RequestBody Category category) {
+	public ApiResponseEnity<Boolean> addOrderCategory(@Validated @RequestBody Category category) {
 		int count = categoryService.count(new QueryWrapper<Category>().eq("category_name", category.getCategoryName()));
 		if (count > 0) {
 			return new ApiResponseEnity<Boolean>().fail("分类名重复");
