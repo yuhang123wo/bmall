@@ -4084,7 +4084,9 @@
                 // 开始发送。
                 tr.appendBlob( opts.fileVal, block.blob, file.name );
                 tr.append( data );
-                tr.setRequestHeader( headers );
+            	var header = $("meta[name='_csrf_header']").attr("content");
+        		var token = $("meta[name='_csrf']").attr("content");
+                tr.setRequestHeader( header,token );
                 tr.send();
             },
     
