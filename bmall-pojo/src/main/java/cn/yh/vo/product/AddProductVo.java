@@ -21,16 +21,12 @@ import io.swagger.annotations.ApiModelProperty;
 public class AddProductVo {
 
 	@ApiModelProperty(value = "商品标题")
-	@NotBlank(message = "商品标题")
 	private String name;
 
 	@ApiModelProperty(value = "商品分类编号")
-	@NotNull(message = "未选择分类")
 	private Long categoryId;
 
 	@ApiModelProperty(value = "商家ID")
-	@NotNull(message = "商家为空")
-	@Min(0)
 	private Long userId;
 
 	@ApiModelProperty(value = "类型编号")
@@ -52,28 +48,21 @@ public class AddProductVo {
 	private String barcode;
 
 	@ApiModelProperty(value = "商品价格")
-	@NotNull(message = "商品价格必填")
-	@DecimalMin("0")
 	private BigDecimal price;
 
 	@ApiModelProperty(value = "市场价格")
 	private BigDecimal marketPrice;
 
 	@ApiModelProperty(value = "库存量")
-	@NotNull
-	@Min(0)
 	private Integer stock;
 
 	@ApiModelProperty(value = "封面图")
-	@NotBlank
 	private String img;
 
 	@ApiModelProperty(value = "状态 (0-下架，1-上架，2-删除)")
-	@NotNull
 	private ProductStatus status;
 
 	@ApiModelProperty(value = "重量")
-	@NotNull
 	private BigDecimal weight;
 
 	@ApiModelProperty(value = "视频")

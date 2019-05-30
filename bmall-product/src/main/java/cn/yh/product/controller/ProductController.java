@@ -17,6 +17,8 @@ import cn.yh.pojo.product.Product;
 import cn.yh.product.service.IProductService;
 import cn.yh.st.common.api.ApiResponseEnity;
 import cn.yh.st.common.util.SearchToQuery;
+import cn.yh.util.ConvertUtil;
+import cn.yh.vo.MUserVo;
 import cn.yh.vo.product.AddProductVo;
 import cn.yh.vo.product.QueryProductVo;
 
@@ -58,9 +60,9 @@ public class ProductController {
 	 * @return
 	 */
 	@PostMapping("addProduct")
-	public ApiResponseEnity<Page<Product>> addProduct(@Validated AddProductVo vo) {
-		
-		
-		return null;
+	public ApiResponseEnity<Boolean> addProduct(@Validated @RequestBody AddProductVo vo) {
+		Product product = ConvertUtil.convert(vo, Product.class);
+		productService.save(product);
+		return new ApiResponseEnity<Boolean>();
 	}
 }
