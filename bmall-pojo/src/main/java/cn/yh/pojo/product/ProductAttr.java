@@ -1,5 +1,7 @@
 package cn.yh.pojo.product;
 
+import java.util.Date;
+
 import com.baomidou.mybatisplus.annotation.TableName;
 
 import cn.yh.st.common.Entity;
@@ -20,18 +22,28 @@ public class ProductAttr extends Entity {
 
 	private static final long serialVersionUID = 1L;
 
-	@ApiModelProperty(value = "商品ID")
-	private Integer productId;
+	@ApiModelProperty(value = "商品类别编号")
+	private Integer categoryId;
 
-	@ApiModelProperty(value = "规格名称")
+	@ApiModelProperty(value = "属性名称")
 	private String name;
 
-	public Integer getProductId() {
-		return productId;
+	@ApiModelProperty(value = "排列次序")
+	private Integer sort;
+
+	@ApiModelProperty(value = "自定义标识（0：否，1：是）")
+	private Integer customTag;
+
+	private Date createTime;
+
+	private Long createUser;
+
+	public Integer getCategoryId() {
+		return categoryId;
 	}
 
-	public void setProductId(Integer productId) {
-		this.productId = productId;
+	public void setCategoryId(Integer categoryId) {
+		this.categoryId = categoryId;
 	}
 
 	public String getName() {
@@ -41,4 +53,37 @@ public class ProductAttr extends Entity {
 	public void setName(String name) {
 		this.name = name;
 	}
+
+	public Integer getSort() {
+		return sort;
+	}
+
+	public void setSort(Integer sort) {
+		this.sort = sort;
+	}
+
+	public Integer getCustomTag() {
+		return customTag;
+	}
+
+	public void setCustomTag(Integer customTag) {
+		this.customTag = customTag;
+	}
+
+	public Date getCreateTime() {
+		return createTime;
+	}
+
+	public void setCreateTime(Date createTime) {
+		this.createTime = createTime;
+	}
+
+	public Long getCreateUser() {
+		return createUser;
+	}
+
+	public void setCreateUser(Long createUser) {
+		this.createUser = createUser;
+	}
+
 }
