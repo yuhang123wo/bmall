@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout" layout:decorate="~{layout.html}">
+<head>
+ <link rel="stylesheet" href="/css/myPagination.css" type="text/css"/>
+ <script type="text/javascript" src="/js/myPagination.js"></script>
+  <style>
+   table tbody {
+        display: block;
+        height: 320px;
+        overflow-y: scroll;
+    }
+    
+    table thead, tbody tr {
+        display: table;
+        width:100%;
+        table-layout: fixed;
+    }
+   table thead {
+        width: calc( 100% - 18px);
+    }
+ </style>
+</head>
+<div class="margin clearfix" layout:fragment="content" seq="22">
+<script type="text/javascript">
+	var $curs = {};
+	$(function(){
+	    var param={};
+		query(param);
+	});
+	function query(params){
+		$curs = params;
+		$('#myPage').html('');
+		$.ajax({
+			   type: "GET",
+			   url: '/product/listProduct',
+			   data:params,
+			   dataType:'json',
+			   success: function(result){
+				   $('#myData').empty();
+				   var template = Handlebars.compile($("#roleTemplate").html());
+				   var $tr = template(result.data);
+				   $('#myData').append($tr);
+				   new Page({
+				        id: 'pagination',
+				        pageTotal: result.data.total, //必填,总页数
+				        pageAmount: result.data.size,  //每页多少条
+				        dataTotal: result.data.total, //总共多少条数据
+				        curPage:result.data.current, //初始页码,不填默认为1
+				        pageSize:result.data.pages, //分页个数,不填默认为5
+				        showPageTotalFlag:true, //是否显示数据统计,不填默认不显示
+				        showSkipInputFlag:true, //是否支持跳转,不填默认不显示
+				        getPage: function (page) {
+				        	$curs.pageNo = page;
+				    		query($curs);
+				        }
+				    })
+			   }
+		});
+	}
+	
+	function jumpPage(page){
+		$curs.pageNo = page;
+		query($curs);
+	}
+	function startQuery(){
+		var pArray = $('#searchForm').serializeArray();
+		var params = {};
+		for(var i = 0;i < pArray.length;i++){
+			if($.trim(pArray[i].value) != ''){
+				params[pArray[i].name] = pArray[i].value;
+			}
+		}
+		query(params);
+	}
+  function modify_state(id,state){
+		  layer.confirm('是否确定修改状态？', {
+				     btn: ['是','否'] ,//按钮
+					 icon:2,
+				    }, 
+					function(index){
+				      layer.close(index);
+				      var header = $("meta[name='_csrf_header']").attr("content");
+				  	  var token = $("meta[name='_csrf']").attr("content");
+				  		$.ajax({
+				  			   type: "POST",
+				  			   url: '/admin/updateUserState',
+				  			   data:{userId:id,state:state},
+				  			   dataType:'json',
+				  			   beforeSend: function(xhr){
+				  			        xhr.setRequestHeader(header, token);
+				  			    },
+				  			   success: function(result){
+				  				  if(result.code=='0'){
+				  					  startQuery();
+				  				  }else{
+				  					  layer.alert(result.msg,{			
+				  					        icon:2,		
+				  					 }) 
+				  				  }
+				  			   }
+				  		});
+				    }
+				        
+		  );
+	}
+	function toIndex(id){
+		location.href="/admin/editUser/"+id;
+	}
+ </script>
+ <div class="search_style">
+       <form id="searchForm">
+       <ul class="search_content clearfix">
+       <li><label class="l_f">用户名</label><input name="userName" type="text" class="text_add" placeholder="用户名" style=" width:150px"></li>
+       <li><label class="l_f">状态</label><select name="state" style=" width:150px"><option value="">--状态--</option><option value="ENABLE">启用</option><option value="DISABLE">禁用</option></select></li>
+       <li><label class="l_f">时间</label><input class="inline laydate-icon" name="startTime">—<input class="inline laydate-icon" name="endTime"></li>
+       <li style="width:90px;"><button type="button" class="btn btn-info" onclick="startQuery()"><i class="fa fa-search"></i>查询</button></li>
+       <li style="width:90px;"><button type="button" class="btn btn-warning" onclick="toIndex(0)"><i class="fa fa-plus"></i>新增</button></li>
+      </ul>
+      </form>
+    </div>
+<div class="Columns_style margin">
+  <table class="table table-striped table-bordered table-hover" id="sample-table">
+       <thead>
+		 <tr>
+				<th width="50px">产品编号</th>
+				<th width="50px">产品名称</th>
+				<th width="50px">原价格</th>
+				<th width="50px">关键字</th>
+				<th width="50px">时间</th>
+                <th width="50px">审核状态</th>
+				<th width="50px">状态</th>                
+			</tr>
+		</thead>
+        <tbody id="myData">
+        </tbody>
+   </table>
+</div>
+ <div id="pagination" class="pagination"></div>
+	<!-- /.page-content-area -->
+<script id="roleTemplate" type="text/x-handlebars-template">
+{{#each records}}
+   <tr>
+        <td width="50px">{{id}}</td>               
+        <td width="50px"><u style="cursor:pointer" class="text-primary" onclick="">{{name}}</u></td>
+        <td width="50px">{{price}}</td>
+        <td width="50px">{{keywords}}</td> 
+        <td width="50px">{{createTime}}</td>
+        <td class="text-l" width="50px">{{state}}</td>
+        <td class="td-status" width="50px"><span class="label label-success radius">{{status}}</span></td>
+ </tr>
+{{/each}}
+ </script>	
+</div>
+</html>
