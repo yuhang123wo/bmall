@@ -22,10 +22,13 @@ import cn.yh.pojo.eumn.ProductStatus;
 import cn.yh.pojo.eumn.State;
 import cn.yh.pojo.product.Category;
 import cn.yh.pojo.product.Product;
+import cn.yh.pojo.product.ProductAttr;
 import cn.yh.st.back.service.CategoryService;
+import cn.yh.st.back.service.ProductAttrService;
 import cn.yh.st.back.service.ProductService;
 import cn.yh.st.back.vo.ProductVO;
 import cn.yh.st.common.api.ApiResponseEnity;
+import cn.yh.vo.BasePage;
 import cn.yh.vo.product.AddProductVo;
 import cn.yh.vo.product.QueryProductVo;
 
@@ -42,6 +45,8 @@ public class ProductController {
 	private ProductService productService;
 	@Autowired
 	private CategoryService categoryService;
+	@Autowired
+	private ProductAttrService productAttrService;
 
 	@GetMapping("listProduct")
 	@ResponseBody
@@ -107,6 +112,17 @@ public class ProductController {
 		addVo.setVideo("");
 		addVo.setWeight(new BigDecimal(1));
 		return productService.addProduct(addVo);
+	}
+
+	@GetMapping("productAttrView")
+	public String productAttrView(Model model) {
+		return "product/product-attr-list";
+	}
+
+	@GetMapping("productAttrList")
+	@ResponseBody
+	public ApiResponseEnity<Page<ProductAttr>> productAttrList(BasePage vo) {
+		return productAttrService.listAttr(vo);
 	}
 
 }
