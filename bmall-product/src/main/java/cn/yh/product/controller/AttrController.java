@@ -15,13 +15,13 @@ import org.springframework.web.bind.annotation.RestController;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 
+import cn.yh.pojo.eumn.State;
 import cn.yh.pojo.product.ProductAttr;
 import cn.yh.pojo.product.ProductAttrValue;
 import cn.yh.product.service.IProductAttrService;
 import cn.yh.product.service.IProductAttrValueService;
 import cn.yh.st.common.api.ApiResponseEnity;
 import cn.yh.vo.BasePage;
-import cn.yh.vo.product.ProductAttrVo;
 
 /**
  * @author yuhang
@@ -50,10 +50,50 @@ public class AttrController {
 				productAttrValueService.list(new QueryWrapper<ProductAttrValue>().eq("attr_id", attrId)));
 	}
 
-	@PostMapping("addProductAttrAndValue")
-	public ApiResponseEnity<?> addProductAttrAndValue(@RequestBody ProductAttrVo vo) {
-		productAttrService.saveOrderUpdateAttrAndValue(vo);
-		return new ApiResponseEnity<>();
+	@PostMapping("updateAttrValueState")
+	public ApiResponseEnity<Boolean> updateAttrValueState(Long id, State state) {
+		ProductAttrValue attr = productAttrValueService.getById(id);
+		if (attr == null) {
+			return new ApiResponseEnity<Boolean>().fail("属性值不存在");
+		}
+
+		attr.setState(state);
+		boolean flag = productAttrValueService.updateById(attr);
+		if (flag)
+			return new ApiResponseEnity<Boolean>();
+		return new ApiResponseEnity<Boolean>().fail("修改失败");
+	}
+
+	@PostMapping("updateAttrState")
+	public ApiResponseEnity<Boolean> updateAttrState(Long id, State state) {
+		ProductAttr attr = productAttrService.getById(id);
+		if (attr == null) {
+			return new ApiResponseEnity<Boolean>().fail("属性不存在");
+		}
+
+		attr.setState(state);
+		boolean flag = productAttrService.updateById(attr);
+		if (flag)
+			return new ApiResponseEnity<Boolean>();
+		return new ApiResponseEnity<Boolean>().fail("修改失败");
+	}
+
+	@PostMapping("addAttr")
+	public ApiResponseEnity<Boolean> addAttr(@RequestBody ProductAttr attr) {
+		productAttrService.save(attr);
+
+		return new ApiResponseEnity<Boolean>();
+
+	}
+
+	@PostMapping("addAttrValue")
+	public ApiResponseEnity<Boolean> addAttrValue(@RequestBody ProductAttrValue attrValue) {
+		
+		
+		productAttrValueService.save(attrValue);
+
+		return new ApiResponseEnity<Boolean>();
+
 	}
 
 }

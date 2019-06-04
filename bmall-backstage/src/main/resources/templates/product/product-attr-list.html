@@ -72,7 +72,111 @@
 		}
 		query(params);
 	}
- </script>
+	
+	function detail(id){
+		$.ajax({
+			   type: "GET",
+			   url: '/product/productAttrValueList',
+			   data:{attrId:id},
+			   dataType:'json',
+			   success: function(result){
+				   $('#detailData').empty();
+				   var template = Handlebars.compile($("#detailTemplate").html());
+				   var $tr = template(result.data);
+				   $('#detailData').append($tr);
+			 }
+		});
+	}
+	
+	function modify_state(id,state,attrId){
+		  layer.confirm('是否确定修改状态？', {
+				     btn: ['是','否'] ,//按钮
+					 icon:2,
+				    }, 
+					function(index){
+				      layer.close(index);
+				      var header = $("meta[name='_csrf_header']").attr("content");
+				  	  var token = $("meta[name='_csrf']").attr("content");
+				  		$.ajax({
+				  			   type: "POST",
+				  			   url: '/product/updateAttrValueState',
+				  			   data:{id:id,state:state},
+				  			   dataType:'json',
+				  			   beforeSend: function(xhr){
+				  			        xhr.setRequestHeader(header, token);
+				  			    },
+				  			   success: function(result){
+				  				  if(result.code=='0'){
+				  					detail(attrId);
+				  				  }else{
+				  					  layer.alert(result.msg,{			
+				  					        icon:2,		
+				  					 }) 
+				  				  }
+				  			   }
+				  		});
+				    }
+				        
+		  );
+	}
+	
+	function attrAdd(attrId){
+		  layer.open({
+	        type: 1,
+	        title: '添加分类',
+			maxmin: true, 
+			shadeClose: false, //点击遮罩关闭层
+	        area : ['750px' , ''],
+	        content:$('#sort_style_add'),
+			btn:['提交','取消'],
+			yes:function(index,layero){	
+			 var num=0;
+			 var str="";
+			 var params={};
+			 params.attrId=attrId;
+	         $(".sort_style_add input").each(function(n){
+	             if ($(this).val() == "") {
+								layer.alert(str += "" + $(this).attr("name")
+										+ "不能为空！\r\n", {
+									title : '提示框',
+									icon : 0,
+								});
+								num++;
+					 return false;
+				 }else{
+					 
+					 if($(this).attr("name")=="name"){
+						 params.name=$(this).val();
+					 }
+					 if($(this).attr("name")=="state" && $(this).attr("checked")=="checked"){
+						 params.state=$(this).val();
+					 }
+					 
+				 }
+			 });
+				if (num > 0) {
+					return false;
+				} else {
+					 var header = $("meta[name='_csrf_header']").attr("content");
+				  	  var token = $("meta[name='_csrf']").attr("content");
+					$.ajax({
+						   type: "POST",
+						   url: '/product/addAttrValue',
+						   data:params,
+						   dataType:'json',
+			  			   beforeSend: function(xhr){
+			  			        xhr.setRequestHeader(header, token);
+			  			    },
+						   success: function(result){
+							   
+						 }
+					});
+					layer.close(index);
+				}
+			}
+		});
+	}
+</script>
  <div class="search_style">
        <form id="searchForm">
        <ul class="search_content clearfix">
@@ -92,6 +196,7 @@
 				<th width="50px">是否自定义</th>
 				<th width="50px">创建时间</th>
 				<th width="50px">创建人</th>
+				<th width="50px">状态</th>
 				<th width="50px">操作</th>                
 			</tr>
 		</thead>
@@ -104,15 +209,6 @@
  <div class="modal fade" id="myModal"  aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog" >
         <div class="modal-content" >
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                <h4 class="modal-title" id="myModalLabel">模态框（Modal）标题</h4>
-            </div>
-            <div class="modal-body">在这里添加一些文本</div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
-                <button type="button" class="btn btn-primary">提交更改</button>
-            </div>
         </div><!-- /.modal-content -->
     </div><!-- /.modal -->
     </div>
@@ -126,9 +222,92 @@
  <td width="50px">{{customTag}}</td>    
  <td width="50px">{{createTime}}</td>  
  <td width="50px">{{createUser}}</td>   
- <td width="50px"><a href="#" data-toggle="modal" data-target="#myModal">详情</a><a href="#">新增</a></td>  
+ <td width="50px">{{#if_eq state 'ENABLE'}}
+          <span class="label label-success radius">启用</span>
+          {{/if_eq}}  
+          {{#if_eq state 'DISABLE'}}
+          <span class="label label-warning radius">禁用 </span> 
+          {{/if_eq}} </td>   
+ <td width="50px"><a href="#modal-table" data-toggle="modal" onclick="detail({{id}})">详情</a><a href="#" onclick="attrAdd({{id}})">新增</a></td>  
  </tr>
 {{/each}}
- </script>	
+ </script>
+
+ <div id="modal-table" class="modal fade" tabindex="-1">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header no-padding">
+					<div class="table-header">
+						<button type="button" class="close" data-dismiss="modal"
+							aria-hidden="true">
+							<span class="white">&times;</span>
+						</button>
+						属性
+					</div>
+				</div>
+
+				<div class="modal-body no-padding">
+					<table
+						class="table table-striped table-bordered table-hover no-margin-bottom no-border-top">
+						<thead>
+							<tr>
+								<th>序号</th>
+								<th>属性值</th>
+								<th>状态</th>
+								<th><i class="ace-icon fa fa-clock-o bigger-110"></i>
+									操作</th>
+							</tr>
+						</thead>
+						<tbody id="detailData">
+						</tbody>
+					</table>
+				</div>
+
+				<div class="modal-footer no-margin-top">
+					<button class="btn btn-sm btn-danger pull-left"
+						data-dismiss="modal">
+						<i class="ace-icon fa fa-times"></i> 关闭
+					</button>
+				</div>
+			</div>
+			<!-- /.modal-content -->
+		</div>
+	</div>
+	
+	<script id="detailTemplate" type="text/x-handlebars-template">
+{{#each this}}
+<tr>
+ <td>{{addOne   @index }}</td>    
+ <td>{{name}}</td>   
+ <td>{{#if_eq state 'ENABLE'}}
+          <span class="label label-success radius">启用</span>
+          {{/if_eq}}  
+          {{#if_eq state 'DISABLE'}}
+          <span class="label label-warning radius">禁用 </span> 
+          {{/if_eq}}
+ </td> 
+ <td>{{#if_eq state 'ENABLE'}}
+   <a title="禁用" href="javascript:;"  onclick="modify_state({{id}},'DISABLE',{{attrId}})" class="btn btn-xs btn-warning" ><i class="fa fa-trash  bigger-120"></i></a>
+   {{/if_eq}} 
+   {{#if_eq  state 'DISABLE'}}
+    <a title="启用" href="javascript:;"  onclick="modify_state({{id}},'ENABLE',{{attrId}})" class="btn btn-xs btn-success" ><i class="fa fa-check  bigger-120"></i></a>
+   {{/if_eq}} </td>           
+ </tr>
+{{/each}}
+ </script>
+ 
+ <!--添加分类-->
+<div class="sort_style_add margin" id="sort_style_add" style="display:none">
+  <div class="">
+     <ul>
+      <li><label class="label_name">属性</label><div class="col-sm-9"><input name="name" type="text" placeholder="" class="col-xs-10 col-sm-5"></div></li>
+      <li><label class="label_name">状态</label>
+      <span class="add_content"> &nbsp;&nbsp;<label><input name="state" type="radio" checked="checked" class="ace" value="ENABLE"><span class="lbl">启用</span></label>&nbsp;&nbsp;&nbsp;
+      <label><input name="state" type="radio" class="ace" value="DISABLE"><span class="lbl">禁用</span></label></span>
+     </li>
+     </ul>
+  </div>
+</div>
+ 
 </div>
 </html>

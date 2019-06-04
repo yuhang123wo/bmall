@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 
+import cn.yh.pojo.eumn.State;
 import cn.yh.pojo.product.ProductAttr;
 import cn.yh.pojo.product.ProductAttrValue;
 import cn.yh.st.common.api.ApiResponseEnity;
@@ -31,8 +32,21 @@ public interface ProductAttrService {
 	ApiResponseEnity<Page<ProductAttr>> listAttr(@RequestParam BasePage vo);
 
 	@GetMapping("attr/listAttrValue")
-	ApiResponseEnity<List<ProductAttrValue>> listAttrValue(Long attrId);
+	ApiResponseEnity<List<ProductAttrValue>> listAttrValue(@RequestParam("attrId") Long attrId);
 
 	@PostMapping("attr/addProductAttrAndValue")
 	ApiResponseEnity<?> addProductAttrAndValue(@RequestBody ProductAttrVo vo);
+
+	@PostMapping("attr/updateAttrValueState")
+	ApiResponseEnity<Boolean> updateAttrValueState(@RequestParam Long id, @RequestParam State state);
+
+	@PostMapping("attr/updateAttrState")
+	ApiResponseEnity<Boolean> updateAttrState(@RequestParam Long id, @RequestParam State state);
+
+	@PostMapping("attr/addAttr")
+	ApiResponseEnity<Boolean> addAttr(@RequestBody ProductAttr attr);
+
+	@PostMapping("attr/addAttrValue")
+	ApiResponseEnity<Boolean> addAttrValue(@RequestBody ProductAttrValue attrValue);
+
 }

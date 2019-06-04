@@ -4,6 +4,7 @@ import java.util.Date;
 
 import com.baomidou.mybatisplus.annotation.TableName;
 
+import cn.yh.pojo.eumn.State;
 import cn.yh.st.common.Entity;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -37,6 +38,16 @@ public class ProductAttr extends Entity {
 	private Date createTime;
 
 	private Long createUser;
+
+	private State state;
+
+	public State getState() {
+		return state;
+	}
+
+	public void setState(State state) {
+		this.state = state;
+	}
 
 	public Integer getCategoryId() {
 		return categoryId;
