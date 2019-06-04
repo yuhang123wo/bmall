@@ -51,7 +51,7 @@
 <script type="text/javascript">	
 $(function(){ 
 	var seqNo = $("#content>.margin.clearfix").attr("seq");
-	 var cid = $('#nav_list> li>.submenu>li');
+	 var cid = $('#sidebar li');
 		  cid.each(function(i){ 
 			  var seq = $(this).attr("seq");
 	          if(seqNo==seq){
@@ -63,18 +63,8 @@ $(function(){
 	          }
 			  
 	    });
-    var times = $(".inline.laydate-icon");
-    times.each(function(i){
-    	 var ids = "timeId"+i;
-    	 $(this).attr('id',ids);
-    	 laydate({
-    		    elem: '#'+ids,
-    		    event: 'focus' 
-    	 });
-    })
  })
- 
-  jQuery(document).ready(function(){ 	
+ jQuery(document).ready(function(){ 	
     $.each($(".submenu"),function(){
 	var $aobjs=$(this).children("li");
 	var rowCount=$aobjs.size();
@@ -82,8 +72,8 @@ $(function(){
     $aobjs.height(divHeigth/rowCount);	  	
   }); 
     //初始化宽度、高度
-    $("#main_container").height($(window).height()-76); 
-	$("#iframe").height($(window).height()-140); 
+    $("#main_container").height($(window).height()-99); 
+	$("#iframe").height($(window).height()-163); 
 	 
 	$(".sidebar").height($(window).height()-99); 
     var thisHeight = $("#nav_list").height($(window).outerHeight()-173); 
@@ -91,8 +81,8 @@ $(function(){
 	$("#nav_list").children(".submenu").css("height",thisHeight);
     //当文档窗口发生改变时 触发  
     $(window).resize(function(){
-	$("#main_container").height($(window).height()-76); 
-	$("#iframe").height($(window).height()-140);
+	$("#main_container").height($(window).height()-99); 
+	$("#iframe").height($(window).height()-163);
 	$(".sidebar").height($(window).height()-99); 
 	
 	var thisHeight = $("#nav_list").height($(window).outerHeight()-173); 
@@ -103,113 +93,163 @@ $(function(){
 </script>	
 	</head>
 	<body>
-		<div class="navbar navbar-default" id="navbar">
+		 <div id="navbar" class="navbar navbar-default">
 			<div class="navbar-container" id="navbar-container">
-				<div class="navbar-header pull-left">
-					<a href="#" class="navbar-brand">
-						<small>					
-						<img src="/images/logo.png" width="470px">
-						</small>
-					</a><!-- /.brand -->
-				</div><!-- /.navbar-header -->
-			   <div class="navbar-header pull-right" role="navigation">
-               <ul class="nav ace-nav">	
-                <li class="light-blue">
-				<a data-toggle="dropdown" href="#" class="dropdown-toggle">
-				 <span class="user-info"><small>欢迎光临,</small>超级管理员</span>
-				</a>
-				<ul class="user-menu pull-right dropdown-menu dropdown-yellow dropdown-caret dropdown-close">
-				 <li><a href="javascript:void(0" name="Systems.html" title="系统设置" class="iframeurl"><i class="icon-cog"></i>网站设置</a></li>
-				 <li><a href="javascript:void(0)" name="admin_info.html" title="个人信息" class="iframeurl"><i class="icon-user"></i>个人资料</a></li>
-				 <li class="divider"></li>
-				 <li><a href="/logout" id="Exit_system"><i class="icon-off"></i>退出</a></li>
-				</ul>
-			   </li>
-			 </ul>
-                </div>
-			</div>
-		</div>
-		<div class="main-container" id="main_container" style="position:fixed;">
-			<div class="main-container-inner">
-				<a class="menu-toggler" id="menu-toggler" href="#">
-					<span class="menu-text"></span>
-				</a>
-				<div class="sidebar" id="sidebar">
-					<div class="sidebar-shortcuts" id="sidebar-shortcuts">
-						<div class="sidebar-shortcuts-large" id="sidebar-shortcuts-large">
-							<a class="btn btn-success">
-								<i class="icon-signal"></i>
+				<div class="navbar-buttons navbar-header pull-right" role="navigation">
+					<ul class="nav ace-nav">
+						<!-- #section:basics/navbar.user_menu -->
+						<li class="light-blue">
+							<a data-toggle="dropdown" href="#" class="dropdown-toggle">
+								<span class="user-info">
+									欢迎您<br />
+									超级管理员
+								</span>
+
+								<i class="ace-icon fa fa-caret-down"></i>
 							</a>
 
-							<a class="btn btn-info">
-								<i class="icon-pencil"></i>
-							</a>
+							<ul class="user-menu dropdown-menu-right dropdown-menu dropdown-yellow dropdown-caret dropdown-close">
+								<li>
+									<a href="#">
+										<i class="ace-icon fa fa-cog"></i>
+										系统设置
+									</a>
+								</li>
 
-							<a class="btn btn-warning">
-								<i class="icon-group"></i>
-							</a>
+								<li>
+									<a href="profile.html">
+										<i class="ace-icon fa fa-user"></i>
+										个人信息设置
+									</a>
+								</li>
 
-							<a class="btn btn-danger">
-								<i class="icon-cogs"></i>
-							</a>
-						</div>
+								<li class="divider"></li>
 
-						<div class="sidebar-shortcuts-mini" id="sidebar-shortcuts-mini">
-							<span class="btn btn-success"></span>
-
-							<span class="btn btn-info"></span>
-
-							<span class="btn btn-warning"></span>
-
-							<span class="btn btn-danger"></span>
-						</div>
-					</div><!-- #sidebar-shortcuts -->
-					<div id="menu_style" class="menu_style">
-					<ul class="nav nav-list" id="nav_list">
-				     <li class="home"><a href="/index" class="iframeurl" title=""><i class="icon-home"></i><span class="menu-text"> 系统首页 </span></a></li>
-                        <li><a href="#" class="dropdown-toggle"><i class="icon-group"></i><span class="menu-text"> 系统管理 </span><b class="arrow icon-angle-down"></b></a>
-							<ul class="submenu">
-								<li class="home" seq="11"><a href="/admin/role" title="角色管理"  class="iframeurl"><i class="icon-double-angle-right"></i>角色管理</a></li>
-                                <li class="home" seq="12"><a href="/admin/user" title="用户管理" class="iframeurl"><i class="icon-double-angle-right"></i>用户管理</a></li>
-								<li class="home" seq="13"><a href="/admin/userinfoView" title="个人信息" class="iframeurl"><i class="icon-double-angle-right"></i>个人信息</a></li>
+								<li>
+									<a href="/logout">
+										<i class="ace-icon fa fa-power-off"></i>
+										登出
+									</a>
+								</li>
 							</ul>
 						</li>
-						 <li><a href="#" class="dropdown-toggle"><i class="icon-desktop"></i><span class="menu-text"> 商品管理 </span><b class="arrow icon-angle-down"></b></a>
-							<ul class="submenu">
-								<li class="home" seq="21"><a href="/cate/categoryListView" title="分类管理"  class="iframeurl"><i class="icon-double-angle-right"></i>分类管理</a></li>
-                                <li class="home" seq="22"><a href="/product/productListView" title="商品管理" class="iframeurl"><i class="icon-double-angle-right"></i>商品管理</a></li>
-                                <li class="home" seq="23"><a href="/product/productAttrView" title="规格管理" class="iframeurl"><i class="icon-double-angle-right"></i>规格管理</a></li>
-							</ul>
-						</li>
+
+						<!-- /section:basics/navbar.user_menu -->
 					</ul>
-					</div>
-					<div class="sidebar-collapse" id="sidebar-collapse">
-						<i class="icon-double-angle-left" data-icon1="icon-double-angle-left" data-icon2="icon-double-angle-right"></i>
-					</div>
 				</div>
 
-				<div class="main-content"  id="content">
-					<div class="breadcrumbs" id="breadcrumbs">
-						<ul class="breadcrumb">
-							<li>
-								<i class="icon-home home-icon"></i>
-								<a href="/index">首页</a>
+				<!-- /section:basics/navbar.dropdown -->
+			</div><!-- /.navbar-container -->
+		</div>
+
+		<!-- /section:basics/navbar.layout -->
+		<div class="main-container" id="main_container">
+
+			<!-- #section:basics/sidebar -->
+			<div id="sidebar" class="sidebar">
+
+
+				<ul class="nav nav-list" id="nav_list">
+					<li class="active">
+						<a href="/index">
+							<i class="menu-icon fa fa-tachometer"></i>
+							<span class="menu-text"> 总控制台 </span>
+						</a>
+
+						<b class="arrow"></b>
+					</li>
+
+					<li class="">
+						<a href="#" class="dropdown-toggle">
+							<i class="menu-icon fa fa-desktop"></i>
+							<span class="menu-text">  系统管理</span>
+							<b class="arrow fa fa-angle-down"></b>
+						</a>
+						<ul class="submenu">
+
+							<li class="home" seq="11">
+								<a href="/admin/role">
+									<i class="menu-icon fa fa-caret-right"></i>
+									角色管理
+								</a>
 							</li>
-							<li class="active"><span class="Current_page iframeurl"></span></li>
-                            <li class="active" id="parentIframe"><span class="parentIframe iframeurl"></span></li>
-							<li class="active" id="parentIfour"><span class="parentIfour iframeurl"></span></li>
+
+							<li class="home" seq="12">
+								<a href="/admin/user">
+									<i class="menu-icon fa fa-caret-right"></i>
+									用户管理
+								</a>
+							</li>
+
+							<li class="home" seq="13">
+								<a href="/admin/userinfoView">
+									<i class="menu-icon fa fa-caret-right"></i>
+									个人信息
+								</a>
+							</li>
 						</ul>
-					</div>
-					<div layout:fragment="content" id="iframe"  style="overflow: auto;"></div>
-<!-- /.page-content -->
-				</div><!-- /.main-content -->	
-	</div><!-- /.main-container-inner -->
-   </div>
-	<!--底部样式-->
+					</li>
+
+					<li class="">
+						<a href="#" class="dropdown-toggle">
+							<i class="menu-icon fa fa-list"></i>
+							<span class="menu-text">商品管理 </span>
+
+							<b class="arrow fa fa-angle-down"></b>
+						</a>
+						<ul class="submenu">
+							<li class="home" seq="21">
+								<a href="/cate/categoryListView">
+									<i class="menu-icon fa fa-caret-right"></i>
+									分类管理
+								</a>
+							</li>
+
+							<li class="home" seq="22">
+								<a href="/product/productListView">
+									<i class="menu-icon fa fa-caret-right"></i>
+									商品管理
+								</a>
+							</li>
+							
+							
+							<li class="home" seq="23">
+								<a href="/product/productAttrView">
+									<i class="menu-icon fa fa-caret-right"></i>
+									规格管理
+								</a>
+							</li>
+							
+						</ul>
+					</li>
+				</ul><!-- /.nav-list -->
+
+				<!-- #section:basics/sidebar.layout.minimize -->
+				<div class="sidebar-toggle sidebar-collapse" id="sidebar-collapse">
+					<i class="ace-icon fa fa-angle-double-left" data-icon1="ace-icon fa fa-angle-double-left" data-icon2="ace-icon fa fa-angle-double-right"></i>
+				</div>
+			</div>
+			<!-- /section:basics/sidebar -->
+			<div class="main-content" id="content">
+				<!-- #section:basics/content.breadcrumbs -->
+				<div class="breadcrumbs" id="breadcrumbs">
+					<ul class="breadcrumb">
+						<li>
+							<i class="ace-icon fa fa-home home-icon"></i>
+							<a href="/index">首页</a>
+						</li>
+					</ul><!-- /.breadcrumb -->
+					<!-- /section:basics/content.searchbox -->
+				</div>
+
+				<div  layout:fragment="content" id="iframe" >
+				</div><!-- /.page-content -->
+			</div><!-- /.main-content -->
+		</div><!-- /.main-container -->
+		 
+			<!--底部样式-->
 	<div class="footer_style" id="footerstyle">
 		<p class="l_c">版权所有：yuhang123wo</p>
 	</div>
-	<!-- /.main-container -->
-		<!-- basic scripts -->
 </body>
 </html>
