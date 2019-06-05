@@ -49,4 +49,7 @@ public interface ProductAttrService {
 	@PostMapping("attr/addAttrValue")
 	ApiResponseEnity<Boolean> addAttrValue(@RequestBody ProductAttrValue attrValue);
 
+	
+	@GetMapping("attr/listAttrByCategory")
+	ApiResponseEnity<List<ProductAttrVo>> listAttrByCategory(@RequestParam Long categoryId);
 }

@@ -13,7 +13,6 @@ import org.springframework.ui.Model;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -32,6 +31,7 @@ import cn.yh.st.back.vo.ProductVO;
 import cn.yh.st.common.api.ApiResponseEnity;
 import cn.yh.vo.BasePage;
 import cn.yh.vo.product.AddProductVo;
+import cn.yh.vo.product.ProductAttrVo;
 import cn.yh.vo.product.QueryProductVo;
 
 /**
@@ -156,5 +156,11 @@ public class ProductController {
 	@ResponseBody
 	public ApiResponseEnity<Boolean> addAttrValue(ProductAttrValue attrValue){
 		return productAttrService.addAttrValue(attrValue);
+	}
+	
+	@GetMapping("listAttrByCategory")
+	@ResponseBody
+	ApiResponseEnity<List<ProductAttrVo>> listAttrByCategory(Long categoryId){
+		return productAttrService.listAttrByCategory(categoryId);
 	}
 }

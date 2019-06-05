@@ -41,6 +41,16 @@ public class ProductAttr extends Entity {
 
 	private State state;
 
+	private String code;
+
+	public String getCode() {
+		return code;
+	}
+
+	public void setCode(String code) {
+		this.code = code;
+	}
+
 	public State getState() {
 		return state;
 	}

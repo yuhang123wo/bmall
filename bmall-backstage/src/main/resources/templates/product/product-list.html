@@ -103,8 +103,8 @@
 				        
 		  );
 	}
-	function toIndex(id){
-		location.href="/admin/editUser/"+id;
+	function toIndex(){
+		location.href="/product/productAddView";
 	}
  </script>
  <div class="search_style">
@@ -114,7 +114,7 @@
        <li><label class="l_f">状态</label><select name="state" style=" width:150px"><option value="">--状态--</option><option value="ENABLE">启用</option><option value="DISABLE">禁用</option></select></li>
        <li><label class="l_f">时间</label><input class="inline laydate-icon" name="startTime">—<input class="inline laydate-icon" name="endTime"></li>
        <li style="width:90px;"><button type="button" class="btn btn-info" onclick="startQuery()"><i class="fa fa-search"></i>查询</button></li>
-       <li style="width:90px;"><button type="button" class="btn btn-warning" onclick="toIndex(0)"><i class="fa fa-plus"></i>新增</button></li>
+       <li style="width:90px;"><button type="button" class="btn btn-warning" onclick="toIndex()"><i class="fa fa-plus"></i>新增</button></li>
       </ul>
       </form>
     </div>

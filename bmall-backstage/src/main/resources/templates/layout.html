@@ -55,6 +55,7 @@ $(function(){
 		  cid.each(function(i){ 
 			  var seq = $(this).attr("seq");
 	          if(seqNo==seq){
+	        	  $(this).removeClass("active");
 	        	  $(this).addClass("active");
 	        	  $(this).parent().css('display','block'); 
 	        	  $(this).parent().parent().addClass("open");
@@ -150,7 +151,7 @@ $(function(){
 
 
 				<ul class="nav nav-list" id="nav_list">
-					<li class="active">
+					<li class="active" seq="0">
 						<a href="/index">
 							<i class="menu-icon fa fa-tachometer"></i>
 							<span class="menu-text"> 总控制台 </span>

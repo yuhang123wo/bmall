@@ -3,6 +3,7 @@
  */
 package cn.yh.product.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,7 +22,9 @@ import cn.yh.pojo.product.ProductAttrValue;
 import cn.yh.product.service.IProductAttrService;
 import cn.yh.product.service.IProductAttrValueService;
 import cn.yh.st.common.api.ApiResponseEnity;
+import cn.yh.util.ConvertUtil;
 import cn.yh.vo.BasePage;
+import cn.yh.vo.product.ProductAttrVo;
 
 /**
  * @author yuhang
@@ -94,6 +97,19 @@ public class AttrController {
 
 		return new ApiResponseEnity<Boolean>();
 
+	}
+	@GetMapping("listAttrByCategory")
+	public ApiResponseEnity<List<ProductAttrVo>> listAttrByCategory(Long categoryId) {
+		List<ProductAttr> list = productAttrService.list(new QueryWrapper<ProductAttr>().eq("category_id", categoryId));
+		List<ProductAttrVo> result = ConvertUtil.convert(list, ProductAttrVo.class);
+		if(result==null) {
+			return new ApiResponseEnity<List<ProductAttrVo>>(new ArrayList<ProductAttrVo>());
+		}
+		for (int i = 0; i < result.size(); i++) {
+			ProductAttrVo p = result.get(i);
+			p.setList(productAttrValueService.list(new QueryWrapper<ProductAttrValue>().eq("attr_id", p.getId())));
+		}
+		return new ApiResponseEnity<List<ProductAttrVo>>(result);
 	}
 
 }
