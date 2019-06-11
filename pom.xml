@@ -18,6 +18,7 @@
 		<module>bmall-product</module>
 		<module>bmall-account</module>
 		<module>bmall-seller</module>
+		<module>bmall-merchant</module>
 	</modules>
 	<!-- 配置变量 -->
 	<properties>
