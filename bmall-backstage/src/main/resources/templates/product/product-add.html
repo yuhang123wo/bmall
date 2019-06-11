@@ -10,8 +10,6 @@
 <script type="text/javascript" src="/Widget/ueditor/1.4.3/ueditor.all.min.js"> </script>
 <script type="text/javascript" src="/Widget/ueditor/1.4.3/lang/zh-cn/zh-cn.js"></script> 
 <script src="/js/lrtk.js" type="text/javascript" ></script>
-<script type="text/javascript" src="/js/H-ui.js"></script> 
-<script type="text/javascript" src="/js/H-ui.admin.js"></script> 
 <script type="text/javascript">
 $(function(){
 	var ue = UE.getEditor('editor');
@@ -24,22 +22,49 @@ $(function(){
 			   dataType:'json',
 			   success: function(result){
 				   $("div#attrList").empty();
+				   $("div#attrChoiceList").empty();
 				   for(var i=0;i<result.data.length;i++){
-					   appendValue(result.data[i]);
+					   var attrs = result.data[i];
+					   if(attrs.mchoice==1){
+						   appendValueChoice(result.data[i]); 
+					   }
+					 
+				   }
+				   for(var i=0;i<result.data.length;i++){
+					   var attrs = result.data[i];
+					   if(attrs.mchoice==0){
+						   appendValue(result.data[i]);
+					   }
 				   }
 			   }
 		 });
 	  });
 	 
+	 function appendValueChoice(values){
+		 var str = "<div class='clearfix cl'>";
+		   var items = values.list;
+		    for(var i=0;i<items.length;i++){
+		       str+= "<div >";
+		       if(i==0){
+		        str+= "<label class='form-label col-2'>"+values.name+":</label>";
+		       }
+		       str+="<div class='formControls col-2'>";
+			   str+="<input type='checkbox' tg='ck' name='"+values.code+"' value='"+items[i].id+"'>"+items[i].name;
+			   str+="</div></div>";
+		    }
+		    str+="</div>";
+		 $("div#attrChoiceList").append(str);
+	 }
+	 
 	 function appendValue(values){
 		 
 		 var str = "<div class='Add_p_s'><label class='form-label col-2'>"+values.name+"：</label><div class='formControls col-2'>";
-		     str+= "<select name='"+values.code+"'  style='width:120px'>";
+		     str+= "<select name='"+values.code+"'  style='width:120px' tg='dx' >";
 		   var items = values.list;
 		   for(var i=0;i<items.length;i++){
 			  str+="<option value='"+items[i].id+"' >"+items[i].name+"</option>";
 		    }
-		     str+="</select></div></div>"
+		     str+="</select></div></div>";
 		 $("div#attrList").append(str);
 	 }
 });
@@ -588,72 +613,98 @@ $(function(){
 		});
 
 	})(jQuery);
-</script>
-
-<SCRIPT th:inline="javascript">
-		var setting = {
-			check: {
-				enable: true,
-				chkStyle: "radio",
-				radioType: "all"
-			},
-			view: {
-				dblClickExpand: false
-			},
-			data: {
-				simpleData: {
-					enable: true
+	
+	
+$(function(){
+	  $("#form-article-add").validate({
+       debug: true, //调试模式取消submit的默认提交功能   
+       focusInvalid: false, //当为false时，验证无效时，没有焦点响应  
+       onkeyup: false, 
+       rules:{
+    	   categoryId:{
+               required:true
+           },
+           name:{
+        	   required:true
+           },
+           price:{
+        	   required:true,
+        	   number:true,
+        	   min:0.01
+        	   
+           },
+           marketPrice:{
+        	   required:true,
+        	   number:true,
+        	   min:0.01
+           },
+           remark:{
+        	   required:true  
+           },
+           keywords:{
+        	   required:true  
+           },
+           editorValue:{
+        	   required:true  
+           },
+           weight:{
+        	   required:true  
+           }
+           
+       },
+       messages:{
+    	   categoryId:{
+               required:"分类必填"
+           },
+       name:{
+    	   required:"标题必填"
+       },
+       price:{
+    	   required: "price必填",
+    	   number:"输入正确的金额",
+    	   min:"金额必须大于0"
+       },
+       marketPrice:{
+    	   required: "marketPrice必填",
+    	   number:"输入正确的金额",
+    	   min:"金额必须大于0"
+       }
+                                        
+       }
+                 
+   });    
+	  
+})
+function subData(){
+		  if (!$("#form-article-add").valid()) {
+		        return;
+		  }
+		  var params = $('#form-article-add').serializeArray();
+		  console.log(params);
+		 $.ajax({
+				type : "POST",
+				url : '/product/addProduct',
+				data : params,
+				dataType : 'json',        
+				success : function(data) {
+					if(data.code=='0'){
+						layer.alert("成功",{			
+					        icon:1,		
+					    }) 
+					}else{
+						layer.alert(data.msg,{		
+					        icon:2,		
+					    }) 
+					}
+					
 				}
-			},
-			callback: {
-				onClick: onClick,
-				onCheck: onCheck
-			}
-		};
-		function onClick(e, treeId, treeNode) {
-			var zTree = $.fn.zTree.getZTreeObj("treeDemo");
-			zTree.checkNode(treeNode, !treeNode.checked, null, true);
-			return false;
-		}
-
-		function onCheck(e, treeId, treeNode) {
-			var zTree = $.fn.zTree.getZTreeObj("treeDemo"),
-			nodes = zTree.getCheckedNodes(true),
-			v = "";
-			for (var i=0, l=nodes.length; i<l; i++) {
-				v += nodes[i].name + ",";
-			}
-			if (v.length > 0 ) v = v.substring(0, v.length-1);
-			var cityObj = $("#citySel");
-			cityObj.attr("value", v);
-		}
-
-		function showMenu() {
-			var cityObj = $("#citySel");
-			var cityOffset = $("#citySel").offset();
-			$("#menuContent").css({left:cityOffset.left + "px", top:cityOffset.top + cityObj.outerHeight() + "px"}).slideDown("fast");
-
-			$("body").bind("mousedown", onBodyDown);
-		}
-		function hideMenu() {
-			$("#menuContent").fadeOut("fast");
-			$("body").unbind("mousedown", onBodyDown);
-		}
-		function onBodyDown(event) {
-			if (!(event.target.id == "menuBtn" || event.target.id == "citySel" || event.target.id == "menuContent" || $(event.target).parents("#menuContent").length>0)) {
-				hideMenu();
-			}
-		}
-
-		$(document).ready(function(){
-			$.fn.zTree.init($("#treeDemo"), setting, [[${cateList}]]);
-		});
-		
-	</SCRIPT>
+			}); 
+	  }
+</script>
 </head>
 <div class="margin clearfix" layout:fragment="content" seq="22">
   <div class="clearfix side_green" id="add_picture">
-	<form  action="/product/addProduct" method="post" class="form form-horizontal" id="form-article-add" enctype="multipart/form-data">
+	<form   method="post" class="form form-horizontal" id="form-article-add" enctype="multipart/form-data">
 		<div class="clearfix cl">
          <label class="form-label col-2"><span class="c-red">*</span>商品标题：</label>
 		 <div class="formControls col-10"><input type="text" class="input-text" name="name"></div>
@@ -675,22 +726,25 @@ $(function(){
 			
 			<div class="Add_p_s">
             <label class="form-label col-2">产品编号：</label>
-			<div class="formControls col-2"><input type="text" class="input-text" value="" placeholder="" id="" name=""></div>
+			<div class="formControls col-2"><input type="text" class="input-text" value=""  name=""></div>
             </div>
             <div class="Add_p_s">
-             <label class="form-label col-2">品&nbsp;&nbsp;&nbsp;&nbsp;牌：</label>	
-			 <div class="formControls col-2"><input type="text" class="input-text" value="" placeholder="" id="" name=""></div>
+             <label class="form-label col-2">商品重量：</label>	
+			 <div class="formControls col-2"><input type="text" class="input-text"   name="weight"></div>
 			</div>
             <div class="Add_p_s">
              <label class="form-label col-2">展示价格：</label>	
-			 <div class="formControls col-2"><input type="text" class="input-text" name="price">元</div>
+			 <div class="formControls col-2"><input type="text" class="input-text" name="price" placeholder="单位(元)"></div>
 			</div>
             <div class="Add_p_s">
              <label class="form-label col-2">市场价格：</label>	
-			 <div class="formControls col-2"><input type="text" class="input-text"  name="marketPrice">元</div>
+			 <div class="formControls col-2"><input type="text" class="input-text"  name="marketPrice" placeholder="单位(元)"></div>
 			</div>
-			<div id="attrList"></div>
+			   <div id="attrList"></div>
 		</div>
+		
+	    <div id="attrChoiceList"></div>
+		
 		
 		<div class="clearfix cl">
 			<label class="form-label col-2">关键词：</label>
@@ -738,7 +792,7 @@ $(function(){
         </div>
 		<div class="clearfix cl">
 			<div class="Button_operation">
-				<button onclick="article_save_submit();" class="btn btn-primary radius" type="submit"><i class="icon-save "></i>保存并提交审核</button>
+				<button onclick="subData();" class="btn btn-primary radius" type="button"><i class="icon-save "></i>保存并提交审核</button>
 				<button onclick="article_save();" class="btn btn-secondary  btn-warning" type="button"><i class="icon-save"></i>保存草稿</button>
 				<button onclick="layer_close();" class="btn btn-default radius" type="button">&nbsp;&nbsp;取消&nbsp;&nbsp;</button>
 			</div>

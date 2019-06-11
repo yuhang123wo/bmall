@@ -5,7 +5,11 @@ package cn.yh.st.back.controller;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
+import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -15,6 +19,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.util.WebUtils;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 
@@ -31,6 +36,7 @@ import cn.yh.st.back.vo.ProductVO;
 import cn.yh.st.common.api.ApiResponseEnity;
 import cn.yh.vo.BasePage;
 import cn.yh.vo.product.AddProductVo;
+import cn.yh.vo.product.AttrVo;
 import cn.yh.vo.product.ProductAttrVo;
 import cn.yh.vo.product.QueryProductVo;
 
@@ -95,7 +101,38 @@ public class ProductController {
 	 */
 	@PostMapping("addProduct")
 	@ResponseBody
-	public ApiResponseEnity<Boolean> addProduct(@Validated ProductVO vo) {
+	public ApiResponseEnity<Boolean> addProduct(@Validated ProductVO vo, HttpServletRequest request) {
+		// 取参数
+		Map<String, Object> params = WebUtils.getParametersStartingWith(request, "");
+		ApiResponseEnity<List<ProductAttrVo>> pv = productAttrService.listAttrByCategory(vo.getCategoryId());
+		List<ProductAttrVo> list = pv.getData();
+		List<AttrVo> listAttrVo = new ArrayList<AttrVo>();
+		for (int i = 0; i < list.size(); i++) {
+			AttrVo av = new AttrVo();
+			ProductAttrVo pav = list.get(i);
+			av.setAttrId(pav.getId());
+			params.forEach((k, v) -> {
+				if (pav.getCode().equals(k)) {
+					List<ProductAttrValue> listPv = new ArrayList<ProductAttrValue>();
+					if (v instanceof String[]) {
+						String[] strs = (String[]) v;
+						for (String str : strs) {
+							ProductAttrValue p = new ProductAttrValue();
+							p.setId(Long.parseLong(str));
+							listPv.add(p);
+						}
+					}
+					if (v instanceof String) {
+						String str = (String) v;
+						ProductAttrValue p = new ProductAttrValue();
+						p.setId(Long.parseLong(str));
+						listPv.add(p);
+					}
+					av.setList(listPv);
+					listAttrVo.add(av);
+				}
+			});
+		}
 		AddProductVo addVo = new AddProductVo();
 		addVo.setBarcode("barcode");
 		addVo.setCategoryId(vo.getCategoryId());
@@ -113,6 +150,7 @@ public class ProductController {
 		addVo.setUserId(1L);
 		addVo.setVideo("");
 		addVo.setWeight(new BigDecimal(1));
+		addVo.setAttrVo(listAttrVo);
 		return productService.addProduct(addVo);
 	}
 
@@ -126,23 +164,22 @@ public class ProductController {
 	public ApiResponseEnity<Page<ProductAttr>> productAttrList(BasePage vo) {
 		return productAttrService.listAttr(vo);
 	}
-	
-	
+
 	@GetMapping("productAttrValueList")
 	@ResponseBody
 	public ApiResponseEnity<List<ProductAttrValue>> productAttrValueList(long attrId) {
 		return productAttrService.listAttrValue(attrId);
 	}
-	
+
 	@PostMapping("updateAttrValueState")
 	@ResponseBody
-	public ApiResponseEnity<Boolean> updateAttrValueState(long id,State state) {
+	public ApiResponseEnity<Boolean> updateAttrValueState(long id, State state) {
 		return productAttrService.updateAttrValueState(id, state);
 	}
-	
+
 	@PostMapping("updateAttrState")
 	@ResponseBody
-	public ApiResponseEnity<Boolean> updateAttrState(long id,State state) {
+	public ApiResponseEnity<Boolean> updateAttrState(long id, State state) {
 		return productAttrService.updateAttrState(id, state);
 	}
 
@@ -154,13 +191,13 @@ public class ProductController {
 
 	@PostMapping("addAttrValue")
 	@ResponseBody
-	public ApiResponseEnity<Boolean> addAttrValue(ProductAttrValue attrValue){
+	public ApiResponseEnity<Boolean> addAttrValue(ProductAttrValue attrValue) {
 		return productAttrService.addAttrValue(attrValue);
 	}
-	
+
 	@GetMapping("listAttrByCategory")
 	@ResponseBody
-	ApiResponseEnity<List<ProductAttrVo>> listAttrByCategory(Long categoryId){
+	ApiResponseEnity<List<ProductAttrVo>> listAttrByCategory(Long categoryId) {
 		return productAttrService.listAttrByCategory(categoryId);
 	}
 }

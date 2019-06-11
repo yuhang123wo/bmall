@@ -43,6 +43,16 @@ public class ProductAttr extends Entity {
 
 	private String code;
 
+	private Integer mchoice;//是否多选
+
+	public Integer getMchoice() {
+		return mchoice;
+	}
+
+	public void setMchoice(Integer mchoice) {
+		this.mchoice = mchoice;
+	}
+
 	public String getCode() {
 		return code;
 	}

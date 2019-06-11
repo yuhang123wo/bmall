@@ -60,8 +60,6 @@ public class ProductController {
 	 */
 	@PostMapping("addProduct")
 	public ApiResponseEnity<Boolean> addProduct(@Validated @RequestBody AddProductVo vo) {
-		Product product = ConvertUtil.convert(vo, Product.class);
-		productService.save(product);
 		return new ApiResponseEnity<Boolean>();
 	}
 	

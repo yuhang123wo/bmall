@@ -3,6 +3,7 @@ package cn.yh.product.service;
 import com.baomidou.mybatisplus.extension.service.IService;
 
 import cn.yh.pojo.product.Product;
+import cn.yh.vo.product.AddProductVo;
 
 /**
  * <p>
@@ -14,4 +15,9 @@ import cn.yh.pojo.product.Product;
  */
 public interface IProductService extends IService<Product> {
 
+	/**
+	 * 
+	 * @param p
+	 */
+	void addProudct(AddProductVo p);
 }

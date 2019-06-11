@@ -4,11 +4,9 @@
 package cn.yh.vo.product;
 
 import java.math.BigDecimal;
+import java.util.List;
 
-import javax.validation.constraints.DecimalMin;
-import javax.validation.constraints.Min;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
+import com.baomidou.mybatisplus.annotation.TableField;
 
 import cn.yh.pojo.eumn.ProductStatus;
 import io.swagger.annotations.ApiModelProperty;
@@ -67,6 +65,17 @@ public class AddProductVo {
 
 	@ApiModelProperty(value = "视频")
 	private String video;
+
+	@TableField(exist = false)
+	private List<AttrVo> attrVo;
+
+	public List<AttrVo> getAttrVo() {
+		return attrVo;
+	}
+
+	public void setAttrVo(List<AttrVo> attrVo) {
+		this.attrVo = attrVo;
+	}
 
 	public String getName() {
 		return name;
