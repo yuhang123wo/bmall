@@ -10,7 +10,7 @@ import cn.yh.pojo.product.Category;
  * </p>
  *
  * @author yuhang
- * @since 2019-05-15
+ * @since 2019-06-12
  */
 public interface ICategoryService extends IService<Category> {
 

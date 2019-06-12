@@ -6,11 +6,11 @@ import cn.yh.pojo.product.ProductSku;
 
 /**
  * <p>
- *  服务类
+ * 服务类
  * </p>
  *
  * @author yuhang
- * @since 2019-05-15
+ * @since 2019-06-12
  */
 public interface IProductSkuService extends IService<ProductSku> {
 

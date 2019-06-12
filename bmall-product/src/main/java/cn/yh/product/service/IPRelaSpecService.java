@@ -2,7 +2,7 @@ package cn.yh.product.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
 
-import cn.yh.pojo.product.Product;
+import cn.yh.pojo.product.PRelaSpec;
 
 /**
  * <p>
@@ -12,6 +12,6 @@ import cn.yh.pojo.product.Product;
  * @author yuhang
  * @since 2019-06-12
  */
-public interface IProductService extends IService<Product> {
+public interface IPRelaSpecService extends IService<PRelaSpec> {
 
 }

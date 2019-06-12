@@ -1,6 +1,5 @@
 package cn.yh.pojo.product;
 
-import java.math.BigDecimal;
 import com.baomidou.mybatisplus.annotation.TableName;
 
 import cn.yh.st.common.Entity;
@@ -17,33 +16,19 @@ import io.swagger.annotations.ApiModelProperty;
  * @author yuhang
  * @since 2019-06-12
  */
-@TableName("product_sku")
-@ApiModel(value="Sku对象", description="")
-public class ProductSku extends Entity {
+@TableName("p_rela_props")
+@ApiModel(value="PRelaProps对象", description="")
+public class PRelaProps extends Entity {
 
     private static final long serialVersionUID = 1L;
 
-    @ApiModelProperty(value = "商品ID")
     private Long productId;
 
-    @ApiModelProperty(value = "主图")
-    private String img;
-
-    @ApiModelProperty(value = "价格")
-    private BigDecimal price;
-
-    @ApiModelProperty(value = "库存")
-    private Integer stock;
-
-    @ApiModelProperty(value = "sku串")
     private String data;
 
     private Date createTime;
 
     private Date updateTime;
-
-    @ApiModelProperty(value = "状态(0:禁用 1:启用)")
-    private Integer state;
 
     public Long getProductId() {
         return productId;
@@ -51,27 +36,6 @@ public class ProductSku extends Entity {
 
     public void setProductId(Long productId) {
         this.productId = productId;
-    }
-    public String getImg() {
-        return img;
-    }
-
-    public void setImg(String img) {
-        this.img = img;
-    }
-    public BigDecimal getPrice() {
-        return price;
-    }
-
-    public void setPrice(BigDecimal price) {
-        this.price = price;
-    }
-    public Integer getStock() {
-        return stock;
-    }
-
-    public void setStock(Integer stock) {
-        this.stock = stock;
     }
     public String getData() {
         return data;
@@ -94,11 +58,5 @@ public class ProductSku extends Entity {
     public void setUpdateTime(Date updateTime) {
         this.updateTime = updateTime;
     }
-    public Integer getState() {
-        return state;
-    }
 
-    public void setState(Integer state) {
-        this.state = state;
-    }
 }

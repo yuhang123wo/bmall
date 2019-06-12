@@ -2,9 +2,9 @@ package cn.yh.product.service.impl;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 
-import cn.yh.pojo.product.ProductSku;
-import cn.yh.product.mapper.ProductSkuMapper;
-import cn.yh.product.service.IProductSkuService;
+import cn.yh.pojo.product.SpecValue;
+import cn.yh.product.mapper.SpecValueMapper;
+import cn.yh.product.service.ISpecValueService;
 
 import org.springframework.stereotype.Service;
 
@@ -17,6 +17,6 @@ import org.springframework.stereotype.Service;
  * @since 2019-06-12
  */
 @Service
-public class ProductSkuServiceImpl extends ServiceImpl<ProductSkuMapper, ProductSku> implements IProductSkuService {
+public class SpecValueServiceImpl extends ServiceImpl<SpecValueMapper, SpecValue> implements ISpecValueService {
 
 }

@@ -2,9 +2,9 @@ package cn.yh.product.service.impl;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 
-import cn.yh.pojo.product.Category;
-import cn.yh.product.mapper.CategoryMapper;
-import cn.yh.product.service.ICategoryService;
+import cn.yh.pojo.product.PRelaSpec;
+import cn.yh.product.mapper.PRelaSpecMapper;
+import cn.yh.product.service.IPRelaSpecService;
 
 import org.springframework.stereotype.Service;
 
@@ -17,6 +17,6 @@ import org.springframework.stereotype.Service;
  * @since 2019-06-12
  */
 @Service
-public class CategoryServiceImpl extends ServiceImpl<CategoryMapper, Category> implements ICategoryService {
+public class PRelaSpecServiceImpl extends ServiceImpl<PRelaSpecMapper, PRelaSpec> implements IPRelaSpecService {
 
 }

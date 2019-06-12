@@ -2,12 +2,8 @@ package cn.yh.pojo.product;
 
 import java.util.Date;
 
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
-
 import com.baomidou.mybatisplus.annotation.TableName;
 
-import cn.yh.pojo.eumn.State;
 import cn.yh.st.common.Entity;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -18,57 +14,80 @@ import io.swagger.annotations.ApiModelProperty;
  * </p>
  *
  * @author yuhang
- * @since 2019-05-15
+ * @since 2019-06-12
  */
 @TableName("category")
-@ApiModel(value = "Category对象", description = "")
+@ApiModel(value="Category对象", description="")
 public class Category extends Entity {
 
-	private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
 
-	@ApiModelProperty(value = "分类名")
-	@NotBlank(message = "分类名不能为空")
-	private String categoryName;
+    @ApiModelProperty(value = "分类名")
+    private String name;
 
-	@ApiModelProperty(value = "父ID")
-	@NotNull(message = "父ID不能为空,顶级ID为0")
-	private Long pId;
+    @ApiModelProperty(value = "状态(0:禁用，1:可用)")
+    private Integer state;
 
-	@ApiModelProperty(value = "状态(0:无效，1：有效)")
-	@NotNull(message = "状态")
-	private State state;
+    @ApiModelProperty(value = "排序")
+    private Integer sort;
 
-	private Date updateTime;
+    @ApiModelProperty(value = "父ID")
+    private Long pId;
 
-	public String getCategoryName() {
-		return categoryName;
-	}
+    @ApiModelProperty(value = "分级")
+    private Integer level;
 
-	public void setCategoryName(String categoryName) {
-		this.categoryName = categoryName;
-	}
+    private Date updateTime;
 
-	public Long getpId() {
-		return pId;
-	}
+    private Date createTime;
 
-	public void setpId(Long pId) {
-		this.pId = pId;
-	}
+    public String getName() {
+        return name;
+    }
 
-	public State getState() {
-		return state;
-	}
+    public void setName(String name) {
+        this.name = name;
+    }
+    public Integer getState() {
+        return state;
+    }
 
-	public void setState(State state) {
-		this.state = state;
-	}
+    public void setState(Integer state) {
+        this.state = state;
+    }
+    public Integer getSort() {
+        return sort;
+    }
 
-	public Date getUpdateTime() {
-		return updateTime;
-	}
+    public void setSort(Integer sort) {
+        this.sort = sort;
+    }
+    public Long getpId() {
+        return pId;
+    }
 
-	public void setUpdateTime(Date updateTime) {
-		this.updateTime = updateTime;
-	}
+    public void setpId(Long pId) {
+        this.pId = pId;
+    }
+    public Integer getLevel() {
+        return level;
+    }
+
+    public void setLevel(Integer level) {
+        this.level = level;
+    }
+    public Date getUpdateTime() {
+        return updateTime;
+    }
+
+    public void setUpdateTime(Date updateTime) {
+        this.updateTime = updateTime;
+    }
+    public Date getCreateTime() {
+        return createTime;
+    }
+
+    public void setCreateTime(Date createTime) {
+        this.createTime = createTime;
+    }
 }
