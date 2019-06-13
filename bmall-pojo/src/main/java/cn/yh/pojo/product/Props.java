@@ -5,6 +5,10 @@ import com.baomidou.mybatisplus.annotation.TableName;
 import cn.yh.st.common.Entity;
 
 import java.util.Date;
+
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
@@ -23,8 +27,10 @@ public class Props extends Entity {
 	private static final long serialVersionUID = 1L;
 
 	@ApiModelProperty(value = "分类ID")
+	@NotNull
 	private Long categoryId;
 
+	@NotBlank
 	private String data;
 
 	private Date createTime;
