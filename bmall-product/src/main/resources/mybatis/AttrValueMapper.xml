@@ -2,4 +2,26 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="cn.yh.product.mapper.AttrValueMapper">
 
+	<select id="listAttrValueDto"
+		resultType="cn.yh.dto.AttrValueDto">
+		select attr_id attrId ,GROUP_CONCAT(v_name) val from attr_value
+		<include refid="wherelistAttrValueDto"></include>
+		group by attr_id
+	</select>
+
+	<sql id="wherelistAttrValueDto">
+	<where>
+		<if test="state!=null">
+			state = #{state}
+		</if>
+		<if test="ids!=null">
+			and attr_id in(
+			<foreach collection="attrIds" item="attrId" separator=",">
+				#{attrId}
+			</foreach>
+			)
+		</if>
+
+	</where>
+</sql>
 </mapper>

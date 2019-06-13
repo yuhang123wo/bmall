@@ -20,7 +20,5 @@ public class ProductController {
 
 	@Autowired
 	private IProductService productService;
- 
-	
-	
+
 }

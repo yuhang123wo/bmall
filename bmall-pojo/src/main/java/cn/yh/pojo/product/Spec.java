@@ -1,10 +1,11 @@
 package cn.yh.pojo.product;
 
+import java.util.Date;
+
 import com.baomidou.mybatisplus.annotation.TableName;
 
+import cn.yh.pojo.eumn.State;
 import cn.yh.st.common.Entity;
-
-import java.util.Date;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
@@ -29,10 +30,19 @@ public class Spec extends Entity {
     private String name;
 
     @ApiModelProperty(value = "状态(0:禁用,1:启用)")
-    private Integer state;
+    private State state;
 
     private Date createTime;
 
+	private Date updateTime;
+
+	public Date getUpdateTime() {
+		return updateTime;
+	}
+
+	public void setUpdateTime(Date updateTime) {
+		this.updateTime = updateTime;
+	}
     public Long getCategoryId() {
         return categoryId;
     }
@@ -47,11 +57,11 @@ public class Spec extends Entity {
     public void setName(String name) {
         this.name = name;
     }
-    public Integer getState() {
+    public State getState() {
         return state;
     }
 
-    public void setState(Integer state) {
+    public void setState(State state) {
         this.state = state;
     }
     public Date getCreateTime() {

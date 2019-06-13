@@ -2,6 +2,7 @@ package cn.yh.pojo.product;
 
 import com.baomidou.mybatisplus.annotation.TableName;
 
+import cn.yh.pojo.eumn.State;
 import cn.yh.st.common.Entity;
 
 import java.util.Date;
@@ -27,10 +28,19 @@ public class AttrValue extends Entity {
     private Long attrId;
 
     @ApiModelProperty(value = "状态(0:禁用 1:启用)")
-    private Integer state;
+    private State state;
 
     private Date createTime;
 
+	private Date updateTime;
+
+	public Date getUpdateTime() {
+		return updateTime;
+	}
+
+	public void setUpdateTime(Date updateTime) {
+		this.updateTime = updateTime;
+	}
     public String getvName() {
         return vName;
     }
@@ -45,14 +55,16 @@ public class AttrValue extends Entity {
     public void setAttrId(Long attrId) {
         this.attrId = attrId;
     }
-    public Integer getState() {
-        return state;
-    }
+   
+    public State getState() {
+		return state;
+	}
 
-    public void setState(Integer state) {
-        this.state = state;
-    }
-    public Date getCreateTime() {
+	public void setState(State state) {
+		this.state = state;
+	}
+
+	public Date getCreateTime() {
         return createTime;
     }
 

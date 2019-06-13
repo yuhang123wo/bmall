@@ -1,5 +1,26 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="cn.yh.product.mapper.SpecValueMapper">
+	<select id="listSpecValueDto"
+		resultType="cn.yh.dto.SpecValueDto">
+		select spec_id specId ,GROUP_CONCAT(v_name) val from spec_value
+		<include refid="wherelistSpecValueDto"></include>
+		group by spec_id
+	</select>
 
+	<sql id="wherelistSpecValueDto">
+		<where>
+			<if test="state!=null">
+				state = #{state}
+			</if>
+			<if test="ids!=null">
+				and spec_id in(
+				<foreach collection="specIds" item="specId" separator=",">
+					#{specId}
+				</foreach>
+				)
+			</if>
+
+		</where>
+	</sql>
 </mapper>

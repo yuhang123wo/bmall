@@ -1,12 +1,16 @@
 package cn.yh.product.service;
 
+import java.util.List;
+
 import com.baomidou.mybatisplus.extension.service.IService;
 
+import cn.yh.dto.AttrValueDto;
+import cn.yh.pojo.eumn.State;
 import cn.yh.pojo.product.AttrValue;
 
 /**
  * <p>
- *  服务类
+ * 服务类
  * </p>
  *
  * @author yuhang
@@ -14,4 +18,5 @@ import cn.yh.pojo.product.AttrValue;
  */
 public interface IAttrValueService extends IService<AttrValue> {
 
+	List<AttrValueDto> listAttrValueDto(String[] attrIds, State state);
 }
