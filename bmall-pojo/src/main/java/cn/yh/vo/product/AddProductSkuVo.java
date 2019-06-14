@@ -4,6 +4,7 @@
 package cn.yh.vo.product;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 /**
  * @author yuhang
@@ -12,51 +13,24 @@ import java.math.BigDecimal;
  */
 public class AddProductSkuVo {
 
-	private long specId;
-	private String specName;
-	private long specValueId;
-	private String specValueName;
-	private BigDecimal price;
+	private String price;
 	private int stock;
 	private String img;
+	private List<SkuVo> sku;
 
-	public long getSpecId() {
-		return specId;
+	public List<SkuVo> getSku() {
+		return sku;
 	}
 
-	public void setSpecId(long specId) {
-		this.specId = specId;
+	public void setSku(List<SkuVo> sku) {
+		this.sku = sku;
 	}
 
-	public String getSpecName() {
-		return specName;
-	}
-
-	public void setSpecName(String specName) {
-		this.specName = specName;
-	}
-
-	public long getSpecValueId() {
-		return specValueId;
-	}
-
-	public void setSpecValueId(long specValueId) {
-		this.specValueId = specValueId;
-	}
-
-	public String getSpecValueName() {
-		return specValueName;
-	}
-
-	public void setSpecValueName(String specValueName) {
-		this.specValueName = specValueName;
-	}
-
-	public BigDecimal getPrice() {
+	public String getPrice() {
 		return price;
 	}
 
-	public void setPrice(BigDecimal price) {
+	public void setPrice(String price) {
 		this.price = price;
 	}
 

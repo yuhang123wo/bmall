@@ -11,7 +11,7 @@ import com.baomidou.mybatisplus.annotation.EnumValue;
  * @desc
  */
 public enum ProductState {
-	UNAUDIT(0, "未审核"), audited(1, "审核成功"), auditFail(2, "审核失败");
+	UNAUDIT(0, "未审核"), AUDITED(1, "审核成功"), AUDITFAIL(2, "审核失败");
 	ProductState(int code, String remark) {
 		this.code = code;
 		this.remark = remark;

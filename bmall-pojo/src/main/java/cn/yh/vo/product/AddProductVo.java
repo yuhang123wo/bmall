@@ -7,8 +7,10 @@ import java.math.BigDecimal;
 import java.util.List;
 
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
+import cn.yh.pojo.eumn.ProductStatus;
 import io.swagger.annotations.ApiModelProperty;
 
 /**
@@ -27,7 +29,6 @@ public class AddProductVo {
 	private Long categoryId;
 
 	@ApiModelProperty(value = "品牌ID")
-	@NotNull
 	private Long brandId;
 
 	@ApiModelProperty(value = "商家ID")
@@ -48,11 +49,11 @@ public class AddProductVo {
 
 	@ApiModelProperty(value = "商品价格")
 	@NotNull
-	private BigDecimal price;
+	private String price;
 
 	@ApiModelProperty(value = "市场价格")
 	@NotNull
-	private BigDecimal marketPrice;
+	private String marketPrice;
 
 	@ApiModelProperty(value = "库存量")
 	@NotNull
@@ -70,11 +71,11 @@ public class AddProductVo {
 
 	@ApiModelProperty(value = "状态 (0-下架，1-上架，2-删除)")
 	@NotNull
-	private Integer status;
+	private ProductStatus status;
 
 	@ApiModelProperty(value = "计量单位")
-	@NotNull
-	private Long weightUnit;
+	@NotBlank
+	private String weightUnit;
 
 	// 属性集合
 	private List<AddProductAttrVo> attrValueList;
@@ -83,6 +84,7 @@ public class AddProductVo {
 
 	private List<AddProductSkuVo> skuList;
 
+	@NotEmpty
 	private List<String> images;
 
 	private String description;
@@ -183,19 +185,19 @@ public class AddProductVo {
 		this.pno = pno;
 	}
 
-	public BigDecimal getPrice() {
+	public String getPrice() {
 		return price;
 	}
 
-	public void setPrice(BigDecimal price) {
+	public void setPrice(String price) {
 		this.price = price;
 	}
 
-	public BigDecimal getMarketPrice() {
+	public String getMarketPrice() {
 		return marketPrice;
 	}
 
-	public void setMarketPrice(BigDecimal marketPrice) {
+	public void setMarketPrice(String marketPrice) {
 		this.marketPrice = marketPrice;
 	}
 
@@ -231,19 +233,19 @@ public class AddProductVo {
 		this.weight = weight;
 	}
 
-	public Integer getStatus() {
+	public ProductStatus getStatus() {
 		return status;
 	}
 
-	public void setStatus(Integer status) {
+	public void setStatus(ProductStatus status) {
 		this.status = status;
 	}
 
-	public Long getWeightUnit() {
+	public String getWeightUnit() {
 		return weightUnit;
 	}
 
-	public void setWeightUnit(Long weightUnit) {
+	public void setWeightUnit(String weightUnit) {
 		this.weightUnit = weightUnit;
 	}
 

@@ -58,6 +58,7 @@ public class ProductController {
 	 */
 	@PostMapping("addProduct")
 	public ApiResponseEnity<Boolean> addProduct(@Validated @RequestBody AddProductVo vo) {
+		productService.addProduct(vo);
 		return new ApiResponseEnity<Boolean>();
 	}
 
