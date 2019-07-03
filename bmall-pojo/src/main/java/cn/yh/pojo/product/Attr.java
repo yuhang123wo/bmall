@@ -36,6 +36,17 @@ public class Attr extends Entity {
 
 	private Date updateTime;
 
+	@ApiModelProperty("0:系统,其他ID:用户自定义")
+	private Long userId;
+
+	public Long getUserId() {
+		return userId;
+	}
+
+	public void setUserId(Long userId) {
+		this.userId = userId;
+	}
+
 	public Date getUpdateTime() {
 		return updateTime;
 	}

@@ -24,8 +24,8 @@ import com.alibaba.fastjson.JSONArray;
  * @Date 2017年10月17日
  * @desc controller日志
  */
-@Aspect
-@Configuration
+//@Aspect
+//@Configuration
 public class LoggerControllerAdvice {
 
 	private Logger logger = LoggerFactory.getLogger(this.getClass());

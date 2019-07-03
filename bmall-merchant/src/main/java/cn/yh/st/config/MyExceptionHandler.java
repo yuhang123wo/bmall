@@ -18,14 +18,14 @@ import cn.yh.st.common.exception.DefaultException;
  * @desc
  */
 @ControllerAdvice
-public class DrpExceptionHandler {
+public class MyExceptionHandler {
 
 	private Logger logger = LoggerFactory.getLogger(this.getClass());
 
 	@ResponseBody
 	@ExceptionHandler(value = Exception.class)
 	public ApiResponseEnity<?> javaExceptionHandler(Exception ex) {
-		logger.error("接口异常", ex);
+		logger.error("系统异常", ex);
 		if (ex instanceof DefaultException) {
 			return new ApiResponseEnity<>().fail(ex.getMessage());
 		}
@@ -37,7 +37,7 @@ public class DrpExceptionHandler {
 			return new ApiResponseEnity<>().fail(((MethodArgumentNotValidException) ex).getBindingResult()
 					.getAllErrors().get(0).getDefaultMessage());
 		}
-		
+
 		return new ApiResponseEnity<>().fail("系统异常");
 	}
 }

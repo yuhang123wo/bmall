@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+import at.pollux.thymeleaf.shiro.dialect.ShiroDialect;
 import cn.yh.st.fegin.service.UserService;
 
 /**
@@ -50,6 +51,8 @@ public class ShiroConfiguration {
 //			}
 //		}
 		filterChainDefinitionMap.put("/favicon.ico", "anon");
+		filterChainDefinitionMap.put("/lg/**", "anon");
+//		filterChainDefinitionMap.put("/assets/**", "anon");
 		filterChainDefinitionMap.put("/**", "authc");// 表示需要认证才可以访问
 		bean.setFilterChainDefinitionMap(filterChainDefinitionMap);
 		// 未授权界面;
@@ -91,5 +94,14 @@ public class ShiroConfiguration {
 	@Bean(name = "lifecycleBeanPostProcessor")
 	public LifecycleBeanPostProcessor getLifecycleBeanPostProcessor() {
 		return new LifecycleBeanPostProcessor();
+	}
+
+	/**
+	 * 使用模板标签
+	 * @return
+	 */
+	@Bean
+	public ShiroDialect shiroDialect() {
+		return new ShiroDialect();
 	}
 }

@@ -18,21 +18,31 @@ import io.swagger.annotations.ApiModelProperty;
  * @since 2019-06-12
  */
 @TableName("attr_value")
-@ApiModel(value="AttrValue对象", description="")
+@ApiModel(value = "AttrValue对象", description = "")
 public class AttrValue extends Entity {
 
-    private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 1L;
 
-    private String vName;
+	private String vName;
 
-    private Long attrId;
+	private Long attrId;
 
-    @ApiModelProperty(value = "状态(0:禁用 1:启用)")
-    private State state;
+	@ApiModelProperty(value = "状态(0:禁用 1:启用)")
+	private State state;
 
-    private Date createTime;
+	private Date createTime;
 
 	private Date updateTime;
+	@ApiModelProperty("0:系统,大于0:用户自定义")
+	private Long userId;
+
+	public Long getUserId() {
+		return userId;
+	}
+
+	public void setUserId(Long userId) {
+		this.userId = userId;
+	}
 
 	public Date getUpdateTime() {
 		return updateTime;
@@ -41,22 +51,24 @@ public class AttrValue extends Entity {
 	public void setUpdateTime(Date updateTime) {
 		this.updateTime = updateTime;
 	}
-    public String getvName() {
-        return vName;
-    }
 
-    public void setvName(String vName) {
-        this.vName = vName;
-    }
-    public Long getAttrId() {
-        return attrId;
-    }
+	public String getvName() {
+		return vName;
+	}
 
-    public void setAttrId(Long attrId) {
-        this.attrId = attrId;
-    }
-   
-    public State getState() {
+	public void setvName(String vName) {
+		this.vName = vName;
+	}
+
+	public Long getAttrId() {
+		return attrId;
+	}
+
+	public void setAttrId(Long attrId) {
+		this.attrId = attrId;
+	}
+
+	public State getState() {
 		return state;
 	}
 
@@ -65,10 +77,10 @@ public class AttrValue extends Entity {
 	}
 
 	public Date getCreateTime() {
-        return createTime;
-    }
+		return createTime;
+	}
 
-    public void setCreateTime(Date createTime) {
-        this.createTime = createTime;
-    }
+	public void setCreateTime(Date createTime) {
+		this.createTime = createTime;
+	}
 }

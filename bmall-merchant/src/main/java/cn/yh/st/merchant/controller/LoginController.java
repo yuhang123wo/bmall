@@ -13,6 +13,9 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 /**
  * @author yuhang
@@ -57,5 +60,12 @@ public class LoginController {
 	@GetMapping("/index")
 	public String index() throws Exception {
 		return "index";
+	}
+
+	@RequestMapping(value = "/logout", method = RequestMethod.GET)
+	public String logout(RedirectAttributes redirectAttributes) {
+		// 使用权限管理工具进行用户的退出，跳出登录，给出提示信息
+		SecurityUtils.getSubject().logout();
+		return "redirect:/login";
 	}
 }
