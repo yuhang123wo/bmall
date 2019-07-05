@@ -31,16 +31,12 @@
 			 window.jQuery || document.write("<script src='/assets/js/jquery1x.min.js'>"+"<"+"/script>");
 			</script>
 		<![endif]-->
-		<script type="text/javascript">
-			if('ontouchstart' in document.documentElement) document.write("<script src='/assets/js/jquery.mobile.custom.min.js'>"+"<"+"/script>");
-		</script>
 		<script src="/assets/js/bootstrap.min.js"></script>
 		<!--[if lte IE 8]>
 		  <script src="/assets/js/excanvas.min.js"></script>
 		<![endif]-->
-		<script src="/assets/js/jquery-ui.custom.min.js"></script>
-		<script src="/assets/js/jquery.ui.touch-punch.min.js"></script>
 		<script src="/assets/js/ace.min.js"></script>
+		<script src="/js/handlebars.min.js"></script>
 	</head>
 
 	<body class="no-skin">
@@ -65,7 +61,6 @@
 									<ul class="dropdown-menu dropdown-navbar">
 										<li>
 											<a href="#">
-												<img src="assets/avatars/avatar.png" class="msg-photo" alt="Alex's Avatar" />
 												<span class="msg-body">
 													<span class="msg-title">
 														<span class="blue">B2C:</span>
@@ -164,7 +159,7 @@
 
 						<ul class="submenu">
 							<li class="" id="11">
-								<a href="tables.html">
+								<a href="/product/listView">
 									<i class="menu-icon fa fa-caret-right"></i>
 									商品管理
 								</a>
@@ -181,7 +176,7 @@
 								<b class="arrow"></b>
 							</li>
 							<li class="" id="13">
-								<a href="jqgrid.html">
+								<a href="/category/listView">
 									<i class="menu-icon fa fa-caret-right"></i>
 									商品分类
 								</a>
@@ -189,7 +184,7 @@
 								<b class="arrow"></b>
 							</li>
 							<li class="" id="14">
-								<a href="jqgrid.html">
+								<a href="/props/listView">
 									<i class="menu-icon fa fa-caret-right"></i>
 									商品参数
 								</a>
@@ -197,7 +192,7 @@
 								<b class="arrow"></b>
 							</li>
 							<li class="" id="15">
-								<a href="jqgrid.html">
+								<a href="/attr/listView">
 									<i class="menu-icon fa fa-caret-right"></i>
 									 商品属性
 								</a>
@@ -205,7 +200,7 @@
 								<b class="arrow"></b>
 							</li>
 							<li class="" id="16">
-								<a href="jqgrid.html">
+								<a href="/spec/listView">
 									<i class="menu-icon fa fa-caret-right"></i>
 									规格管理
 								</a>
@@ -238,7 +233,7 @@
 					<ul class="breadcrumb">
 						<li>
 							<i class="ace-icon fa fa-home home-icon"></i>
-							<a href="/index">首页</a>
+							<a href="/index">首页 </a><span id="bread"></span>
 						</li>
 					</ul><!-- /.breadcrumb -->
 
@@ -282,6 +277,9 @@
 			    	$(this).removeClass("active");
 			});
 		    $("#"+seq).addClass("active");
+		    if(seq!=0){
+		    var str = $("#"+seq).text().replace(/\s*/g,"");
+		    $("#bread").text(">>"+str);}
 		    $("#"+seq).parent().parent().addClass("open");
 		    $("#"+seq).parent().addClass("nav-show");
 		    $("#"+seq).parent().css('display','block'); 	

@@ -8337,6 +8337,16 @@ th .lbl:only-child,td .lbl:only-child
   box-sizing: content-box;
   padding: 4px 6px;
 }
+.dataTables_filter select
+{
+  width: 125px;
+  height: 18px;
+  line-height: 18px;
+  -webkit-box-sizing: content-box;
+  -moz-box-sizing: content-box;
+  box-sizing: content-box;
+  padding: 4px 6px;
+}
 
 .dataTables_filter label
 {

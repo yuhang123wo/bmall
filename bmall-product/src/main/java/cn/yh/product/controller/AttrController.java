@@ -55,8 +55,8 @@ public class AttrController {
 	 * @param vo
 	 * @return
 	 */
-	@GetMapping("listAttr")
-	public ApiResponseEnity<Page<Attr>> listAttr(QueryAttrVo vo) {
+	@PostMapping("listAttr")
+	public ApiResponseEnity<Page<Attr>> listAttr(@RequestBody QueryAttrVo vo) {
 		QueryWrapper<Attr> queryWrapper = SearchToQuery.getQuery(vo);
 		Page<Attr> page = new Page<Attr>(vo.getPageNo(), vo.getPageSize());
 		IPage<Attr> attrList = attrService.page(page, queryWrapper);

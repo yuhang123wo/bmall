@@ -4,17 +4,17 @@
 package cn.yh.product.controller;
 
 import java.util.Date;
-import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 
 import cn.yh.pojo.eumn.State;
 import cn.yh.pojo.product.Category;
@@ -43,10 +43,11 @@ public class CategoryController {
 	 * @param vo
 	 * @return
 	 */
-	@GetMapping("listCategory")
-	public ApiResponseEnity<List<Category>> listCategory(QueryCategoryVo vo) {
+	@PostMapping("listCategory")
+	public ApiResponseEnity<IPage<Category>> listCategory(QueryCategoryVo vo) {
+		Page<Category> page = new Page<Category>(vo.getPageNo(), vo.getPageSize());
 		QueryWrapper<Category> queryWrapper = SearchToQuery.getQuery(vo);
-		return new ApiResponseEnity<List<Category>>(categoryService.list(queryWrapper));
+		return new ApiResponseEnity<IPage<Category>>(categoryService.page(page, queryWrapper));
 	}
 
 	/**
