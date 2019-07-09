@@ -32,6 +32,13 @@ function query(params) {
 function toIndex(id){
 	window.location.href="/category/editCategoryView/"+id;
 }
+
+function modify_state(id,state){
+	var params ={};
+	params.id=id;
+	params.state=state;
+	dataSubmit('/category/updateCategoryState',params)
+}
 </script>
 	<div class="row">
 		<div class="col-xs-12">
@@ -79,7 +86,14 @@ function toIndex(id){
           {{#if_eq state 'DISABLE'}}
           <span class="label label-warning radius">禁用 </span> 
           {{/if_eq}} </td>
-     <td>编辑 禁用</td>
+     <td>{{#not_eq userId 0}}
+               {{#if_eq state 'ENABLE'}}
+           <a title="禁用" href="javascript:;"  onclick="modify_state({{id}},'DISABLE')" class="btn btn-xs btn-warning" ><i class="fa fa-ban  bigger-120"></i></a>
+          {{/if_eq}} 
+          {{#if_eq  state 'DISABLE'}}
+           <a title="启用" href="javascript:;"  onclick="modify_state({{id}},'ENABLE')" class="btn btn-xs btn-success" ><i class="fa fa-check  bigger-120"></i></a>
+          {{/if_eq}}             
+         {{/not_eq}}</td>
  </tr>
   {{#each list}}
    <tr>
@@ -91,7 +105,14 @@ function toIndex(id){
           {{#if_eq state 'DISABLE'}}
           <span class="label label-warning radius">禁用 </span> 
           {{/if_eq}} </td>
-     <td>编辑 禁用</td>
+     <td>{{#not_eq userId 0}}
+          {{#if_eq state 'ENABLE'}}
+           <a title="禁用" href="javascript:;"  onclick="modify_state({{id}},'DISABLE')" class="btn btn-xs btn-warning" ><i class="fa fa-ban  bigger-120"></i></a>
+          {{/if_eq}} 
+          {{#if_eq  state 'DISABLE'}}
+           <a title="启用" href="javascript:;"  onclick="modify_state({{id}},'ENABLE')" class="btn btn-xs btn-success" ><i class="fa fa-check  bigger-120"></i></a>
+          {{/if_eq}} 
+         {{/not_eq}}</td>
  </tr>
    {{#each list}}
      <tr>
@@ -103,7 +124,14 @@ function toIndex(id){
           {{#if_eq state 'DISABLE'}}
           <span class="label label-warning radius">禁用 </span> 
           {{/if_eq}} </td>
-     <td>编辑 禁用</td>
+     <td>{{#not_eq userId 0}}
+          {{#if_eq state 'ENABLE'}}
+           <a title="禁用" href="javascript:;"  onclick="modify_state({{id}},'DISABLE')" class="btn btn-xs btn-warning" ><i class="fa fa-ban  bigger-120"></i></a>
+          {{/if_eq}} 
+          {{#if_eq  state 'DISABLE'}}
+           <a title="启用" href="javascript:;"  onclick="modify_state({{id}},'ENABLE')" class="btn btn-xs btn-success" ><i class="fa fa-check  bigger-120"></i></a>
+          {{/if_eq}}
+         {{/not_eq}}</td>
       </tr>
    {{/each}}
 {{/each}}

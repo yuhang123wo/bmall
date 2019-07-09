@@ -44,8 +44,9 @@ public class CategoryController {
 	 * @return
 	 */
 	@PostMapping("listCategory")
-	public ApiResponseEnity<List<Category>> listCategory(QueryCategoryVo vo) {
+	public ApiResponseEnity<List<Category>> listCategory(@RequestBody QueryCategoryVo vo) {
 		QueryWrapper<Category> queryWrapper = SearchToQuery.getQuery(vo);
+		queryWrapper.eq("user_id", 0).or().eq("user_id", vo.getUserId());
 		return new ApiResponseEnity<List<Category>>(categoryService.list(queryWrapper));
 	}
 
@@ -91,6 +92,9 @@ public class CategoryController {
 		Category category = categoryService.getById(categoryId);
 		if (category == null) {
 			return new ApiResponseEnity<>().fail("错误的分类");
+		}
+		if (MallUtil.longEqZero(category.getUserId())) {
+			return new ApiResponseEnity<>().fail("系统分类不能禁用");
 		}
 		category.setState(state);
 		boolean flag = categoryService.updateById(category);

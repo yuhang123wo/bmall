@@ -37,8 +37,20 @@ public class CategoryVO {
 	@ApiModelProperty(value = "分级")
 	@NotNull(message = "分级必须")
 	private Integer level;
+	
+	private Long userId;
 
 	private List<CategoryVO> list;
+
+	
+	
+	public Long getUserId() {
+		return userId;
+	}
+
+	public void setUserId(Long userId) {
+		this.userId = userId;
+	}
 
 	public Long getId() {
 		return id;

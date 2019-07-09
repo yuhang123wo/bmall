@@ -46,6 +46,18 @@ public class Category extends Entity {
 	private Date updateTime;
 
 	private Date createTime;
+	
+	@ApiModelProperty("0:系统,其他ID:用户自定义")
+	private Long userId;
+	
+
+	public Long getUserId() {
+		return userId;
+	}
+
+	public void setUserId(Long userId) {
+		this.userId = userId;
+	}
 
 	public String getName() {
 		return name;

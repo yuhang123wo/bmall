@@ -22,4 +22,15 @@ public class MallUtil {
 		return true;
 	}
 
+	public static boolean longEqZero(Long target) {
+
+		if (null == target) {
+			return false;
+		}
+
+		if (target.longValue() == 0) {
+			return true;
+		}
+		return false;
+	}
 }

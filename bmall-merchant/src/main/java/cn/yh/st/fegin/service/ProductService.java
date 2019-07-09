@@ -41,7 +41,7 @@ public interface ProductService {
 	public ApiResponseEnity<Boolean> addProduct(@RequestBody AddProductVo vo);
 
 	@PostMapping("category/listCategory")
-	public ApiResponseEnity<List<Category>> listCategory(QueryCategoryVo vo);
+	public ApiResponseEnity<List<Category>> listCategory(@RequestBody QueryCategoryVo vo);
 	
 	@GetMapping("category/getCategoryById")
 	public ApiResponseEnity<Category> getCategoryById(@RequestParam("categoryId") Long categoryId);
