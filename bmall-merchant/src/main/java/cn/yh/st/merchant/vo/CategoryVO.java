@@ -1,30 +1,24 @@
-package cn.yh.pojo.product;
+/**
+ * 
+ */
+package cn.yh.st.merchant.vo;
 
-import java.util.Date;
+import java.util.List;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
-import com.baomidou.mybatisplus.annotation.TableName;
-
 import cn.yh.pojo.eumn.State;
-import cn.yh.st.common.Entity;
-import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
 /**
- * <p>
- * 
- * </p>
- *
  * @author yuhang
- * @since 2019-06-12
+ * @date 2019年7月8日
+ * @desc
  */
-@TableName("category")
-@ApiModel(value = "Category对象", description = "")
-public class Category extends Entity {
+public class CategoryVO {
 
-	private static final long serialVersionUID = 1L;
+	private Long id;
 
 	@ApiModelProperty(value = "分类名")
 	@NotBlank(message = "分类名不能为空")
@@ -41,11 +35,18 @@ public class Category extends Entity {
 	private Long pId;
 
 	@ApiModelProperty(value = "分级")
+	@NotNull(message = "分级必须")
 	private Integer level;
 
-	private Date updateTime;
+	private List<CategoryVO> list;
 
-	private Date createTime;
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
 
 	public String getName() {
 		return name;
@@ -87,19 +88,12 @@ public class Category extends Entity {
 		this.level = level;
 	}
 
-	public Date getUpdateTime() {
-		return updateTime;
+	public List<CategoryVO> getList() {
+		return list;
 	}
 
-	public void setUpdateTime(Date updateTime) {
-		this.updateTime = updateTime;
+	public void setList(List<CategoryVO> list) {
+		this.list = list;
 	}
 
-	public Date getCreateTime() {
-		return createTime;
-	}
-
-	public void setCreateTime(Date createTime) {
-		this.createTime = createTime;
-	}
 }

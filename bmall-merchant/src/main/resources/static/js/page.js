@@ -6,8 +6,6 @@ $(function() {
 function query(params) {
 	var targetUrl = $('#searchForm').attr("url");
 	$curs = params;
-
-	console.log($curs);
 	$.ajax({
 		type : "GET",
 		url : targetUrl,
