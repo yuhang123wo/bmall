@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	 xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
+	layout:decorate="~{layout.html}">
+<head>
+ <link rel="stylesheet" href="/dist/css/bootstrapValidator.css" type="text/css"/>
+ <script type="text/javascript" src="/dist/js/bootstrapValidator.js"></script>
+ <link rel="stylesheet" type="text/css" href="/css/jquery.tagsinput.css" />
+ <script type="text/javascript" src="/js/jquery.tagsinput.js"></script>
+</head>
+<div class="page-content" layout:fragment="content" seq="13">
+<SCRIPT th:inline="javascript">
+	var data = [[${listAll}]];
+	var props =[[${props}]];
+    $(function(){
+    	 if(props!=null){
+    		 var category  =[[${category}]];
+    		  $("#cateSelect").attr("disabled","disabled");
+    		  $("#cateSelect").append("<option value=''>"+category.name+"</option>"); 
+    	 }else{
+    		 $("#cateSelect").append("<option value=''>请选择</option>"); 
+    	    	for(var i=0;i<data.length;i++){
+    	    		var m = data[i];
+    	    	     $("#cateSelect").append("<option value="+m.id+">"+m.name+"</option>"); 
+    	    		 for(var j=0;j<m.list.length;j++){
+    	    			 var n = m.list[j];
+    	    			 $("#cateSelect").append("<option value="+n.id+">— "+n.name+"</option>"); 
+    	    			 for(var k=0;k<n.list.length;k++){
+    	        			 var z = n.list[k];
+    	        			 $("#cateSelect").append("<option value="+z.id+">—— "+z.name+"</option>"); 
+    	        		 }
+    	    		 }
+    	    	}
+    	 }
+    })
+	</SCRIPT>
+	<script type="text/javascript">
+	 $(document).ready(function() {
+	    $('#dataForm').bootstrapValidator({
+	        message: 'This value is not valid',
+	        fields: {
+	            name: {
+	                validators: {
+	                    notEmpty: {
+	                        message: '分类不能为空'
+	                    }
+	                }
+	            },
+	           pId: {
+                validators: {
+                    notEmpty: {
+                        message: '分类不能为空'
+                    }
+                }
+            }
+	        }
+	    });
+	    $('#subData').click(function() {
+	        var bootstrapValidator = $("#dataForm").data('bootstrapValidator');
+	         bootstrapValidator.validate();
+	        if(bootstrapValidator.isValid()){
+	            ajaxSubmit("dataForm");
+	        }
+	    });
+	    $('#subModifyData').click(function() {
+	        var bootstrapValidator = $("#dataForm").data('bootstrapValidator');
+	         bootstrapValidator.validate();
+	        if(bootstrapValidator.isValid()){
+	        	var params = {};
+	        	params.propsId=[[${props.id}]]
+	        	params.name=$("#name").val();
+	        	params.data=$("#data").val();
+	        	dataSubmit("/props/updateProps",params)
+	        }
+	    });
+	    
+ 
+	});
+	 
+	 
+	 function backUrl(){
+		 window.location.href=document.referrer;
+	 }
+		$(function() {
+			$('#data').tagsInput({
+				width: 'auto',
+				onChange: function(elem, elem_tags)
+				{
+					$('.tag', elem_tags).each(function()
+					{
+							$(this).css('background-color', 'yellow');
+					});
+				}
+			});
+		});
+
+   </script>
+   <div class="row">
+			 <div class="col-xs-12">
+								<!-- PAGE CONTENT BEGINS -->
+								<form class="form-horizontal"  action="/props/addProps" method="POST" id="dataForm">
+									<div class="form-group">
+										<label class="col-sm-3 control-label no-padding-right" >属性名称： </label>
+
+										<div class="col-sm-9">
+											<input th:if="${props!=null}" type="text" id="name" name="name" placeholder="属性名称" class=" col-xs-10 col-sm-5" th:value="${props.name}">
+											<input th:if="${props==null}" type="text" id="name" name="name" placeholder="属性名称" class=" col-xs-10 col-sm-5">
+										</div>
+									</div>
+									<div class="form-group">
+										<label class="col-sm-3 control-label no-padding-right" for="form-field-tags">分类：</label>
+										<div class="col-sm-2">
+											<div class="pos-rel">
+											<select class="form-control" id="cateSelect" name="categoryId">
+											</select>
+											</div>
+										</div>
+									</div>
+                                    <div class="form-group">
+                                           <label class="col-sm-3 control-label no-padding-right">值：</label>
+										    <div class="col-sm-9">
+										    <input  th:if="${props!=null}"  id="data" name="data" type="text" class="tags" th:value="${props.data}" />
+										     <input  th:if="${props==null}"  id="data" name="data" type="text" class="tags" />
+										</div>
+                                    </div>
+
+									<div class="clearfix form-actions">
+										<div class="col-md-offset-3 col-md-9">
+											<button th:if="${props==null}" class="btn btn-info" type="button" id ="subData">
+												<i class="ace-icon fa fa-check bigger-110"></i>
+												立即提交
+											</button>
+                                            <button th:if="${props!=null}" class="btn btn-info" type="button" id ="subModifyData">
+												<i class="ace-icon fa fa-check bigger-110"></i>
+												立即修改
+											</button>
+											&nbsp; &nbsp; &nbsp;
+											<button class="btn" type="reset" onclick="backUrl();">
+												<i class="ace-icon fa fa-undo bigger-110"></i>
+												返回
+											</button>
+										</div>
+									</div>
+
+								</form>
+
+							</div><!-- /.col -->
+						</div>
+</div>
+</html>

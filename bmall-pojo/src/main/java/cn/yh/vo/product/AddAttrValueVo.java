@@ -14,12 +14,24 @@ import javax.validation.constraints.NotNull;
  * @desc
  */
 public class AddAttrValueVo {
-
 	@NotNull
 	private Long attrId;
+	
+	@NotNull
+	private Long userId;
 
 	@NotEmpty
 	private List<String> list;
+
+	
+	
+	public Long getUserId() {
+		return userId;
+	}
+
+	public void setUserId(Long userId) {
+		this.userId = userId;
+	}
 
 	public Long getAttrId() {
 		return attrId;

@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 
@@ -28,6 +29,7 @@ import cn.yh.pojo.product.SpecValue;
 import cn.yh.product.service.ISpecService;
 import cn.yh.product.service.ISpecValueService;
 import cn.yh.st.common.api.ApiResponseEnity;
+import cn.yh.st.common.util.MallUtil;
 import cn.yh.st.common.util.SearchToQuery;
 import cn.yh.vo.product.AddAttrValueVo;
 import cn.yh.vo.product.AddSpecVo;
@@ -55,9 +57,10 @@ public class SpecController {
 	 * @param vo
 	 * @return
 	 */
-	@GetMapping("listSpec")
-	public ApiResponseEnity<Page<Spec>> listAttr(QuerySpecVo vo) {
+	@PostMapping("listSpec")
+	public ApiResponseEnity<Page<Spec>> listAttr(@RequestBody QuerySpecVo vo) {
 		QueryWrapper<Spec> queryWrapper = SearchToQuery.getQuery(vo);
+		queryWrapper.eq("user_id", 0).or().eq("user_id", vo.getUserId());
 		Page<Spec> page = new Page<Spec>(vo.getPageNo(), vo.getPageSize());
 		IPage<Spec> attrList = specService.page(page, queryWrapper);
 		return new ApiResponseEnity<Page<Spec>>((Page<Spec>) attrList);
@@ -99,10 +102,12 @@ public class SpecController {
 		if (attr == null) {
 			return new ApiResponseEnity<>().fail("规格不存");
 		}
-
+		if(MallUtil.longEqZero(vo.getUserId())) {
+			return new ApiResponseEnity<>().fail("系统属性不能修改");
+		}
 		attr.setState(vo.getState());
 
-		Boolean flag = specService.updateById(attr);
+		Boolean flag = specService.update(attr, new UpdateWrapper<Spec>().eq("user_id", vo.getUserId()));
 		if (flag) {
 			return new ApiResponseEnity<>();
 		}
@@ -120,10 +125,12 @@ public class SpecController {
 		if (attr == null) {
 			return new ApiResponseEnity<>().fail("属性值不存");
 		}
-
+		if(MallUtil.longEqZero(vo.getUserId())) {
+			return new ApiResponseEnity<>().fail("系统属性不能修改");
+		}
 		attr.setState(vo.getState());
 
-		Boolean flag = specValueService.updateById(attr);
+		Boolean flag = specValueService.update(attr, new UpdateWrapper<SpecValue>().eq("user_id", vo.getUserId()));
 		if (flag) {
 			return new ApiResponseEnity<>();
 		}
@@ -142,9 +149,7 @@ public class SpecController {
 		if (attr == null || attr.getState() == State.DISABLE) {
 			return new ApiResponseEnity<>().fail("属性不存或已被禁用");
 		}
-
 		List<SpecValue> list = new ArrayList<SpecValue>();
-
 		for (int i = 0; i < vo.getList().size(); i++) {
 			SpecValue v = new SpecValue();
 			v.setSpecId(attr.getId());
@@ -152,6 +157,7 @@ public class SpecController {
 			v.setUpdateTime(v.getCreateTime());
 			v.setState(State.ENABLE);
 			v.setvName(vo.getList().get(i));
+			v.setUserId(vo.getUserId());
 			list.add(v);
 		}
 		boolean flag = specValueService.saveBatch(list, list.size());

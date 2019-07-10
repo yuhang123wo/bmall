@@ -20,6 +20,18 @@ public class QuerySpecVo extends BasePage {
 
 	@SearchFieldAnnotation(column = "state", type = SearchType.eq)
 	private State state;
+	
+	private Long userId;
+	
+	
+
+	public Long getUserId() {
+		return userId;
+	}
+
+	public void setUserId(Long userId) {
+		this.userId = userId;
+	}
 
 	public Long getCategoryId() {
 		return categoryId;

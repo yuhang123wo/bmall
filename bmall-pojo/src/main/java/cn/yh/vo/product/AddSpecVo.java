@@ -28,8 +28,19 @@ public class AddSpecVo {
 	@NotNull
 	private State state;
 
+	@NotNull
+	private Long userId;
+
 	@NotEmpty
 	private List<SpecValue> list;
+
+	public Long getUserId() {
+		return userId;
+	}
+
+	public void setUserId(Long userId) {
+		this.userId = userId;
+	}
 
 	public String getName() {
 		return name;

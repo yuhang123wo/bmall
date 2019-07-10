@@ -29,6 +29,10 @@ public class Props extends Entity {
 	@ApiModelProperty(value = "分类ID")
 	@NotNull
 	private Long categoryId;
+	
+	@ApiModelProperty(value="名称")
+	@NotBlank
+	private String name;
 
 	@NotBlank
 	private String data;
@@ -36,6 +40,29 @@ public class Props extends Entity {
 	private Date createTime;
 
 	private Date updateTime;
+	
+
+	@ApiModelProperty("0:系统,其他ID:用户自定义")
+	private Long userId;
+
+	
+	
+
+	public Long getUserId() {
+		return userId;
+	}
+
+	public void setUserId(Long userId) {
+		this.userId = userId;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
 
 	public Long getCategoryId() {
 		return categoryId;

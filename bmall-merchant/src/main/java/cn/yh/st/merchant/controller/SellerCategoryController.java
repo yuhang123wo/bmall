@@ -3,10 +3,8 @@
  */
 package cn.yh.st.merchant.controller;
 
-import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.shiro.SecurityUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -23,9 +21,9 @@ import cn.yh.st.common.api.ApiResponseEnity;
 import cn.yh.st.common.util.MallUtil;
 import cn.yh.st.config.shiro.ShiroUser;
 import cn.yh.st.fegin.service.ProductService;
+import cn.yh.st.merchant.util.CategoryUtil;
 import cn.yh.st.merchant.util.UserUtil;
 import cn.yh.st.merchant.vo.CategoryVO;
-import cn.yh.util.ConvertUtil;
 import cn.yh.vo.product.QueryCategoryVo;
 
 /**
@@ -51,41 +49,9 @@ public class SellerCategoryController {
 		ShiroUser user = UserUtil.getUser();
 		vo.setUserId(user.getId());
 		List<Category> list = productService.listCategory(vo).getData();
-		return new ApiResponseEnity<List<CategoryVO>>(getP(list));
+		return new ApiResponseEnity<List<CategoryVO>>(CategoryUtil.getP(list));
 	}
 
-	/**
-	 * 
-	 * @param treeNodes
-	 * @return
-	 */
-	private List<CategoryVO> getP(List<Category> treeNodes) {
-		List<CategoryVO> trees = new ArrayList<CategoryVO>();
-		for (Category treeNode : treeNodes) {
-			trees.add(ConvertUtil.convert(treeNode, CategoryVO.class));
-		}
-		List<CategoryVO> result = new ArrayList<CategoryVO>();
-		for (CategoryVO treeNode : trees) {
-			if (treeNode.getpId().longValue() == 0) {
-				treeNode.setList(buildTree(trees, treeNode.getId()));
-				result.add(treeNode);
-			}
-		}
-		return result;
-	}
-
-	private List<CategoryVO> buildTree(List<CategoryVO> list, long parentId) {
-		List<CategoryVO> voList = new ArrayList<CategoryVO>();
-		for (CategoryVO v : list) {
-			long pid = v.getpId();
-			if (parentId == pid) {
-				List<CategoryVO> menuLists = buildTree(list, v.getId());
-				v.setList(menuLists);
-				voList.add(v);
-			}
-		}
-		return voList;
-	}
 
 	@GetMapping("editCategoryView/{id}")
 	public String editCategoryView(Model model, @PathVariable("id") Long id) {
@@ -98,7 +64,7 @@ public class SellerCategoryController {
 		v.setState(State.ENABLE);
 		v.setUserId(user.getId());
 		List<Category> list = productService.listCategory(v).getData();
-		model.addAttribute("listAll", getP(list));
+		model.addAttribute("listAll", CategoryUtil.getP(list));
 		return "product/category-edit";
 	}
 

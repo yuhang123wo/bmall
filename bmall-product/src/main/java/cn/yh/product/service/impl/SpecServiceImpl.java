@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 
@@ -31,6 +32,7 @@ public class SpecServiceImpl extends ServiceImpl<SpecMapper, Spec> implements IS
 	@Autowired
 	private ISpecValueService specValueService;
 
+	@Transactional
 	@Override
 	public void addSpecValue(AddSpecVo vo) {
 		// 新增attr
@@ -40,6 +42,7 @@ public class SpecServiceImpl extends ServiceImpl<SpecMapper, Spec> implements IS
 		attr.setName(vo.getName());
 		attr.setState(vo.getState());
 		attr.setUpdateTime(attr.getCreateTime());
+		attr.setUserId(vo.getUserId());
 		int n = baseMapper.insert(attr);
 		if (n != 1) {
 			throw new DefaultException("新增规格失败");
@@ -51,6 +54,7 @@ public class SpecServiceImpl extends ServiceImpl<SpecMapper, Spec> implements IS
 			v.setState(State.ENABLE);
 			v.setSpecId(attr.getId());
 			v.setUpdateTime(v.getCreateTime());
+			v.setUserId(vo.getUserId());
 			v.setId(null);
 		}
 		specValueService.saveBatch(list, list.size());

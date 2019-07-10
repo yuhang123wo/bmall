@@ -14,11 +14,23 @@ import cn.yh.pojo.eumn.State;
  * @desc
  */
 public class UpdateStateVo {
-
 	@NotNull
 	private Long id;
 	@NotNull
 	private State state;
+	
+	@NotNull
+	private Long userId;
+	
+	
+
+	public Long getUserId() {
+		return userId;
+	}
+
+	public void setUserId(Long userId) {
+		this.userId = userId;
+	}
 
 	public Long getId() {
 		return id;
