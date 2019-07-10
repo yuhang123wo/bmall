@@ -16,6 +16,12 @@
     	  window.location.href="/props/editPropsView/"+id;
      }
  </script>
+ <SCRIPT th:inline="javascript">
+	var data = [[${listAll}]];
+	$(function (){
+		initCate("cateSelect",data);
+	})
+ </SCRIPT>
 	<div class="row">
 		<div class="col-xs-12">
 			<div class="table-responsive">
@@ -28,7 +34,7 @@
                           </div>
                           <label class="col-sm-1 control-label">分类：</label>
                           <div class="col-sm-2">
-                             <input class="form-control" type="text"/>
+                             <select class="form-control" id="cateSelect" name="categoryId"></select>
                           </div>
                           	<div class="col-sm-1">
 								<div class="col-sm-5">
@@ -78,7 +84,7 @@
   <td>{{categoryId}}</td>  
   <td>{{data}}</td> 
   <td> {{#not_eq userId 0}}
-           <a title="编辑" href="javascript:;"  onclick="toIndex({{id}})" class="btn btn-xs btn-success" ><i class="fa fa-check  bigger-120"></i></a>
+           <a title="编辑" href="javascript:;"  onclick="toIndex({{id}})" class="btn btn-xs btn-success" ><i class="fa fa-edit  bigger-120"></i></a>
        {{/not_eq}}
   </td>                
  </tr>

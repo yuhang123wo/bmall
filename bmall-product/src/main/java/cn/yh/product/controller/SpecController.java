@@ -60,7 +60,7 @@ public class SpecController {
 	@PostMapping("listSpec")
 	public ApiResponseEnity<Page<Spec>> listAttr(@RequestBody QuerySpecVo vo) {
 		QueryWrapper<Spec> queryWrapper = SearchToQuery.getQuery(vo);
-		queryWrapper.eq("user_id", 0).or().eq("user_id", vo.getUserId());
+		queryWrapper.and(obj -> obj.eq("user_id", 0).or().eq("user_id", vo.getUserId()));
 		Page<Spec> page = new Page<Spec>(vo.getPageNo(), vo.getPageSize());
 		IPage<Spec> attrList = specService.page(page, queryWrapper);
 		return new ApiResponseEnity<Page<Spec>>((Page<Spec>) attrList);
@@ -107,7 +107,7 @@ public class SpecController {
 		}
 		attr.setState(vo.getState());
 
-		Boolean flag = specService.update(attr, new UpdateWrapper<Spec>().eq("user_id", vo.getUserId()));
+		Boolean flag = specService.update(attr, new UpdateWrapper<Spec>().eq("user_id", vo.getUserId()).eq("id",vo.getId()));
 		if (flag) {
 			return new ApiResponseEnity<>();
 		}
@@ -130,7 +130,7 @@ public class SpecController {
 		}
 		attr.setState(vo.getState());
 
-		Boolean flag = specValueService.update(attr, new UpdateWrapper<SpecValue>().eq("user_id", vo.getUserId()));
+		Boolean flag = specValueService.update(attr, new UpdateWrapper<SpecValue>().eq("user_id", vo.getUserId()).eq("id",vo.getId()));
 		if (flag) {
 			return new ApiResponseEnity<>();
 		}

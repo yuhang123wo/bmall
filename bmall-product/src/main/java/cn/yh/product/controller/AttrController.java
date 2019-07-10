@@ -60,7 +60,7 @@ public class AttrController {
 	@PostMapping("listAttr")
 	public ApiResponseEnity<Page<Attr>> listAttr(@RequestBody QueryAttrVo vo) {
 		QueryWrapper<Attr> queryWrapper = SearchToQuery.getQuery(vo);
-		queryWrapper.eq("user_id", 0).or().eq("user_id", vo.getUserId());
+		queryWrapper.and(obj -> obj.eq("user_id", 0).or().eq("user_id", vo.getUserId()));
 		Page<Attr> page = new Page<Attr>(vo.getPageNo(), vo.getPageSize());
 		IPage<Attr> attrList = attrService.page(page, queryWrapper);
 		return new ApiResponseEnity<Page<Attr>>((Page<Attr>) attrList);
@@ -106,7 +106,7 @@ public class AttrController {
 			return new ApiResponseEnity<>().fail("系统属性不能修改");
 		}
 		attr.setState(vo.getState());
-		Boolean flag = attrService.update(attr, new UpdateWrapper<Attr>().eq("user_id", vo.getUserId()));
+		Boolean flag = attrService.update(attr, new UpdateWrapper<Attr>().eq("user_id", vo.getUserId()).eq("id",vo.getId()));
 		if (flag) {
 			return new ApiResponseEnity<>();
 		}
@@ -128,7 +128,7 @@ public class AttrController {
 			return new ApiResponseEnity<>().fail("系统属性不能修改");
 		}
 		attr.setState(vo.getState());
-		Boolean flag = attrValueService.update(attr, new UpdateWrapper<AttrValue>().eq("user_id", vo.getUserId()));
+		Boolean flag = attrValueService.update(attr, new UpdateWrapper<AttrValue>().eq("user_id", vo.getUserId()).eq("id",vo.getId()));
 		if (flag) {
 			return new ApiResponseEnity<>();
 		}

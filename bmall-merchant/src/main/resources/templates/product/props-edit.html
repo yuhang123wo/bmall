@@ -8,7 +8,7 @@
  <link rel="stylesheet" type="text/css" href="/css/jquery.tagsinput.css" />
  <script type="text/javascript" src="/js/jquery.tagsinput.js"></script>
 </head>
-<div class="page-content" layout:fragment="content" seq="13">
+<div class="page-content" layout:fragment="content" seq="14">
 <SCRIPT th:inline="javascript">
 	var data = [[${listAll}]];
 	var props =[[${props}]];
@@ -62,22 +62,20 @@
 	            ajaxSubmit("dataForm");
 	        }
 	    });
-	    $('#subModifyData').click(function() {
-	        var bootstrapValidator = $("#dataForm").data('bootstrapValidator');
+	    
+	});
+	 
+	  function editData(id){
+	    	var bootstrapValidator = $("#dataForm").data('bootstrapValidator');
 	         bootstrapValidator.validate();
 	        if(bootstrapValidator.isValid()){
 	        	var params = {};
-	        	params.propsId=[[${props.id}]]
+	        	params.propsId=$("#propsId").val();
 	        	params.name=$("#name").val();
 	        	params.data=$("#data").val();
-	        	dataSubmit("/props/updateProps",params)
+	        	dataSubmit("/props/updateProps",params); 
 	        }
-	    });
-	    
- 
-	});
-	 
-	 
+	    }
 	 function backUrl(){
 		 window.location.href=document.referrer;
 	 }
@@ -130,10 +128,11 @@
 												<i class="ace-icon fa fa-check bigger-110"></i>
 												立即提交
 											</button>
-                                            <button th:if="${props!=null}" class="btn btn-info" type="button" id ="subModifyData">
+                                            <button th:if="${props!=null}"  onclick="editData()" class="btn btn-info" type="button" id ="subModifyData">
 												<i class="ace-icon fa fa-check bigger-110"></i>
 												立即修改
 											</button>
+											 <input th:if="${props!=null}"  type="hidden" th:value="${props.id}" id="propsId"/>
 											&nbsp; &nbsp; &nbsp;
 											<button class="btn" type="reset" onclick="backUrl();">
 												<i class="ace-icon fa fa-undo bigger-110"></i>

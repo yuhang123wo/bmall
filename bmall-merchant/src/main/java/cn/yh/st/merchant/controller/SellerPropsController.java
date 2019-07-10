@@ -41,7 +41,13 @@ public class SellerPropsController {
 	private ProductService productService;
 
 	@GetMapping("listView")
-	public String productView() {
+	public String productView(Model model) {
+		ShiroUser user = UserUtil.getUser();
+		QueryCategoryVo v = new QueryCategoryVo();
+		v.setState(State.ENABLE);
+		v.setUserId(user.getId());
+		List<Category> list = productService.listCategory(v).getData();
+		model.addAttribute("listAll", CategoryUtil.getP(list));
 		return "product/props-list";
 	}
 
@@ -57,10 +63,10 @@ public class SellerPropsController {
 	public String editPropsView(@PathVariable("id") Long id, Model model) {
 		ApiResponseEnity<Props> p = productService.getPropsById(id);
 		model.addAttribute("props", p.getData());
-		if(p.getData()!=null) {
+		if (p.getData() != null) {
 			ApiResponseEnity<Category> category = productService.getCategoryById(p.getData().getCategoryId());
 			model.addAttribute("category", category.getData());
-		}else {
+		} else {
 
 			ShiroUser user = UserUtil.getUser();
 			QueryCategoryVo v = new QueryCategoryVo();
@@ -69,7 +75,7 @@ public class SellerPropsController {
 			List<Category> list = productService.listCategory(v).getData();
 			model.addAttribute("listAll", CategoryUtil.getP(list));
 		}
-		
+
 		return "product/props-edit";
 	}
 
@@ -80,8 +86,7 @@ public class SellerPropsController {
 		props.setUserId(user.getId());
 		return productService.adddProps(props);
 	}
-	
-	
+
 	/**
 	 * 
 	 * @param propsId

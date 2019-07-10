@@ -46,7 +46,7 @@ public class CategoryController {
 	@PostMapping("listCategory")
 	public ApiResponseEnity<List<Category>> listCategory(@RequestBody QueryCategoryVo vo) {
 		QueryWrapper<Category> queryWrapper = SearchToQuery.getQuery(vo);
-		queryWrapper.eq("user_id", 0).or().eq("user_id", vo.getUserId());
+		queryWrapper.and(obj -> obj.eq("user_id", 0).or().eq("user_id", vo.getUserId()));
 		return new ApiResponseEnity<List<Category>>(categoryService.list(queryWrapper));
 	}
 

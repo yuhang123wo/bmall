@@ -41,7 +41,7 @@ public class PropsController {
 	@PostMapping("listProps")
 	public ApiResponseEnity<Page<Props>> listProps(@RequestBody QueryAttrVo vo) {
 		QueryWrapper<Props> queryWrapper = SearchToQuery.getQuery(vo);
-		queryWrapper.eq("user_id", 0).or().eq("user_id", vo.getUserId());
+		queryWrapper.and(obj -> obj.eq("user_id", 0).or().eq("user_id", vo.getUserId()));
 		Page<Props> page = new Page<Props>(vo.getPageNo(), vo.getPageSize());
 		IPage<Props> attrList = propsService.page(page, queryWrapper);
 		return new ApiResponseEnity<Page<Props>>((Page<Props>) attrList);
@@ -90,7 +90,7 @@ public class PropsController {
 		p.setName(props.getName());
 		p.setData(props.getData());
 		p.setUpdateTime(new Date());
-		boolean flag = propsService.update(p, new UpdateWrapper<Props>().eq("user_id", props.getUserId()));
+		boolean flag = propsService.update(p, new UpdateWrapper<Props>().eq("user_id", props.getUserId()).eq("id",props.getId()));
 		if (flag) {
 			return new ApiResponseEnity<>();
 		}
