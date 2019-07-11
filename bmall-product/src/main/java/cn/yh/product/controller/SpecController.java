@@ -3,11 +3,9 @@
  */
 package cn.yh.product.controller;
 
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 
-import javax.validation.constraints.NotBlank;
+import javax.swing.JPopupMenu.Separator;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
@@ -15,6 +13,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
@@ -22,16 +21,11 @@ import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 
-import cn.yh.dto.SpecValueDto;
-import cn.yh.pojo.eumn.State;
 import cn.yh.pojo.product.Spec;
-import cn.yh.pojo.product.SpecValue;
 import cn.yh.product.service.ISpecService;
-import cn.yh.product.service.ISpecValueService;
 import cn.yh.st.common.api.ApiResponseEnity;
 import cn.yh.st.common.util.MallUtil;
 import cn.yh.st.common.util.SearchToQuery;
-import cn.yh.vo.product.AddAttrValueVo;
 import cn.yh.vo.product.AddSpecVo;
 import cn.yh.vo.product.QuerySpecVo;
 import cn.yh.vo.product.UpdateStateVo;
@@ -48,9 +42,6 @@ public class SpecController {
 	@Autowired
 	private ISpecService specService;
 
-	@Autowired
-	private ISpecValueService specValueService;
-
 	/**
 	 * 规格列表
 	 * 
@@ -64,18 +55,6 @@ public class SpecController {
 		Page<Spec> page = new Page<Spec>(vo.getPageNo(), vo.getPageSize());
 		IPage<Spec> attrList = specService.page(page, queryWrapper);
 		return new ApiResponseEnity<Page<Spec>>((Page<Spec>) attrList);
-	}
-
-	/**
-	 * 规格值
-	 * 
-	 * @param attrIds
-	 * @return
-	 */
-	@GetMapping("listSpecValue")
-	public ApiResponseEnity<?> listAttrValue(@Validated @NotBlank String specIds, @Validated @NotBlank State state) {
-		List<SpecValueDto> list = specValueService.listSpecValueDto(specIds.split(","), state);
-		return new ApiResponseEnity<>(list);
 	}
 
 	/**
@@ -102,35 +81,13 @@ public class SpecController {
 		if (attr == null) {
 			return new ApiResponseEnity<>().fail("规格不存");
 		}
-		if(MallUtil.longEqZero(vo.getUserId())) {
+		if (MallUtil.longEqZero(vo.getUserId())) {
 			return new ApiResponseEnity<>().fail("系统属性不能修改");
 		}
 		attr.setState(vo.getState());
 
-		Boolean flag = specService.update(attr, new UpdateWrapper<Spec>().eq("user_id", vo.getUserId()).eq("id",vo.getId()));
-		if (flag) {
-			return new ApiResponseEnity<>();
-		}
-		return new ApiResponseEnity<>().fail("修改失败");
-	}
-
-	/**
-	 * 
-	 * @param vo
-	 * @return
-	 */
-	@PostMapping("updateSpecValueState")
-	public ApiResponseEnity<?> updateAttrValueState(@Validated @RequestBody UpdateStateVo vo) {
-		SpecValue attr = specValueService.getById(vo.getId());
-		if (attr == null) {
-			return new ApiResponseEnity<>().fail("属性值不存");
-		}
-		if(MallUtil.longEqZero(vo.getUserId())) {
-			return new ApiResponseEnity<>().fail("系统属性不能修改");
-		}
-		attr.setState(vo.getState());
-
-		Boolean flag = specValueService.update(attr, new UpdateWrapper<SpecValue>().eq("user_id", vo.getUserId()).eq("id",vo.getId()));
+		Boolean flag = specService.update(attr,
+				new UpdateWrapper<Spec>().eq("user_id", vo.getUserId()).eq("id", vo.getId()));
 		if (flag) {
 			return new ApiResponseEnity<>();
 		}
@@ -143,27 +100,25 @@ public class SpecController {
 	 * @param vo
 	 * @return
 	 */
-	@PostMapping("addSpecValue")
-	public ApiResponseEnity<?> addAttrValue(@Validated @RequestBody AddAttrValueVo vo) {
-		Spec attr = specService.getById(vo.getAttrId());
-		if (attr == null || attr.getState() == State.DISABLE) {
-			return new ApiResponseEnity<>().fail("属性不存或已被禁用");
+	@PostMapping("updateAttrAndValue")
+	public ApiResponseEnity<?> updateAttrAndValue(@Validated @RequestBody Spec vo) {
+		Spec spec = specService.getOne(new QueryWrapper<Spec>().eq("id", vo.getId()).eq("user_id", vo.getUserId()));
+		if (spec == null) {
+			return new ApiResponseEnity<>().fail("规格不存在");
 		}
-		List<SpecValue> list = new ArrayList<SpecValue>();
-		for (int i = 0; i < vo.getList().size(); i++) {
-			SpecValue v = new SpecValue();
-			v.setSpecId(attr.getId());
-			v.setCreateTime(new Date());
-			v.setUpdateTime(v.getCreateTime());
-			v.setState(State.ENABLE);
-			v.setvName(vo.getList().get(i));
-			v.setUserId(vo.getUserId());
-			list.add(v);
-		}
-		boolean flag = specValueService.saveBatch(list, list.size());
-		if (flag) {
+
+		spec.setName(vo.getName());
+		spec.setData(vo.getData());
+		spec.setUpdateTime(new Date());
+		boolean flag = specService.updateById(spec);
+		if (flag)
 			return new ApiResponseEnity<>();
-		}
 		return new ApiResponseEnity<>().fail("添加失败");
+	}
+	
+	
+	@GetMapping("getSpecById")
+	public ApiResponseEnity<?> getSpecById(@RequestParam Long id) {
+		return new ApiResponseEnity<>(specService.getById(id));
 	}
 }

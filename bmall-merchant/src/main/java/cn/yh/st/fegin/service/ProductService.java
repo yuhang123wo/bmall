@@ -20,7 +20,6 @@ import cn.yh.pojo.product.Product;
 import cn.yh.pojo.product.Props;
 import cn.yh.pojo.product.Spec;
 import cn.yh.st.common.api.ApiResponseEnity;
-import cn.yh.vo.product.AddAttrValueVo;
 import cn.yh.vo.product.AddAttrVo;
 import cn.yh.vo.product.AddProductVo;
 import cn.yh.vo.product.AddSpecVo;
@@ -80,8 +79,6 @@ public interface ProductService {
 	@PostMapping("spec/listSpec")
 	public ApiResponseEnity<Page<Spec>> listSpec(@RequestBody QuerySpecVo vo);
 	
-	@GetMapping("spec/listSpecValue")
-	public ApiResponseEnity<?> listSpecValue(@RequestParam String specIds, @RequestParam State state);
 
 	@PostMapping("spec/addSpecAndValue")
 	public ApiResponseEnity<?> addSpecAndValue(@RequestBody AddSpecVo vo);
@@ -89,12 +86,11 @@ public interface ProductService {
 	@PostMapping("spec/updateSpecState")
 	public ApiResponseEnity<?> updateSpecState(@RequestBody UpdateStateVo vo);
 	
-	@PostMapping("spec/updateSpecValueState")
-	public ApiResponseEnity<?> updateSpecValueState(@RequestBody UpdateStateVo vo);
+	@PostMapping("spec/updateAttrAndValue")
+	public ApiResponseEnity<?> updateSpecAndValue(@RequestBody Spec vo); 
 	
-	@PostMapping("spec/addSpecValue")
-	public ApiResponseEnity<?> addSpecValue(@RequestBody AddAttrValueVo vo);
-	
+	@GetMapping("spec/getSpecById")
+	public ApiResponseEnity<Spec> getSpecById(@RequestParam Long id);
 	
 	@GetMapping("props/getPropsById")
 	public ApiResponseEnity<Props> getPropsById(@RequestParam Long id);

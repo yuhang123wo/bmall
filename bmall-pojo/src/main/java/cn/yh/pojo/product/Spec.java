@@ -38,6 +38,18 @@ public class Spec extends Entity {
 
 	@ApiModelProperty("0:系统,大于0:用户自定义")
 	private Long userId;
+	
+	
+	private String data;
+	
+
+	public String getData() {
+		return data;
+	}
+
+	public void setData(String data) {
+		this.data = data;
+	}
 
 	public Long getUserId() {
 		return userId;

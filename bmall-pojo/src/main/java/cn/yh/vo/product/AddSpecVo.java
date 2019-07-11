@@ -10,7 +10,6 @@ import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
 import cn.yh.pojo.eumn.State;
-import cn.yh.pojo.product.SpecValue;
 
 /**
  * @author yuhang
@@ -32,7 +31,7 @@ public class AddSpecVo {
 	private Long userId;
 
 	@NotEmpty
-	private List<SpecValue> list;
+	private List<String> list;
 
 	public Long getUserId() {
 		return userId;
@@ -66,11 +65,11 @@ public class AddSpecVo {
 		this.state = state;
 	}
 
-	public List<SpecValue> getList() {
+	public List<String> getList() {
 		return list;
 	}
 
-	public void setList(List<SpecValue> list) {
+	public void setList(List<String> list) {
 		this.list = list;
 	}
 

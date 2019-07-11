@@ -24,7 +24,6 @@ import cn.yh.pojo.product.Product;
 import cn.yh.pojo.product.ProductDetail;
 import cn.yh.pojo.product.ProductSku;
 import cn.yh.pojo.product.Spec;
-import cn.yh.pojo.product.SpecValue;
 import cn.yh.product.mapper.ProductMapper;
 import cn.yh.product.service.IAttrService;
 import cn.yh.product.service.IBrandService;
@@ -35,7 +34,6 @@ import cn.yh.product.service.IProductDetailService;
 import cn.yh.product.service.IProductService;
 import cn.yh.product.service.IProductSkuService;
 import cn.yh.product.service.ISpecService;
-import cn.yh.product.service.ISpecValueService;
 import cn.yh.st.common.exception.DefaultException;
 import cn.yh.vo.product.AddProductAttrVo;
 import cn.yh.vo.product.AddProductSkuVo;
@@ -65,8 +63,6 @@ public class ProductServiceImpl extends ServiceImpl<ProductMapper, Product> impl
 	private IAttrService attrService;
 	@Autowired
 	private ISpecService specService;
-	@Autowired
-	private ISpecValueService specValueService;
 	@Autowired
 	private IPRelaPropsService pRelaPropsService;
 	@Autowired
@@ -117,14 +113,14 @@ public class ProductServiceImpl extends ServiceImpl<ProductMapper, Product> impl
 				if (category.getId().longValue() != spec.getCategoryId().longValue()) {
 					throw new DefaultException("规格不属于该分类");
 				}
-				SpecValue value = specValueService.getById(skus.getSpecValueId());
-				if (value == null || value.getState() == State.DISABLE
-						|| value.getSpecId().longValue() != spec.getId().longValue()) {
-					throw new DefaultException("规格值不存在");
-				}
+//				SpecValue value = specValueService.getById(skus.getSpecValueId());
+//				if (value == null || value.getState() == State.DISABLE
+//						|| value.getSpecId().longValue() != spec.getId().longValue()) {
+//					throw new DefaultException("规格值不存在");
+//				}
 
-				skus.setSpecName(spec.getName());
-				skus.setSpecValueName(value.getvName());
+//				skus.setSpecName(spec.getName());
+//				skus.setSpecValueName(value.getvName());
 			}
 
 			productSku.setCreateTime(new Date());
