@@ -2,6 +2,9 @@ package cn.yh.pojo.product;
 
 import java.util.Date;
 
+import javax.validation.constraints.NotBlank;
+
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
 
 import cn.yh.pojo.eumn.State;
@@ -38,6 +41,25 @@ public class Attr extends Entity {
 
 	@ApiModelProperty("0:系统,其他ID:用户自定义")
 	private Long userId;
+	
+	@NotBlank 
+	private String data;
+	
+
+	@TableField(exist=false)
+	private String[] dataArray;
+	
+	public String[] getDataArray() {
+		return data.split(",");
+	}
+
+	public String getData() {
+		return data;
+	}
+
+	public void setData(String data) {
+		this.data = data;
+	}
 
 	public Long getUserId() {
 		return userId;

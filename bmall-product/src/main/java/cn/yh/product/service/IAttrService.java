@@ -20,4 +20,5 @@ public interface IAttrService extends IService<Attr> {
 	 * @param vo
 	 */
 	void addAttrValue(AddAttrVo vo);
+	
 }

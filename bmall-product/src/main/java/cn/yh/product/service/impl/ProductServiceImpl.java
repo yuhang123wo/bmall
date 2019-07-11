@@ -16,7 +16,6 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import cn.yh.pojo.eumn.ProductState;
 import cn.yh.pojo.eumn.State;
 import cn.yh.pojo.product.Attr;
-import cn.yh.pojo.product.AttrValue;
 import cn.yh.pojo.product.Brand;
 import cn.yh.pojo.product.Category;
 import cn.yh.pojo.product.PRelaAttr;
@@ -28,7 +27,6 @@ import cn.yh.pojo.product.Spec;
 import cn.yh.pojo.product.SpecValue;
 import cn.yh.product.mapper.ProductMapper;
 import cn.yh.product.service.IAttrService;
-import cn.yh.product.service.IAttrValueService;
 import cn.yh.product.service.IBrandService;
 import cn.yh.product.service.ICategoryService;
 import cn.yh.product.service.IPRelaAttrService;
@@ -66,8 +64,6 @@ public class ProductServiceImpl extends ServiceImpl<ProductMapper, Product> impl
 	@Autowired
 	private IAttrService attrService;
 	@Autowired
-	private IAttrValueService attrValueService;
-	@Autowired
 	private ISpecService specService;
 	@Autowired
 	private ISpecValueService specValueService;
@@ -95,17 +91,17 @@ public class ProductServiceImpl extends ServiceImpl<ProductMapper, Product> impl
 			if (category.getId().longValue() != attr.getCategoryId().longValue()) {
 				throw new DefaultException("属性不属于该分类");
 			}
-			AttrValue attrValue = attrValueService.getById(v.getValueId());
-			if (attrValue == null || attrValue.getState() == State.DISABLE
-					|| attrValue.getAttrId().longValue() != attr.getId()) {
-				throw new DefaultException("属性值不存在或被禁用");
-			}
-			PRelaAttr pa = new PRelaAttr();
-			pa.setAttrId(v.getAttrId());
-			pa.setAttrName(attr.getName());
-			pa.setvName(attrValue.getvName());
-			pa.setvId(attrValue.getId());
-			attrList.add(pa);
+//			AttrValue attrValue = attrValueService.getById(v.getValueId());
+//			if (attrValue == null || attrValue.getState() == State.DISABLE
+//					|| attrValue.getAttrId().longValue() != attr.getId()) {
+//				throw new DefaultException("属性值不存在或被禁用");
+//			}
+//			PRelaAttr pa = new PRelaAttr();
+//			pa.setAttrId(v.getAttrId());
+//			pa.setAttrName(attr.getName());
+//			pa.setvName(attrValue.getvName());
+//			pa.setvId(attrValue.getId());
+//			attrList.add(pa);
 		}
 
 		List<AddProductSkuVo> listSkuVo = vo.getSkuList();

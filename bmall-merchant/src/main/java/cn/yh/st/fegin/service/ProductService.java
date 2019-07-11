@@ -71,20 +71,11 @@ public interface ProductService {
 	@PostMapping("attr/listAttr")
 	public ApiResponseEnity<Page<Attr>> listAttr(@RequestBody QueryAttrVo vo);
 	
-	@GetMapping("attr/listAttrValue")
-	public ApiResponseEnity<?> listAttrValue(@RequestParam String attrIds, @RequestParam State state);
-	
-	@PostMapping("addAttrAndValue")
+	@PostMapping("attr/addAttrAndValue")
 	public ApiResponseEnity<?> addAttrAndValue(@RequestBody AddAttrVo vo);
 	
-	@PostMapping("attr/updateAttrState")
-	public ApiResponseEnity<?> updateAttrState(@RequestBody UpdateStateVo vo);
-	
-	@PostMapping("attr/updateAttrValueState")
-	public ApiResponseEnity<?> updateAttrValueState(@RequestBody UpdateStateVo vo);
-	
-	@PostMapping("attr/addAttrValue")
-	public ApiResponseEnity<?> addAttrValue(@RequestBody AddAttrValueVo vo);
+	@PostMapping("attr/updateAttrAndValue")
+	public ApiResponseEnity<?> updateAttrAndValue(@RequestBody Attr vo);
 	
 	@PostMapping("spec/listSpec")
 	public ApiResponseEnity<Page<Spec>> listSpec(@RequestBody QuerySpecVo vo);
@@ -107,5 +98,8 @@ public interface ProductService {
 	
 	@GetMapping("props/getPropsById")
 	public ApiResponseEnity<Props> getPropsById(@RequestParam Long id);
+	
+	@GetMapping("attr/getAttrById")
+	public ApiResponseEnity<Attr> getAttrById(@RequestParam Long id);
 
 }

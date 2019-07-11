@@ -10,7 +10,6 @@ import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
 import cn.yh.pojo.eumn.State;
-import cn.yh.pojo.product.AttrValue;
 
 /**
  * @author yuhang
@@ -29,7 +28,7 @@ public class AddAttrVo {
 	private State state;
 
 	@NotEmpty
-	private List<AttrValue> list;
+	private List<String> list;
 	
 	
 	@NotNull
@@ -69,11 +68,11 @@ public class AddAttrVo {
 		this.state = state;
 	}
 
-	public List<AttrValue> getList() {
+	public List<String> getList() {
 		return list;
 	}
 
-	public void setList(List<AttrValue> list) {
+	public void setList(List<String> list) {
 		this.list = list;
 	}
 
