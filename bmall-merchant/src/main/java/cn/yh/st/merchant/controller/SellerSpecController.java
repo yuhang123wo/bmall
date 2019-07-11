@@ -62,7 +62,7 @@ public class SellerSpecController {
 	@GetMapping("editSpecView/{id}")
 	public String editSpecView(@PathVariable("id") Long id, Model model) {
 		ApiResponseEnity<Spec> p = productService.getSpecById(id);
-		model.addAttribute("attr", p.getData());
+		model.addAttribute("spec", p.getData());
 		ApiResponseEnity<Category> category = productService.getCategoryById(p.getData().getCategoryId());
 		model.addAttribute("category", category.getData());
 		return "product/spec-edit";

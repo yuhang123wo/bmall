@@ -11,10 +11,12 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 
 import cn.yh.pojo.eumn.State;
 import cn.yh.pojo.product.Attr;
+import cn.yh.pojo.product.Brand;
 import cn.yh.pojo.product.Category;
 import cn.yh.pojo.product.Product;
 import cn.yh.pojo.product.Props;
@@ -97,5 +99,19 @@ public interface ProductService {
 	
 	@GetMapping("attr/getAttrById")
 	public ApiResponseEnity<Attr> getAttrById(@RequestParam Long id);
+	
+	@PostMapping("brand/listBrand")
+	public ApiResponseEnity<IPage<Brand>> listBrand(@RequestBody QueryAttrVo vo);
+	
+	@GetMapping("brand/getBrandById")
+	public ApiResponseEnity<Brand> getBrandById(@RequestParam Long id);
 
+	@PostMapping("brand/addBrand")
+	public ApiResponseEnity<?> addBrand(@RequestBody Brand vo);
+	
+	@PostMapping("brand/updateBrandState")
+	public ApiResponseEnity<?> updateBrandState(@RequestBody UpdateStateVo vo);
+
+	@PostMapping("brand/updateBrand")
+	public ApiResponseEnity<?> updateBrand(@RequestBody Brand vo);
 }

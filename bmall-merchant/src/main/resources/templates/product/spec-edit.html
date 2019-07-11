@@ -7,13 +7,7 @@
  <script type="text/javascript" src="/dist/js/bootstrapValidator.js"></script>
   <script src="/js/m.js" type="text/javascript"></script>
 </head>
-<div class="page-content" layout:fragment="content" seq="15">
-<SCRIPT th:inline="javascript">
-     var data = [[${listAll}]];
-	  $(function (){
-		initCate("cateSelect",data);
-	 })
-</SCRIPT>
+<div class="page-content" layout:fragment="content" seq="16">
 <script type="text/javascript">
 	 $(document).ready(function() {
 	    $('#dataForm').bootstrapValidator({
@@ -25,14 +19,7 @@
 	                        message: '分类不能为空'
 	                    }
 	                }
-	            },
-	            categoryId: {
-                validators: {
-                    notEmpty: {
-                        message: '分类不能为空'
-                    }
-                }
-            }
+	            }
 	        }
 	    });
 	    $('#subData').click(function() {
@@ -53,7 +40,7 @@
 				alert("可选项最多20项");
 				return;
 		 }
-		var items ="<div><input style='margin-bottom: 5px;' class='col-sm-10'  name='data' type='text' /><label class='col-sm-2 control-label no-padding-right'><a href='javascript:;' class='remove' onclick='del(this)'>[删除]</a></label></div>"; 
+		var items ="<div><input style='margin-bottom: 5px;' class='col-sm-10'  name='list' type='text' /><label class='col-sm-2 control-label no-padding-right'><a href='javascript:;' class='remove' onclick='del(this)'>[删除]</a></label></div>"; 
 	   $("#item").append(items);
 	 }
 	 function del(_this){
@@ -62,27 +49,26 @@
 			alert("至少为一项");
 			return;
 		}
-		
 		 $(_this).parent().parent().remove();  
 	 }
    </script>
    <div class="row">
 			 <div class="col-xs-12">
 								<!-- PAGE CONTENT BEGINS -->
-								<form class="form-horizontal"  action="/attr/addAttrAndValue" method="POST" id="dataForm">
+								<form class="form-horizontal"  action="/spec/updateSpecAndValue" method="POST" id="dataForm">
 									<div class="form-group">
 										<label class="col-sm-3 control-label no-padding-right" >名称： </label>
 
 										<div class="col-sm-9">
-											<input type="text" id="name" name="name" placeholder="名称" class=" col-xs-10 col-sm-5">
+											<input type="text" id="name" name="name" placeholder="名称" class=" col-xs-10 col-sm-5" th:value="${spec.name}">
+										    <input type="hidden" name="id" th:value="${spec.id}">
 										</div>
 									</div>
 									<div class="form-group">
 										<label class="col-sm-3 control-label no-padding-right" for="form-field-tags">分类：</label>
 										<div class="col-sm-2">
 											<div class="pos-rel">
-											<select class="form-control" id="cateSelect" name="categoryId">
-											</select>
+											<input class="form-control" th:value="${spec.name}" name="categoryId" disabled="disabled"/>
 											</div>
 										</div>
 									</div>
@@ -95,13 +81,13 @@
                                     <div class="form-group">
                                            <label class="col-sm-3 control-label no-padding-right">可选项：</label>
 										  <div class="col-sm-4" id="item">
-										      <div><input style="margin-bottom: 5px;" class="col-sm-10"  name="data" type="text" /><label class="col-sm-2 control-label no-padding-right"><a href="javascript:;" class="remove" onclick='del(this)'>[删除]</a></label></div>
+										      <div   th:each="p:${spec.dataArray}" ><input style="margin-bottom: 5px;" class="col-sm-10"  name="list" type="text"  th:value="${p}"/><label class="col-sm-2 control-label no-padding-right"><a href="javascript:;" class="remove" onclick='del(this)'>[删除]</a></label></div>
 										  </div>
                                     </div>
 
 									<div class="clearfix form-actions">
 										<div class="col-md-offset-3 col-md-9">
-											<button th:if="${attr==null}" class="btn btn-info" type="button" id ="subData">
+											<button class="btn btn-info" type="button" id ="subData">
 												<i class="ace-icon fa fa-check bigger-110"></i>
 												立即提交
 											</button>

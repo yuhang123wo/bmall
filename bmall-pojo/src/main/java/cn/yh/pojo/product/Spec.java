@@ -2,6 +2,9 @@ package cn.yh.pojo.product;
 
 import java.util.Date;
 
+import org.apache.commons.lang3.StringUtils;
+
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
 
 import cn.yh.pojo.eumn.State;
@@ -42,6 +45,16 @@ public class Spec extends Entity {
 	
 	private String data;
 	
+	@TableField(exist=false)
+	private String[] dataArray;
+	
+
+	public String[] getDataArray() {
+		if (StringUtils.isBlank(data)) {
+			return null;
+		}
+		return data.split(",");
+	}
 
 	public String getData() {
 		return data;
