@@ -19,6 +19,7 @@ import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 
+import cn.yh.pojo.eumn.State;
 import cn.yh.pojo.product.Brand;
 import cn.yh.product.service.IBrandService;
 import cn.yh.st.common.api.ApiResponseEnity;
@@ -54,11 +55,24 @@ public class BrandController {
 		return new ApiResponseEnity<Brand>(attr);
 	}
 
-	@PostMapping("addBrand")
-	public ApiResponseEnity<?> addBrand(@Validated @RequestBody Brand vo) {
-		vo.setCreateTime(new Date());
-		vo.setUpdateTime(vo.getCreateTime());
-		boolean flag = brandService.save(vo);
+	@PostMapping("addOrUpdateBrand")
+	public ApiResponseEnity<?> addOrUpdateBrand(@Validated @RequestBody Brand vo) {
+		boolean flag = false;
+		if (vo.getId() == null) {
+			vo.setState(State.ENABLE);
+			vo.setCreateTime(new Date());
+			vo.setUpdateTime(vo.getCreateTime());
+			flag = brandService.save(vo);
+		} else {
+			Brand attr = brandService
+					.getOne(new QueryWrapper<Brand>().eq("id", vo.getId()).eq("user_id", vo.getUserId()));
+			if (attr == null) {
+				return new ApiResponseEnity<>().fail("品牌不存在");
+			}
+			attr.setLogo(vo.getLogo());
+			attr.setAddress(vo.getAddress());
+			flag = brandService.updateById(attr);
+		}
 		if (flag)
 			return new ApiResponseEnity<>();
 		return new ApiResponseEnity<>().fail("失败");
@@ -88,17 +102,4 @@ public class BrandController {
 		return new ApiResponseEnity<>().fail("修改失败");
 	}
 
-	@PostMapping("updateBrand")
-	public ApiResponseEnity<?> updateBrand(@Validated @RequestBody Brand vo) {
-		Brand attr = brandService.getOne(new QueryWrapper<Brand>().eq("id", vo.getId()).eq("user_id", vo.getUserId()));
-		if (attr == null) {
-			return new ApiResponseEnity<>().fail("品牌不存在");
-		}
-		attr.setLogo(vo.getLogo());
-		attr.setAddress(vo.getAddress());
-		boolean flag = brandService.updateById(attr);
-		if (flag)
-			return new ApiResponseEnity<>();
-		return new ApiResponseEnity<>().fail("失败");
-	}
 }

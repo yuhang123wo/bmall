@@ -101,17 +101,14 @@ public interface ProductService {
 	public ApiResponseEnity<Attr> getAttrById(@RequestParam Long id);
 	
 	@PostMapping("brand/listBrand")
-	public ApiResponseEnity<IPage<Brand>> listBrand(@RequestBody QueryAttrVo vo);
+	public ApiResponseEnity<Page<Brand>> listBrand(@RequestBody QueryAttrVo vo);
 	
 	@GetMapping("brand/getBrandById")
 	public ApiResponseEnity<Brand> getBrandById(@RequestParam Long id);
 
-	@PostMapping("brand/addBrand")
-	public ApiResponseEnity<?> addBrand(@RequestBody Brand vo);
+	@PostMapping("brand/addOrUpdateBrand")
+	public ApiResponseEnity<?> addOrUpdateBrand(@RequestBody Brand vo);
 	
 	@PostMapping("brand/updateBrandState")
 	public ApiResponseEnity<?> updateBrandState(@RequestBody UpdateStateVo vo);
-
-	@PostMapping("brand/updateBrand")
-	public ApiResponseEnity<?> updateBrand(@RequestBody Brand vo);
 }

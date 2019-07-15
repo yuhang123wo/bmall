@@ -27,8 +27,6 @@ public class Brand extends Entity {
 
 	@NotBlank
 	private String name;
-	@NotNull
-	private Long categoryId;
 
 	private State state;
 
@@ -75,14 +73,6 @@ public class Brand extends Entity {
 		this.name = name;
 	}
 
-	public Long getCategoryId() {
-		return categoryId;
-	}
-
-	public void setCategoryId(Long categoryId) {
-		this.categoryId = categoryId;
-	}
-
 	public State getState() {
 		return state;
 	}
@@ -107,9 +97,4 @@ public class Brand extends Entity {
 		this.updateTime = updateTime;
 	}
 
-	@Override
-	public String toString() {
-		return "Brand{" + "name=" + name + ", categoryId=" + categoryId + ", state=" + state + ", createTime="
-				+ createTime + ", updateTime=" + updateTime + "}";
-	}
 }
