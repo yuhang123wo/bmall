@@ -55,16 +55,18 @@ public class SellerCategoryController {
 
 	@GetMapping("editCategoryView/{id}")
 	public String editCategoryView(Model model, @PathVariable("id") Long id) {
+		ShiroUser user = UserUtil.getUser();
 		if (id != null && id.longValue() > 0) {
 			Category category = productService.getCategoryById(id).getData();
 			model.addAttribute("category", category);
 		}
-		ShiroUser user = UserUtil.getUser();
+	
 		QueryCategoryVo v = new QueryCategoryVo();
 		v.setState(State.ENABLE);
 		v.setUserId(user.getId());
 		List<Category> list = productService.listCategory(v).getData();
 		model.addAttribute("listAll", CategoryUtil.getP(list));
+		model.addAttribute("brand",productService.listAllBrand(user.getId()).getData());
 		return "product/category-edit";
 	}
 

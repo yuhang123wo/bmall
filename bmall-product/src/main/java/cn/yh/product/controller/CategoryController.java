@@ -58,26 +58,8 @@ public class CategoryController {
 	 */
 	@PostMapping("addCategory")
 	public ApiResponseEnity<?> addCategory(@RequestBody @Validated Category vo) {
-		if (MallUtil.longGtZero(vo.getpId())) {
-			Category category = categoryService.getById(vo.getpId());
-			if (category == null) {
-				return new ApiResponseEnity<>().fail("错误的父分类");
-			}
-			if (category.getLevel() >= ProductConstant.MAX_LIMIT_CATEGORY_LEVEL) {
-				return new ApiResponseEnity<>().fail("分类最多三级");
-			}
-			vo.setLevel(category.getLevel() + 1);
-		} else {
-			// 没有父ID则为第一级
-			vo.setLevel(1);
-		}
-		vo.setUpdateTime(new Date());
-		vo.setCreateTime(new Date());
-		boolean flag = categoryService.save(vo);
-		if (flag) {
-			return new ApiResponseEnity<>();
-		}
-		return new ApiResponseEnity<>().fail("新增分类失败稍后再试");
+		 categoryService.processAddCategory(vo);
+		return new ApiResponseEnity<>();
 	}
 
 	/**

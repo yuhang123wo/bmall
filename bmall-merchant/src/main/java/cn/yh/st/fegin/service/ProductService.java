@@ -111,4 +111,7 @@ public interface ProductService {
 	
 	@PostMapping("brand/updateBrandState")
 	public ApiResponseEnity<?> updateBrandState(@RequestBody UpdateStateVo vo);
+	
+	@PostMapping("brand/listAllBrand")
+	public ApiResponseEnity<List<Brand>> listAllBrand(@RequestParam Long userId);
 }

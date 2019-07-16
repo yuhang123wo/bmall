@@ -1,10 +1,12 @@
 package cn.yh.pojo.product;
 
 import java.util.Date;
+import java.util.List;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
 
 import cn.yh.pojo.eumn.State;
@@ -50,6 +52,17 @@ public class Category extends Entity {
 	@ApiModelProperty("0:系统,其他ID:用户自定义")
 	private Long userId;
 	
+	
+	@TableField(exist=false)
+	private List<Long> brand;
+	
+	public List<Long> getBrand() {
+		return brand;
+	}
+
+	public void setBrand(List<Long> brand) {
+		this.brand = brand;
+	}
 
 	public Long getUserId() {
 		return userId;

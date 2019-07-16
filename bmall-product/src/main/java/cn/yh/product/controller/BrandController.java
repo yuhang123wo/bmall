@@ -4,6 +4,7 @@
 package cn.yh.product.controller;
 
 import java.util.Date;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
@@ -101,5 +102,15 @@ public class BrandController {
 		}
 		return new ApiResponseEnity<>().fail("修改失败");
 	}
+	
+	
+	@PostMapping("listAllBrand")
+	public ApiResponseEnity<List<Brand>> listAllBrand(@RequestParam Long userId) {
+		QueryWrapper<Brand> queryWrapper = new QueryWrapper<Brand>();
+		queryWrapper.and(obj -> obj.eq("user_id", 0).or().eq("user_id", userId));
+		List<Brand> attrList = brandService.list(queryWrapper);
+		return new ApiResponseEnity<List<Brand>>(attrList);
+	}
+	
 
 }

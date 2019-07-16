@@ -2,7 +2,7 @@ package cn.yh.product.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
 
-import cn.yh.pojo.product.Category;
+import cn.yh.pojo.product.CateBrand;
 
 /**
  * <p>
@@ -10,9 +10,8 @@ import cn.yh.pojo.product.Category;
  * </p>
  *
  * @author yuhang
- * @since 2019-06-12
+ * @since 2019-07-16
  */
-public interface ICategoryService extends IService<Category> {
+public interface ICateBrandService extends IService<CateBrand> {
 
-	void processAddCategory(Category category);
 }
