@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
+	layout:decorate="~{layout.html}">
+<head>
+  <script src="/js/m.js" type="text/javascript"></script>
+  <script src="/js/ajaxSub.js" type="text/javascript"></script>
+   <script src="/js/product.js?v=0.2" type="text/javascript"></script>
+  <script src="/assets/js/fuelux/fuelux.wizard.min.js" type="text/javascript"></script>
+  <script src="/assets/js/ace-elements.min.js"></script>
+  <script type="text/javascript" src="/plugin/ueditor/1.4.3/ueditor.config.js"></script>
+<script type="text/javascript" src="/plugin/ueditor/1.4.3/ueditor.all.min.js"> </script>
+<script type="text/javascript" src="/plugin/ueditor/1.4.3/lang/zh-cn/zh-cn.js"></script> 
+</head>
+<div class="page-content" layout:fragment="content" seq="11">
+ <SCRIPT th:inline="javascript">
+	var data = [[${category}]];
+	$(function (){
+		initCate("categoryId",data);
+		var ue = UE.getEditor('editor');
+	})
+ </SCRIPT>
+ 		<!-- inline scripts related to this page -->
+ <script type="text/javascript">
+			jQuery(function($) {
+				$('#fuelux-wizard')
+				.ace_wizard({
+					//step: 2 //optional argument. wizard will jump to step "2" at first
+				})
+				.on('change' , function(e, info){
+					if(info.step == 1) {
+						//if(!$('#validation-form').valid()) return false;
+					}
+				})
+				.on('finished', function(e) {
+					bootbox.dialog({
+						message: "你的订单已经生成，请注意出票和登机时间。", 
+						buttons: {
+							"success" : {
+								"label" : "确定并关闭",
+								"className" : "btn-sm btn-primary"
+							}
+						}
+					});
+				}).on('stepclick', function(e){
+					//e.preventDefault();//this will prevent clicking and selecting steps
+				});
+			
+			
+				//jump to a step
+				$('#step-jump').on('click', function() {
+					var wizard = $('#fuelux-wizard').data('wizard')
+					wizard.currentStep = 3;
+					wizard.setState();
+				})
+			})
+ </script>
+ 
+<div class="page-content-area">
+						<div class="row">
+							<div class="col-xs-12">
+
+								<div class="widget-box">
+									<div class="widget-header widget-header-blue widget-header-flat">
+										<h4 class="widget-title lighter">新增商品</h4>
+									</div>
+
+									<div class="widget-body">
+										<div class="widget-main">
+											<!-- #section:plugins/fuelux.wizard -->
+											<div id="fuelux-wizard" data-target="#step-container">
+												<!-- #section:plugins/fuelux.wizard.steps -->
+												<ul class="wizard-steps">
+													<li data-target="#step1" class="active">
+														<span class="step">1</span>
+														<span class="title">基本信息</span>
+													</li>
+
+													<li data-target="#step2">
+														<span class="step">2</span>
+														<span class="title">商品参数</span>
+													</li>
+
+													<li data-target="#step3">
+														<span class="step">3</span>
+														<span class="title">商品属性</span>
+													</li>
+
+													<li data-target="#step4">
+														<span class="step">4</span>
+														<span class="title">商品规格</span>
+													</li>
+													
+													<li data-target="#step5">
+														<span class="step">5</span>
+														<span class="title">商品介绍</span>
+													</li>
+													
+													<li data-target="#step6">
+														<span class="step">6</span>
+														<span class="title">商品图片</span>
+													</li>
+												</ul>
+
+												<!-- /section:plugins/fuelux.wizard.steps -->
+											</div>
+											<hr>
+											<!-- #section:plugins/fuelux.wizard.container -->
+							             <div class="step-content pos-rel" id="step-container">
+												<div class="step-pane active" id="step1">
+													<form class="form-horizontal " id="validation-form" method="get" novalidate="novalidate">
+														
+														<div class="form-group">
+															<label class="control-label col-xs-12 col-sm-3 no-padding-right">商品分类:</label>
+
+															<div class="col-xs-12 col-sm-9">
+																<div class="clearfix">
+																	 <select class="col-xs-12 col-sm-3" id="categoryId" name="categoryId"></select>
+																</div>
+															</div>
+														</div>
+
+														<div class="space-2"></div>
+
+														<div class="form-group">
+															<label class="control-label col-xs-12 col-sm-3 no-padding-right"><font style="color: red">*</font> 商品名:</label>
+
+															<div class="col-xs-12 col-sm-9">
+																<div class="clearfix">
+																	<input type="text" name="name" class="col-xs-12 col-sm-4">
+																</div>
+															</div>
+														</div>
+														
+														<div class="space-2"></div>
+
+														<div class="form-group">
+															<label class="control-label col-xs-12 col-sm-3 no-padding-right">品牌:</label>
+
+															<div class="col-xs-12 col-sm-9">
+																<div class="clearfix">
+																	 <select class="col-xs-12 col-sm-3" id="brandId" name="brandId"></select>
+																</div>
+															</div>
+														</div>
+														
+														<div class="space-2"></div>
+
+														<div class="form-group">
+															<label class="control-label col-xs-12 col-sm-3 no-padding-right">关键字:</label>
+															<div class="col-xs-12 col-sm-9">
+																<div class="clearfix">
+																	<input type="text" name="keywords" class="col-xs-12 col-sm-6">
+																</div>
+															</div>
+														</div>
+													 <div class="space-2"></div>
+
+														<div class="form-group">
+															<label class="control-label col-xs-12 col-sm-3 no-padding-right">标签:</label>
+
+															<div class="col-xs-12 col-sm-9">
+																<div class="clearfix">
+																	<input type="text" name="tags" class="col-xs-12 col-sm-6">
+																</div>
+															</div>
+														</div>
+														
+														 <div class="space-2"></div>
+
+														<div class="form-group">
+															<label class="control-label col-xs-12 col-sm-3 no-padding-right"><font style="color: red">*</font>编号:</label>
+
+															<div class="col-xs-12 col-sm-9">
+																<div class="clearfix">
+																	<input type="text" name="pno" class="col-xs-12 col-sm-4">
+																</div>
+															</div>
+														</div>
+														
+														 <div class="space-2"></div>
+
+														<div class="form-group">
+															<label class="control-label col-xs-12 col-sm-3 no-padding-right"><font style="color: red">*</font>价格:</label>
+
+															<div class="col-xs-12 col-sm-9">
+																<div class="clearfix">
+																	<input type="text" name="price" class="col-xs-12 col-sm-4">
+																</div>
+															</div>
+														</div>
+														
+														<div class="form-group">
+															<label class="control-label col-xs-12 col-sm-3 no-padding-right"><font style="color: red">*</font>市场价格:</label>
+
+															<div class="col-xs-12 col-sm-9">
+																<div class="clearfix">
+																	<input type="text" name="marketPrice" class="col-xs-12 col-sm-4">
+																</div>
+															</div>
+														</div>
+														
+														 <div class="form-group">
+														 <label class="control-label col-xs-12 col-sm-3 no-padding-right"><font style="color: red">*</font>库存量:</label>
+
+															<div class="col-xs-12 col-sm-9">
+																<div class="clearfix">
+																	<input type="text" name="stock" class="col-xs-12 col-sm-4">
+																</div>
+															</div>
+														</div>
+														
+													  <div class="form-group">
+														 <label class="control-label col-xs-12 col-sm-3 no-padding-right"><font style="color: red">*</font>重量:</label>
+
+															<div class="col-xs-12 col-sm-9">
+																<div class="clearfix">
+																	<input type="text" name="weight" class="col-xs-12 col-sm-4">
+																</div>
+															</div>
+														</div>
+													</form>
+												</div>
+
+												<div class="step-pane" id="step2">
+												    <div class="form-horizontal">
+															<div class='form-group'>
+																<label class='control-label col-xs-12 col-sm-5 no-padding-right'>
+																    <button type="button" id="addProps" class="btn btn-white btn-danger btn-sm">添加参数</button>
+																    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+																	<button type="button" id="resetProps" class="btn btn-white btn-inverse btn-sm">重置参数</button>
+																</label>
+															</div>
+														</div>
+													<div class="form-horizontal" id="step2d">
+													</div>
+												</div>
+
+												<div class="step-pane" id="step3">
+													 <div class="form-horizontal">
+													 </div>
+												</div>
+
+												<div class="step-pane" id="step4">
+													 <div class="form-horizontal">
+													 </div>
+												</div>
+												
+													<div class="step-pane" id="step5">
+													   <div class="form-group">
+															 <script id="editor" type="text/plain" ></script>
+											            </div>
+														<div class="space-2"></div>
+												   </div>
+												<div class="step-pane" id="step6">
+													   <div class="form-group">
+											            </div>
+														<div class="space-2"></div>
+												   </div>
+												
+											</div>
+
+											<!-- /section:plugins/fuelux.wizard.container -->
+											<hr>
+											<div class="wizard-actions">
+												<!-- #section:plugins/fuelux.wizard.buttons -->
+												<button class="btn btn-prev" disabled="disabled">
+													<i class="ace-icon fa fa-arrow-left"></i>
+													上一步
+												</button>
+
+												<button class="btn btn-success btn-next" data-last="完成">
+													下一步
+													<i class="ace-icon fa fa-arrow-right icon-on-right"></i>
+												</button>
+
+												<!-- /section:plugins/fuelux.wizard.buttons -->
+											</div>
+
+											<!-- /section:plugins/fuelux.wizard -->
+										</div><!-- /.widget-main -->
+									</div><!-- /.widget-body -->
+								</div>
+
+								
+							</div><!-- /.col -->
+						</div><!-- /.row -->
+					</div>
+</div>
+</html>
