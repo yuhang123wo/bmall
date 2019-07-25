@@ -41,12 +41,12 @@ function setBrand(brands, cateBrand) {
 function setProps(props) {
 	$("#step2d").empty();
 	if (props.length > 0) {
-		var m = "<div>";
+		var m="";
 		for (var i = 0; i < props.length; i++) {
 			var pps = props[i].data.split(",");
-			m += "<div class='form-group'>";
+			m += "<div class='props'><div class='form-group'>";
 			m += "<label class='control-label col-xs-12 col-sm-4 no-padding-right'>"
-					+ props[i].name + "</label>";
+					+ props[i].name + "<input type='hidden' value="+props[i].id+"></input></label>";
 			m += "</div>";
 			for (var j = 0; j < pps.length; j++) {
 				m += "<div class='form-group'>";
@@ -61,8 +61,8 @@ function setProps(props) {
 				m += "添加 删除</div></div>";
 				m += "</div>";
 			}
+			m+="</div>";
 		}
-		m += "</div>";
 		$("#step2d").append(m);
 	}
 
@@ -75,7 +75,7 @@ function setAttr(attrs) {
 		for (var i = 0; i < attrs.length; i++) {
 			var attr = attrs[i].data.split(",");
 			m += "<div class='form-group'>";
-			m += "<label class='control-label col-xs-12 col-sm-3 no-padding-right'>"+attrs[i].name+"</label>";
+			m += "<label class='control-label col-xs-12 col-sm-3 no-padding-right'>"+attrs[i].name+"<input type='hidden' value="+attrs[i].id+"></input></label>";
 			m += "<div class='col-xs-12 col-sm-9'>";
 			m += "<div class='clearfix'>";
 			m += "<select class='col-xs-12 col-sm-3' name='categoryId'>";
@@ -132,12 +132,43 @@ function getCheck() {
 	$("#step4").find("div[class='row']").empty();
 	var m="<div class='row'>";
 	m += "<div class='col-xs-12'>";
-	m += "<table id='sample-table-1'	class='table table-striped table-bordered table-hover'>";
-	m += "<tbody>";
+	var len=0;
+	if(ary.length>0){
+	m += "<table  id='step4data' class='table table-striped table-bordered table-hover'>";
+	m += "<tbody><tr><th width='30%'>SKU</th><th width='10%'>商品价格</th><th width='10%'>市场价</th><th width='10%'>库存</th><th width='40%'>图片</th></tr> ";
+	let allArr =cartesianProductOf(...ary);
+	len = allArr.length;
+	for (var i = 0 ; i < allArr.length; i++) {
+		m += "<tr>";
+		m += "<td>" + allArr[i] + "</td>";
+		m += "<td><input type='text'></input></td>";
+		m += "<td><input type='text'></input></td>";
+		m += "<td><input type='text'></input></td>";
+		m += "<td><div class='col-xs-12' id=fileList"+i+"><img class='col-xs-3' name='img' width='40px;' height='40px;'><input type='hidden' name='logo'><div class='col-xs-6' style='padding: 0px;' id='filePicker"+i+"'>选择</div></div></td>";
+		m += "</tr>";
+	     }
 	m += "</tbody>";
+	}
 	m += "</table>";
 	m += "</div>";
 	m += "</div>";
 	$("#step4").append(m);
-    
+	for (var i = 0 ; i < len; i++) {
+		 initUpload("filePicker"+i,"fileList"+i,"/upload/fileUpload");
+	}
+	
+	
+}
+
+
+function cartesianProductOf() {
+	return Array.prototype.reduce.call(arguments, function(a, b) {
+		var ret = [];
+		a.forEach(function(a) {
+			b.forEach(function(b) {
+				ret.push(a.concat([ b ]));
+			});
+		});
+		return ret;
+	}, [ [] ]);
 }

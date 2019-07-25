@@ -31,8 +31,8 @@ function initCate(selectId, data) {
 	}
 }
 
-function initUpload(id,uploadUrl) {
-	var $list = $("#"+id); // 这几个初始化全局的百度文档上没说明，好蛋疼
+function initUpload(id,fileList,uploadUrl) {
+	var $list = $("#"+fileList); // 这几个初始化全局的百度文档上没说明，好蛋疼
 	var thumbnailWidth = 100; // 缩略图高度和宽度
 								// （单位是像素），当宽高度是0~1的时候，是按照百分比计算，具体可以看api文档
 	var thumbnailHeight = 100;
@@ -45,7 +45,7 @@ function initUpload(id,uploadUrl) {
 		server : uploadUrl,
 		// 选择文件的按钮。可选。
 		// 内部根据当前运行是创建，可能是input元素，也可能是flash.
-		pick : '#filePicker',
+		pick : '#'+id,
 		// 只允许选择图片文件。
 		accept : {
 			title : 'Images',
@@ -69,8 +69,8 @@ function initUpload(id,uploadUrl) {
 //	});
 	uploader.on( 'uploadSuccess', function( file,response ) {
 		    if(response.code ==0){
-		    	 $("#img").attr("src",response.data);
-		    	 $("#imgPath").attr("value",response.data);
+		    	$list.find("img").attr("src",response.data);
+		    	$list.find("input").attr("value",response.data);
 		    }else{
 		    	 swal({
 						title : "上传失败",

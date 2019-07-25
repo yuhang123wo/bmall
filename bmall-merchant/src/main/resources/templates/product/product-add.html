@@ -3,23 +3,79 @@
 	xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
 	layout:decorate="~{layout.html}">
 <head>
-  <script src="/js/m.js" type="text/javascript"></script>
-  <script src="/js/ajaxSub.js" type="text/javascript"></script>
-   <script src="/js/product.js?v=0.2" type="text/javascript"></script>
-  <script src="/assets/js/fuelux/fuelux.wizard.min.js" type="text/javascript"></script>
-  <script src="/assets/js/ace-elements.min.js"></script>
-  <script type="text/javascript" src="/plugin/ueditor/1.4.3/ueditor.config.js"></script>
-<script type="text/javascript" src="/plugin/ueditor/1.4.3/ueditor.all.min.js"> </script>
-<script type="text/javascript" src="/plugin/ueditor/1.4.3/lang/zh-cn/zh-cn.js"></script> 
+ <link href="/webuploader-0.1.5/webuploader.css" rel="stylesheet" type="text/css" />
+ <script src="/webuploader-0.1.5/webuploader.js" type="text/javascript"></script>
+ <script src="/js/m.js?v=0.3" type="text/javascript"></script>
+ <script src="/js/ajaxSub.js" type="text/javascript"></script>
+ <script src="/js/product.js?v=0.5" type="text/javascript"></script>
+ <script src="/assets/js/fuelux/fuelux.wizard.min.js" type="text/javascript"></script>
+ <script src="/assets/js/ace-elements.min.js"></script>
+ <script type="text/javascript" src="/plugin/ueditor/ueditor.config.js?v=0.6"></script>
+ <script type="text/javascript" src="/plugin/ueditor/ueditor.all.min.js?v=0.2"> </script>
+ <script type="text/javascript" src="/plugin/ueditor/lang/zh-cn/zh-cn.js?v=0.2"></script> 
+ <link rel="stylesheet" href="/dist/css/bootstrapValidator.css" type="text/css"/>
+ <script type="text/javascript" src="/dist/js/bootstrapValidator.js"></script>
+ <script charset="utf-8" src="/plugin/kindeditor/kindeditor-all.js?v=0.2"></script>
+ <script charset="utf-8" src="/plugin/kindeditor/lang/zh-CN.js"></script>
 </head>
 <div class="page-content" layout:fragment="content" seq="11">
  <SCRIPT th:inline="javascript">
 	var data = [[${category}]];
+	var ue;
 	$(function (){
 		initCate("categoryId",data);
-		var ue = UE.getEditor('editor');
+		initUpload("filePicker","fileList","/upload/fileUpload");
+	    $('#step1form').bootstrapValidator({
+	        message: 'This value is not valid',
+	        fields: {
+	        	categoryId: {
+	                validators: {
+	                    notEmpty: {
+	                        message: '不能为空'
+	                    }
+	                }
+	            },
+	            name: {
+	                validators: {
+	                    notEmpty: {
+	                        message: '不能为空'
+	                    }
+	                }
+	            },
+	            pno: {
+	                validators: {
+	                    notEmpty: {
+	                        message: '不能为空'
+	                    }
+	                }
+	            },
+	            weight: {
+	                validators: {
+	                    notEmpty: {
+	                        message: '不能为空'
+	                    }
+	                }
+	            } 
+	        }
+	    });
 	})
  </SCRIPT>
+ <script type="text/javascript">
+ KindEditor.ready(function(K) {
+     window.editor = K.create('#editor_id',{
+         // 上传图片的名字
+         filePostName  : "uploadFile",
+         // 配置上传路径
+         uploadJson : '/upload/uploadImg',
+         allowFileManager : true,
+         allowPreviewEmoticons: true,
+         allowImageUpload: true,
+         // 设置上传文件类型
+         dir : "image",
+         formatUploadUrl:false
+     });
+ });
+</script>
  		<!-- inline scripts related to this page -->
  <script type="text/javascript">
 			jQuery(function($) {
@@ -29,12 +85,73 @@
 				})
 				.on('change' , function(e, info){
 					if(info.step == 1) {
-						//if(!$('#validation-form').valid()) return false;
+						  var bootstrapValidator = $("#step1form").data('bootstrapValidator');
+					      bootstrapValidator.validate();
+					      if(!bootstrapValidator.isValid()){ return false;}
 					}
 				})
 				.on('finished', function(e) {
+					var pArray = $("#step1form").serializeArray();
+					var datas=[];
+					$("#step2d").find("div[class=props]").each(function(){
+						 var item={};
+						 var arry=[];
+						$(this).find("div[class='form-group']").each(function(i){
+							if(i==0){
+								 item.group =$(this).find("label").text();
+								 item.id=$(this).find("input").val();
+							 }else{
+								var v={};
+								v.name=$(this).find("label").text();
+								v.value=$(this).find("input").val();
+								 arry.push(v);
+							 }
+						})
+						 item.data=arry;
+						 datas.push(item);
+					});
+					var step3datas=[];
+					$("#step3").find("div[class='form-group']").each(function(){
+						var data={};
+						data.name=$(this).find("label").text();
+						data.value=$(this).find("select").val();
+						data.id=$(this).find("input").val();
+						step3datas.push(data);
+					})
+					var step4datas=[];
+					var table =  $("#step4data tr").each(function(i){
+						var data={};
+						 $(this).children('td').each(function(j){  // 遍历 tr 的各个 td
+							 if(j==0){
+							 data.sku= $(this).text();}
+							 if(j==1){
+								 data.price= $(this).find("input").val();}
+							 if(j==2){
+								 data.marketPrice= $(this).find("input").val();}
+							 if(j==3){
+								 data.stock= $(this).find("input").val();}
+							 if(j==4){
+								 data.img= $(this).find("input").val();}
+					      });
+						 if(i>0){
+						step4datas.push(data);}
+					});
+					
+					var params = {};
+					for(var i = 0;i < pArray.length;i++){
+						if($.trim(pArray[i].value) != ''){
+							params[pArray[i].name] = pArray[i].value;
+						}
+					}
+					var subdata = {};
+					subdata.form1 = params;
+					subdata.form2 = datas;
+					subdata.form3 = step3datas;
+					subdata.form4 = step4datas;
+					subdata.form5 = window.editor.text();
+					console.log(subdata);
 					bootbox.dialog({
-						message: "你的订单已经生成，请注意出票和登机时间。", 
+						message: "您的商品已添加成功，等待审核", 
 						buttons: {
 							"success" : {
 								"label" : "确定并关闭",
@@ -42,6 +159,7 @@
 							}
 						}
 					});
+					
 				}).on('stepclick', function(e){
 					//e.preventDefault();//this will prevent clicking and selecting steps
 				});
@@ -59,7 +177,6 @@
 <div class="page-content-area">
 						<div class="row">
 							<div class="col-xs-12">
-
 								<div class="widget-box">
 									<div class="widget-header widget-header-blue widget-header-flat">
 										<h4 class="widget-title lighter">新增商品</h4>
@@ -95,11 +212,6 @@
 														<span class="step">5</span>
 														<span class="title">商品介绍</span>
 													</li>
-													
-													<li data-target="#step6">
-														<span class="step">6</span>
-														<span class="title">商品图片</span>
-													</li>
 												</ul>
 
 												<!-- /section:plugins/fuelux.wizard.steps -->
@@ -108,7 +220,7 @@
 											<!-- #section:plugins/fuelux.wizard.container -->
 							             <div class="step-content pos-rel" id="step-container">
 												<div class="step-pane active" id="step1">
-													<form class="form-horizontal " id="validation-form" method="get" novalidate="novalidate">
+													<form class="form-horizontal " id="step1form">
 														
 														<div class="form-group">
 															<label class="control-label col-xs-12 col-sm-3 no-padding-right">商品分类:</label>
@@ -181,35 +293,19 @@
 														 <div class="space-2"></div>
 
 														<div class="form-group">
-															<label class="control-label col-xs-12 col-sm-3 no-padding-right"><font style="color: red">*</font>价格:</label>
+															<label class="control-label col-xs-12 col-sm-3 no-padding-right"><font style="color: red">*</font>主图:</label>
 
 															<div class="col-xs-12 col-sm-9">
 																<div class="clearfix">
-																	<input type="text" name="price" class="col-xs-12 col-sm-4">
+																	  <div style="padding: 0px;" id="fileList" class="col-sm-1">
+                                                                      <img      name="img" width="50px;" height="40px;">
+                                                                      <input  type="hidden" name="imgPath">
+                                                                      </div>
+							                                         <div  style="padding: 0px;" id="filePicker" class="col-sm-2">选择</div>
 																</div>
 															</div>
 														</div>
-														
-														<div class="form-group">
-															<label class="control-label col-xs-12 col-sm-3 no-padding-right"><font style="color: red">*</font>市场价格:</label>
-
-															<div class="col-xs-12 col-sm-9">
-																<div class="clearfix">
-																	<input type="text" name="marketPrice" class="col-xs-12 col-sm-4">
-																</div>
-															</div>
-														</div>
-														
-														 <div class="form-group">
-														 <label class="control-label col-xs-12 col-sm-3 no-padding-right"><font style="color: red">*</font>库存量:</label>
-
-															<div class="col-xs-12 col-sm-9">
-																<div class="clearfix">
-																	<input type="text" name="stock" class="col-xs-12 col-sm-4">
-																</div>
-															</div>
-														</div>
-														
+								 
 													  <div class="form-group">
 														 <label class="control-label col-xs-12 col-sm-3 no-padding-right"><font style="color: red">*</font>重量:</label>
 
@@ -246,17 +342,13 @@
 													 </div>
 												</div>
 												
-													<div class="step-pane" id="step5">
+												 <div class="step-pane" id="step5">
 													   <div class="form-group">
-															 <script id="editor" type="text/plain" ></script>
+															 <textarea id="editor_id" name="content" style="width:100%;height: 300px">
+                                                              </textarea>
 											            </div>
 														<div class="space-2"></div>
-												   </div>
-												<div class="step-pane" id="step6">
-													   <div class="form-group">
-											            </div>
-														<div class="space-2"></div>
-												   </div>
+												 </div>
 												
 											</div>
 
