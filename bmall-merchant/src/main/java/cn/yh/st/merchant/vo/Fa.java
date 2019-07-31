@@ -3,18 +3,24 @@
  */
 package cn.yh.st.merchant.vo;
 
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+
 /**
  * @author yuhang
  * @date 2019年7月24日
  * @desc
  */
 public class Fa {
-
+     
+	@NotNull
 	private Long categroyId;
+	@NotBlank
 	private String name;
 	private String keywords;
 	private String tags;
 	private String pno;
+	@NotBlank
 	private String img;
 	private String weight;
 	private Long brandId;

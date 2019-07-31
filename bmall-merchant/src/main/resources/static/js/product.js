@@ -1,5 +1,5 @@
 $(function() {
-	$('#categoryId').change(function() {
+	$('#categroyId').change(function() {
 		var v = $(this).val();
 		 $.ajax({
 				type : "GET",
@@ -100,11 +100,11 @@ function setSpec(specs) {
 		for (var i = 0; i < specs.length; i++) {
 			var spec = specs[i].data.split(",");
 			m += "<div class='form-group'>";
-			m += "<label class='col-sm-3 control-label no-padding-right'>"+specs[i].name+"</label>";
+			m += "<label class='col-sm-3 control-label no-padding-right'>"+specs[i].name+"<input type='hidden' value="+specs[i].id+"></input></label>";
 			m += "<div class='col-sm-9'>";
 			for (var j = 0; j < spec.length; j++) {
 			 m += "<label  class='col-sm-2'>";
-			 m += "<input name='brand' type='checkbox' class='ace' onclick='getCheck()' value="+spec[j]+">";
+			 m += "<input name='spec'"+specs[i].id+" type='checkbox' class='ace' onclick='getCheck()' value="+spec[j]+">";
 			 m += "<span class='lbl'>"+spec[j]+" </span>";
 			 m += "</label>";
 			}
@@ -129,11 +129,11 @@ function getCheck() {
 			i++;
 		}
 	})
-	$("#step4").find("div[class='row']").empty();
-	var m="<div class='row'>";
-	m += "<div class='col-xs-12'>";
-	var len=0;
 	if(ary.length>0){
+		$("#step4").find("div[class='row']").empty();
+		var m="<div class='row'>";
+		m += "<div class='col-xs-12'>";
+		var len=0;
 	m += "<table  id='step4data' class='table table-striped table-bordered table-hover'>";
 	m += "<tbody><tr><th width='30%'>SKU</th><th width='10%'>商品价格</th><th width='10%'>市场价</th><th width='10%'>库存</th><th width='40%'>图片</th></tr> ";
 	let allArr =cartesianProductOf(...ary);
@@ -148,11 +148,12 @@ function getCheck() {
 		m += "</tr>";
 	     }
 	m += "</tbody>";
-	}
 	m += "</table>";
 	m += "</div>";
 	m += "</div>";
 	$("#step4").append(m);
+	}
+
 	for (var i = 0 ; i < len; i++) {
 		 initUpload("filePicker"+i,"fileList"+i,"/upload/fileUpload");
 	}

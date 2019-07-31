@@ -26,9 +26,6 @@ public class PRelaAttr extends Entity {
     @ApiModelProperty(value = "属性名")
     private String attrName;
 
-    @ApiModelProperty(value = "属性值 ID")
-    private Long vId;
-
     @ApiModelProperty(value = "属性值名")
     private String vName;
 
@@ -49,13 +46,7 @@ public class PRelaAttr extends Entity {
     public void setAttrName(String attrName) {
         this.attrName = attrName;
     }
-    public Long getvId() {
-        return vId;
-    }
-
-    public void setvId(Long vId) {
-        this.vId = vId;
-    }
+  
     public String getvName() {
         return vName;
     }

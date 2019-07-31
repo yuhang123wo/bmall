@@ -7,10 +7,8 @@ import java.math.BigDecimal;
 import java.util.List;
 
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
-import cn.yh.pojo.eumn.ProductStatus;
 import io.swagger.annotations.ApiModelProperty;
 
 /**
@@ -47,18 +45,6 @@ public class AddProductVo {
 	@NotBlank
 	private String pno;
 
-	@ApiModelProperty(value = "商品价格")
-	@NotNull
-	private String price;
-
-	@ApiModelProperty(value = "市场价格")
-	@NotNull
-	private String marketPrice;
-
-	@ApiModelProperty(value = "库存量")
-	@NotNull
-	private Integer stock;
-
 	@ApiModelProperty(value = "封面图")
 	@NotBlank
 	private String img;
@@ -69,64 +55,47 @@ public class AddProductVo {
 	@NotNull
 	private BigDecimal weight;
 
-	@ApiModelProperty(value = "状态 (0-下架，1-上架，2-删除)")
-	@NotNull
-	private ProductStatus status;
-
 	@ApiModelProperty(value = "计量单位")
-	@NotBlank
 	private String weightUnit;
 
-	// 属性集合
-	private List<AddProductAttrVo> attrValueList;
-	// 参数集合
-	private List<String> props;
+	private List<PAttr> attrList;
 
-	private List<AddProductSkuVo> skuList;
+	private List<Pprops> propsList;
 
-	@NotEmpty
-	private List<String> images;
+	private SKu sku;
 
-	private String description;
+	private String detail;
 
-	public List<AddProductAttrVo> getAttrValueList() {
-		return attrValueList;
+	public String getDetail() {
+		return detail;
 	}
 
-	public void setAttrValueList(List<AddProductAttrVo> attrValueList) {
-		this.attrValueList = attrValueList;
+	public void setDetail(String detail) {
+		this.detail = detail;
 	}
 
-	public List<String> getProps() {
-		return props;
+	public SKu getSku() {
+		return sku;
 	}
 
-	public void setProps(List<String> props) {
-		this.props = props;
+	public void setSku(SKu sku) {
+		this.sku = sku;
 	}
 
-	public List<AddProductSkuVo> getSkuList() {
-		return skuList;
+	public List<Pprops> getPropsList() {
+		return propsList;
 	}
 
-	public void setSkuList(List<AddProductSkuVo> skuList) {
-		this.skuList = skuList;
+	public void setPropsList(List<Pprops> propsList) {
+		this.propsList = propsList;
 	}
 
-	public List<String> getImages() {
-		return images;
+	public List<PAttr> getAttrList() {
+		return attrList;
 	}
 
-	public void setImages(List<String> images) {
-		this.images = images;
-	}
-
-	public String getDescription() {
-		return description;
-	}
-
-	public void setDescription(String description) {
-		this.description = description;
+	public void setAttrList(List<PAttr> attrList) {
+		this.attrList = attrList;
 	}
 
 	public String getName() {
@@ -185,30 +154,6 @@ public class AddProductVo {
 		this.pno = pno;
 	}
 
-	public String getPrice() {
-		return price;
-	}
-
-	public void setPrice(String price) {
-		this.price = price;
-	}
-
-	public String getMarketPrice() {
-		return marketPrice;
-	}
-
-	public void setMarketPrice(String marketPrice) {
-		this.marketPrice = marketPrice;
-	}
-
-	public Integer getStock() {
-		return stock;
-	}
-
-	public void setStock(Integer stock) {
-		this.stock = stock;
-	}
-
 	public String getImg() {
 		return img;
 	}
@@ -231,14 +176,6 @@ public class AddProductVo {
 
 	public void setWeight(BigDecimal weight) {
 		this.weight = weight;
-	}
-
-	public ProductStatus getStatus() {
-		return status;
-	}
-
-	public void setStatus(ProductStatus status) {
-		this.status = status;
 	}
 
 	public String getWeightUnit() {

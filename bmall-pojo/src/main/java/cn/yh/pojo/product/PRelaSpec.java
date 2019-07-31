@@ -26,9 +26,6 @@ public class PRelaSpec extends Entity {
     @ApiModelProperty(value = "规格名")
     private String specName;
 
-    @ApiModelProperty(value = "规格值ID")
-    private Long vId;
-
     @ApiModelProperty(value = "规格值名")
     private String vName;
 
@@ -48,13 +45,6 @@ public class PRelaSpec extends Entity {
 
     public void setSpecName(String specName) {
         this.specName = specName;
-    }
-    public Long getvId() {
-        return vId;
-    }
-
-    public void setvId(Long vId) {
-        this.vId = vId;
     }
     public String getvName() {
         return vName;

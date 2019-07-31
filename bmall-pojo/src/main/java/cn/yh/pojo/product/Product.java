@@ -52,9 +52,6 @@ public class Product extends Entity {
 	@ApiModelProperty(value = "市场价格")
 	private BigDecimal marketPrice;
 
-	@ApiModelProperty(value = "库存量")
-	private Integer stock;
-
 	@ApiModelProperty(value = "封面图")
 	private String img;
 
@@ -157,14 +154,6 @@ public class Product extends Entity {
 
 	public void setMarketPrice(BigDecimal marketPrice) {
 		this.marketPrice = marketPrice;
-	}
-
-	public Integer getStock() {
-		return stock;
-	}
-
-	public void setStock(Integer stock) {
-		this.stock = stock;
 	}
 
 	public String getImg() {

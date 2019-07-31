@@ -50,4 +50,29 @@ function dataSubmit(urls, params) {
 	})
 }
 
+function dataSubmitJSON(urls, params) {
+	  bootbox.confirm("确认操作？",function(result){
+		  if(result){
+		  $.ajax({
+			type : "POST",
+			url : urls,
+			data : params,
+			contentType: "application/json;charset=utf-8",
+			dataType : 'json',
+			success : function(result) {
+				if (result.code == 0) {
+					swal({
+						title : "成功",
+						type : "success"// error
+					});
+				} else {
+					swal({
+						title : result.msg,
+						type : "error"// error
+					});
 
+				}
+			}
+		});}
+		})
+	}

@@ -12,8 +12,17 @@ import java.util.List;
  */
 public class Fb {
 
+	private Long id;
 	private String group;
 	private List<Nv> data;
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
 
 	public String getGroup() {
 		return group;

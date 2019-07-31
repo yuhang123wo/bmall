@@ -69,7 +69,6 @@ function initUpload(id,fileList,uploadUrl) {
 //	});
 	uploader.on( 'uploadSuccess', function( file,response ) {
 		    if(response.code ==0){
-		    	$list.find("img").attr("src",response.data);
 		    	$list.find("input").attr("value",response.data);
 		    }else{
 		    	 swal({

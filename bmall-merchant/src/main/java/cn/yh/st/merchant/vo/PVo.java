@@ -12,7 +12,7 @@ import java.util.List;
  */
 public class PVo {
 
-	private List<Fa> form1;
+	private Fa form1;
 
 	private List<Fb> form2;
 
@@ -20,12 +20,21 @@ public class PVo {
 
 	private List<Fd> form4;
 	private String form5;
+	private List<Fc> form6;
 
-	public List<Fa> getForm1() {
+	public List<Fc> getForm6() {
+		return form6;
+	}
+
+	public void setForm6(List<Fc> form6) {
+		this.form6 = form6;
+	}
+
+	public Fa getForm1() {
 		return form1;
 	}
 
-	public void setForm1(List<Fa> form1) {
+	public void setForm1(Fa form1) {
 		this.form1 = form1;
 	}
 
