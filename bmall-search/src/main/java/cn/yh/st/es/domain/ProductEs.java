@@ -1,35 +1,32 @@
 /**
  * 
  */
-package cn.yh.st.config;
+package cn.yh.st.es.domain;
 
 import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
-
-import javax.annotation.sql.DataSourceDefinition;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.elasticsearch.annotations.DateFormat;
 import org.springframework.data.elasticsearch.annotations.Document;
 import org.springframework.data.elasticsearch.annotations.Field;
 import org.springframework.data.elasticsearch.annotations.FieldType;
-import org.springframework.data.elasticsearch.annotations.Mapping;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 import cn.yh.pojo.eumn.ProductState;
 import cn.yh.pojo.eumn.ProductStatus;
 import cn.yh.pojo.product.PRelaAttr;
-import cn.yh.pojo.product.PRelaProps;
+import cn.yh.st.config.IndexConfig;
 
 /**
  * @author yuhang
  * @date 2019年8月1日
  * @desc
  */
-@Document(indexName = "keke", type = "contentx")
-public class Product {
+@Document(indexName = "#{indexConfig.PRODUCT_INDEX}", type = IndexConfig.PRODUCT_TYPE)
+public class ProductEs {
 
 	@Id
 	private Long id;
@@ -76,12 +73,12 @@ public class Product {
 	@Field(type = FieldType.Text)
 	private ProductState state;
 
-	@Field(type = FieldType.Date, index = false, format = DateFormat.date_hour_minute_second_millis)
-	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss.SSS")
+	@Field(type = FieldType.Date, format = DateFormat.custom, pattern = "yyyy-MM-dd HH:mm:ss")
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
 	private Date updateTime;
 
-	@Field(type = FieldType.Date, index = false, format = DateFormat.date_hour_minute_second_millis)
-	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss.SSS")
+	@Field(type = FieldType.Date, format = DateFormat.custom, pattern = "yyyy-MM-dd HH:mm:ss")
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
 	private Date createTime;
 
 	@Field(type = FieldType.Keyword)
