@@ -17,7 +17,6 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 
 import cn.yh.pojo.eumn.ProductState;
 import cn.yh.pojo.eumn.ProductStatus;
-import cn.yh.pojo.product.PRelaAttr;
 import cn.yh.st.config.IndexConfig;
 
 /**
@@ -87,7 +86,82 @@ public class ProductEs {
 	@Field(type = FieldType.Keyword)
 	private String brandName;
 
-	private List<PRelaAttr> list1;
+	@Field(type = FieldType.Nested)
+	private List<AttrEs> attrList;
+
+	@Field(type = FieldType.Nested)
+	private List<SpecEs> specList;
+
+	@Field(type = FieldType.Nested)
+	private List<PropsEs> propsList;
+
+	@Field(type = FieldType.Nested)
+	private List<ProductSkuEs> skuList;
+
+	@Field(type = FieldType.Keyword)
+	private String categoryName;
+
+	@Field(type = FieldType.Text, index = false)
+	private String description;
+
+	@Field(type = FieldType.Text, index = false)
+	private String imgs;
+
+	public List<ProductSkuEs> getSkuList() {
+		return skuList;
+	}
+
+	public void setSkuList(List<ProductSkuEs> skuList) {
+		this.skuList = skuList;
+	}
+
+	public List<AttrEs> getAttrList() {
+		return attrList;
+	}
+
+	public void setAttrList(List<AttrEs> attrList) {
+		this.attrList = attrList;
+	}
+
+	public List<SpecEs> getSpecList() {
+		return specList;
+	}
+
+	public void setSpecList(List<SpecEs> specList) {
+		this.specList = specList;
+	}
+
+	public List<PropsEs> getPropsList() {
+		return propsList;
+	}
+
+	public void setPropsList(List<PropsEs> propsList) {
+		this.propsList = propsList;
+	}
+
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
+	public String getImgs() {
+		return imgs;
+	}
+
+	public void setImgs(String imgs) {
+		this.imgs = imgs;
+	}
+
+	public String getCategoryName() {
+		return categoryName;
+	}
+
+	public void setCategoryName(String categoryName) {
+		this.categoryName = categoryName;
+	}
 
 	public Long getId() {
 		return id;

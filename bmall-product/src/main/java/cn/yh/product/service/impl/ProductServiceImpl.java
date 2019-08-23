@@ -7,6 +7,7 @@ import java.util.List;
 
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jms.core.JmsTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.CollectionUtils;
@@ -39,6 +40,7 @@ import cn.yh.product.service.IProductService;
 import cn.yh.product.service.IProductSkuService;
 import cn.yh.product.service.ISpecService;
 import cn.yh.st.common.exception.DefaultException;
+import cn.yh.vo.es.ProductSearchVo;
 import cn.yh.vo.product.AddProductVo;
 import cn.yh.vo.product.PAttr;
 import cn.yh.vo.product.Pprops;
@@ -75,6 +77,8 @@ public class ProductServiceImpl extends ServiceImpl<ProductMapper, Product> impl
 	private IProductSkuService productSkuService;
 	@Autowired
 	private IPRelaSpecService pRelaSpecService;
+	@Autowired
+	private JmsTemplate jmsTemplate;
 
 	@Transactional
 	@Override
@@ -208,9 +212,9 @@ public class ProductServiceImpl extends ServiceImpl<ProductMapper, Product> impl
 		if (!flag4) {
 			throw new DefaultException("系统异常稍后试");
 		}
-
+		ProductDetail detail = new ProductDetail();
 		if (StringUtils.isNotBlank(vo.getDetail())) {
-			ProductDetail detail = new ProductDetail();
+		
 			detail.setDescription(vo.getDetail());
 			detail.setId(p.getId());
 
@@ -219,6 +223,17 @@ public class ProductServiceImpl extends ServiceImpl<ProductMapper, Product> impl
 				throw new DefaultException("系统异常稍后试");
 			}
 		}
-
+		
+		ProductSearchVo psv = new ProductSearchVo();
+		psv.setProduct(p);
+		psv.setAttrList(list1);
+		psv.setDetail(detail);
+		psv.setPropsList(list2);
+		psv.setSkuList(productSkuList);
+		psv.setSpecList(specList);
+		psv.setCategory(category);
+		jmsTemplate.convertAndSend("product:add",psv);
 	}
+
+ 
 }
