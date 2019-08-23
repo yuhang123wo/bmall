@@ -6,6 +6,7 @@ package cn.yh.st.service;
 import java.util.List;
 
 import org.elasticsearch.action.search.SearchRequestBuilder;
+import org.elasticsearch.index.query.BoolQueryBuilder;
 import org.springframework.data.domain.Page;
 
 /**
@@ -43,6 +44,6 @@ public interface SearchService<T> {
 	 * @param query
 	 * @return
 	 */
-	Page<T> queryByMap(String indexName, String type, int pageNo, int pageSize);
+	Page<T> queryByMap(String indexName, String type, int pageNo, int pageSize, BoolQueryBuilder boolQueryBuilder);
 
 }

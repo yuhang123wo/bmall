@@ -4,6 +4,7 @@
 package cn.yh.st.service.impl;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.jms.annotation.JmsListener;
@@ -31,7 +32,6 @@ public class ProductSearchServiceImpl extends SearchServiceImpl<ProductEs> imple
 	@Override
 	public void addProductEs(ProductSearchVo vo) {
 		ProductEs p = ConvertUtil.convert(vo.getProduct(), ProductEs.class);
-
 		List<AttrEs> ae = ConvertUtil.convert(vo.getAttrList(), AttrEs.class);
 		List<PropsEs> pe = ConvertUtil.convert(vo.getPropsList(), PropsEs.class);
 		List<SpecEs> se = ConvertUtil.convert(vo.getSpecList(), SpecEs.class);
@@ -46,7 +46,7 @@ public class ProductSearchServiceImpl extends SearchServiceImpl<ProductEs> imple
 		p.setSkuList(skuList);
 
 		List<ProductEs> list = new ArrayList<ProductEs>();
-        list.add(p);
+		list.add(p);
 		this.addProductIntoEs(list, IndexConfig.PRODUCT_INDEX);
 	}
 

@@ -10,6 +10,7 @@ import org.elasticsearch.action.admin.indices.alias.IndicesAliasesRequestBuilder
 import org.elasticsearch.action.search.SearchRequestBuilder;
 import org.elasticsearch.action.search.SearchResponse;
 import org.elasticsearch.common.unit.TimeValue;
+import org.elasticsearch.index.query.BoolQueryBuilder;
 import org.elasticsearch.search.SearchHits;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -82,10 +83,10 @@ public class SearchServiceImpl<T> implements SearchService<T> {
 	 * @see cn.yh.st.service.SearchService#queryByMap()
 	 */
 	@Override
-	public Page<T> queryByMap(String indexName, String type, int pageNo, int pageSize) {
+	public Page<T> queryByMap(String indexName, String type, int pageNo, int pageSize,	BoolQueryBuilder boolQueryBuilder) {
 		SearchRequestBuilder responsebuilder = elasticsearchTemplate.getClient().prepareSearch(indexName)
 				.setTimeout(new TimeValue(30 * 1000)).setTypes(type);
-
+		responsebuilder.setQuery(boolQueryBuilder);
 		PageRequest pageRequest = PageRequest.of(pageNo, pageSize);
 		SearchResponse sr = responsebuilder.setFrom(pageNo * pageSize).setSize(pageSize).setExplain(false).execute()
 				.actionGet(10 * 1000);

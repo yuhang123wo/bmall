@@ -46,9 +46,8 @@ public class JmsConfig {
 	// 这个用于设置 @JmsListener使用的containerFactory
 	@Bean
 	public JmsListenerContainerFactory<?> msgFactory(ConnectionFactory connectionFactory,
-			DefaultJmsListenerContainerFactoryConfigurer configurer, PlatformTransactionManager transactionManager) {
+			DefaultJmsListenerContainerFactoryConfigurer configurer) {
 		DefaultJmsListenerContainerFactory factory = new DefaultJmsListenerContainerFactory();
-		factory.setTransactionManager(transactionManager);
 		factory.setReceiveTimeout(10000L);
 		factory.setConcurrency("10");
 		configurer.configure(factory, connectionFactory);
