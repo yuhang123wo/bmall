@@ -22,6 +22,7 @@ public class StrategyController {
 	@RequestMapping("/strategy")
 	@ResponseBody
 	public String strategy(@RequestParam("key") String key) {
+		//策略模式中不能使用事务
 		payService.strategy(key);
 		return "xxx";
 	}
