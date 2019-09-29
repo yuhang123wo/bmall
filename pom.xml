@@ -20,6 +20,7 @@
 		<module>bmall-seller</module>
 		<module>bmall-merchant</module>
 		<module>bmall-search</module>
+		<module>bmall-admin-web</module>
 	</modules>
 	<!-- 配置变量 -->
 	<properties>
