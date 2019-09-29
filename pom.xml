@@ -14,13 +14,13 @@
 		<module>bmall-user</module>
 		<module>bmall-pojo</module>
 		<module>bmall-zuul</module>
-		<module>bmall-backstage</module>
 		<module>bmall-product</module>
 		<module>bmall-account</module>
 		<module>bmall-seller</module>
 		<module>bmall-merchant</module>
 		<module>bmall-search</module>
 		<module>bmall-admin-web</module>
+		<module>bmall-agent-web</module>
 	</modules>
 	<!-- 配置变量 -->
 	<properties>
