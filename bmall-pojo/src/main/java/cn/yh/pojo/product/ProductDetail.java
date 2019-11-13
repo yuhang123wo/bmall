@@ -12,33 +12,23 @@ import io.swagger.annotations.ApiModelProperty;
  * </p>
  *
  * @author yuhang
- * @since 2019-06-12
+ * @since 2019-11-13
  */
 @TableName("product_detail")
-@ApiModel(value="Detail对象", description="")
+@ApiModel(value = "Detail对象", description = "")
 public class ProductDetail extends Entity {
 
-    private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 1L;
 
-    @ApiModelProperty(value = "描述")
-    private String description;
+	@ApiModelProperty(value = "描述")
+	private String description;
 
-    @ApiModelProperty(value = "详情图片json")
-    private String imgs;
+	public String getDescription() {
+		return description;
+	}
 
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-    public String getImgs() {
-        return imgs;
-    }
-
-    public void setImgs(String imgs) {
-        this.imgs = imgs;
-    }
+	public void setDescription(String description) {
+		this.description = description;
+	}
 
 }

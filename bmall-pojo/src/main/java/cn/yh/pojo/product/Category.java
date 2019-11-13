@@ -1,40 +1,32 @@
 package cn.yh.pojo.product;
 
-import java.util.Date;
-import java.util.List;
-
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
-
-import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
 
-import cn.yh.pojo.eumn.State;
 import cn.yh.st.common.Entity;
+
+import java.time.LocalDateTime;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
 /**
  * <p>
- * 
+ * 分类
  * </p>
  *
  * @author yuhang
- * @since 2019-06-12
+ * @since 2019-11-13
  */
 @TableName("category")
-@ApiModel(value = "Category对象", description = "")
+@ApiModel(value = "Category对象", description = "分类")
 public class Category extends Entity {
 
 	private static final long serialVersionUID = 1L;
 
 	@ApiModelProperty(value = "分类名")
-	@NotBlank(message = "分类名不能为空")
 	private String name;
 
 	@ApiModelProperty(value = "状态(0:禁用，1:可用)")
-	@NotNull(message = "状态必须")
-	private State state;
+	private Integer state;
 
 	@ApiModelProperty(value = "排序")
 	private Integer sort;
@@ -42,35 +34,12 @@ public class Category extends Entity {
 	@ApiModelProperty(value = "父ID")
 	private Long pId;
 
-	@ApiModelProperty(value = "分级")
+	@ApiModelProperty(value = "分级(1级,2级,3级)")
 	private Integer level;
 
-	private Date updateTime;
+	private LocalDateTime updateTime;
 
-	private Date createTime;
-	
-	@ApiModelProperty("0:系统,其他ID:用户自定义")
-	private Long userId;
-	
-	
-	@TableField(exist=false)
-	private List<Long> brand;
-	
-	public List<Long> getBrand() {
-		return brand;
-	}
-
-	public void setBrand(List<Long> brand) {
-		this.brand = brand;
-	}
-
-	public Long getUserId() {
-		return userId;
-	}
-
-	public void setUserId(Long userId) {
-		this.userId = userId;
-	}
+	private LocalDateTime createTime;
 
 	public String getName() {
 		return name;
@@ -80,11 +49,11 @@ public class Category extends Entity {
 		this.name = name;
 	}
 
-	public State getState() {
+	public Integer getState() {
 		return state;
 	}
 
-	public void setState(State state) {
+	public void setState(Integer state) {
 		this.state = state;
 	}
 
@@ -112,19 +81,20 @@ public class Category extends Entity {
 		this.level = level;
 	}
 
-	public Date getUpdateTime() {
+	public LocalDateTime getUpdateTime() {
 		return updateTime;
 	}
 
-	public void setUpdateTime(Date updateTime) {
+	public void setUpdateTime(LocalDateTime updateTime) {
 		this.updateTime = updateTime;
 	}
 
-	public Date getCreateTime() {
+	public LocalDateTime getCreateTime() {
 		return createTime;
 	}
 
-	public void setCreateTime(Date createTime) {
+	public void setCreateTime(LocalDateTime createTime) {
 		this.createTime = createTime;
 	}
+
 }

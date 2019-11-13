@@ -20,10 +20,10 @@ import com.baomidou.mybatisplus.generator.engine.FreemarkerTemplateEngine;
 public class CodeGenerator {
 
 	private static final String model = "product";
-	private static final String JDBC_URL = "jdbc:mysql://106.12.204.95:3306/mproduct?useUnicode=true&useSSL=false&characterEncoding=utf8";
+	private static final String JDBC_URL = "jdbc:mysql://127.0.0.1:3306/m_product?useUnicode=true&useSSL=false&characterEncoding=utf8";
 	private static final String JDBC_DRIVER = "com.mysql.cj.jdbc.Driver";
 	private static final String JDBC_USERNAME = "root";
-	private static final String JDBC_PWD = "yuhang123wo";
+	private static final String JDBC_PWD = "123456";
 	private static final String PATH = "D://autoCode/mproduct";
 	private static final String basePackage = "cn.yh.st";
 
@@ -39,7 +39,7 @@ public class CodeGenerator {
 		gc.setOpen(false);
 		gc.setSwagger2(true);// swagger2配置
 		gc.setFileOverride(true);// 是否覆盖已有文件
-		gc.setDateType(DateType.ONLY_DATE);
+		gc.setDateType(DateType.TIME_PACK);
 		gc.setEntityName("%s");
 		mpg.setGlobalConfig(gc);
 

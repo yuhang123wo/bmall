@@ -3,11 +3,9 @@ package cn.yh.pojo.product;
 import java.math.BigDecimal;
 import com.baomidou.mybatisplus.annotation.TableName;
 
-import cn.yh.pojo.eumn.ProductState;
-import cn.yh.pojo.eumn.ProductStatus;
 import cn.yh.st.common.Entity;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
@@ -17,7 +15,7 @@ import io.swagger.annotations.ApiModelProperty;
  * </p>
  *
  * @author yuhang
- * @since 2019-06-12
+ * @since 2019-11-13
  */
 @TableName("product")
 @ApiModel(value = "Product对象", description = "")
@@ -25,8 +23,14 @@ public class Product extends Entity {
 
 	private static final long serialVersionUID = 1L;
 
+	@ApiModelProperty(value = "标题")
+	private String title;
+
 	@ApiModelProperty(value = "商品名")
 	private String name;
+
+	@ApiModelProperty(value = "关键词")
+	private String keywords;
 
 	@ApiModelProperty(value = "商品分类ID")
 	private Long categoryId;
@@ -36,15 +40,6 @@ public class Product extends Entity {
 
 	@ApiModelProperty(value = "商家ID")
 	private Long userId;
-
-	@ApiModelProperty(value = "商品关键字")
-	private String keywords;
-
-	@ApiModelProperty(value = "标签")
-	private String tags;
-
-	@ApiModelProperty(value = "商品编号")
-	private String pno;
 
 	@ApiModelProperty(value = "商品价格")
 	private BigDecimal price;
@@ -58,30 +53,22 @@ public class Product extends Entity {
 	@ApiModelProperty(value = "视频")
 	private String video;
 
-	private BigDecimal weight;
-
 	@ApiModelProperty(value = "状态 (0-下架，1-上架，2-删除)")
-	private ProductStatus status;
+	private Integer status;
 
 	@ApiModelProperty(value = "审核状态 2 审核失败 0 未审核 1 审核成功")
-	private ProductState state;
+	private Integer state;
 
-	private Date updateTime;
+	private LocalDateTime updateTime;
 
-	private Date createTime;
+	private LocalDateTime createTime;
 
-	@ApiModelProperty(value = "计量单位")
-	private String weightUnit;
-
-	@ApiModelProperty(value = "品牌名")
-	private String brandName;
-
-	public String getBrandName() {
-		return brandName;
+	public String getTitle() {
+		return title;
 	}
 
-	public void setBrandName(String brandName) {
-		this.brandName = brandName;
+	public void setTitle(String title) {
+		this.title = title;
 	}
 
 	public String getName() {
@@ -90,6 +77,14 @@ public class Product extends Entity {
 
 	public void setName(String name) {
 		this.name = name;
+	}
+
+	public String getKeywords() {
+		return keywords;
+	}
+
+	public void setKeywords(String keywords) {
+		this.keywords = keywords;
 	}
 
 	public Long getCategoryId() {
@@ -114,30 +109,6 @@ public class Product extends Entity {
 
 	public void setUserId(Long userId) {
 		this.userId = userId;
-	}
-
-	public String getKeywords() {
-		return keywords;
-	}
-
-	public void setKeywords(String keywords) {
-		this.keywords = keywords;
-	}
-
-	public String getTags() {
-		return tags;
-	}
-
-	public void setTags(String tags) {
-		this.tags = tags;
-	}
-
-	public String getPno() {
-		return pno;
-	}
-
-	public void setPno(String pno) {
-		this.pno = pno;
 	}
 
 	public BigDecimal getPrice() {
@@ -172,52 +143,36 @@ public class Product extends Entity {
 		this.video = video;
 	}
 
-	public BigDecimal getWeight() {
-		return weight;
-	}
-
-	public void setWeight(BigDecimal weight) {
-		this.weight = weight;
-	}
-
-	public ProductStatus getStatus() {
+	public Integer getStatus() {
 		return status;
 	}
 
-	public void setStatus(ProductStatus status) {
+	public void setStatus(Integer status) {
 		this.status = status;
 	}
 
-	public ProductState getState() {
+	public Integer getState() {
 		return state;
 	}
 
-	public void setState(ProductState state) {
+	public void setState(Integer state) {
 		this.state = state;
 	}
 
-	public Date getUpdateTime() {
+	public LocalDateTime getUpdateTime() {
 		return updateTime;
 	}
 
-	public void setUpdateTime(Date updateTime) {
+	public void setUpdateTime(LocalDateTime updateTime) {
 		this.updateTime = updateTime;
 	}
 
-	public Date getCreateTime() {
+	public LocalDateTime getCreateTime() {
 		return createTime;
 	}
 
-	public void setCreateTime(Date createTime) {
+	public void setCreateTime(LocalDateTime createTime) {
 		this.createTime = createTime;
-	}
-
-	public String getWeightUnit() {
-		return weightUnit;
-	}
-
-	public void setWeightUnit(String weightUnit) {
-		this.weightUnit = weightUnit;
 	}
 
 }

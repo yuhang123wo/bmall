@@ -4,56 +4,42 @@ import com.baomidou.mybatisplus.annotation.TableName;
 
 import cn.yh.st.common.Entity;
 
-import java.util.Date;
-
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
-
+import java.time.LocalDateTime;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
 /**
  * <p>
- * 
+ * 商品参数
  * </p>
  *
  * @author yuhang
- * @since 2019-06-12
+ * @since 2019-11-13
  */
 @TableName("props")
-@ApiModel(value = "Props对象", description = "")
+@ApiModel(value = "Props对象", description = "商品参数")
 public class Props extends Entity {
 
 	private static final long serialVersionUID = 1L;
 
 	@ApiModelProperty(value = "分类ID")
-	@NotNull
 	private Long categoryId;
-	
-	@ApiModelProperty(value="名称")
-	@NotBlank
+
 	private String name;
 
-	@NotBlank
-	private String data;
+	@ApiModelProperty(value = "状态(0禁用,1启用)")
+	private Integer state;
 
-	private Date createTime;
+	private LocalDateTime updateTime;
 
-	private Date updateTime;
-	
+	private LocalDateTime createTime;
 
-	@ApiModelProperty("0:系统,其他ID:用户自定义")
-	private Long userId;
-
-	
-	
-
-	public Long getUserId() {
-		return userId;
+	public Long getCategoryId() {
+		return categoryId;
 	}
 
-	public void setUserId(Long userId) {
-		this.userId = userId;
+	public void setCategoryId(Long categoryId) {
+		this.categoryId = categoryId;
 	}
 
 	public String getName() {
@@ -64,35 +50,27 @@ public class Props extends Entity {
 		this.name = name;
 	}
 
-	public Long getCategoryId() {
-		return categoryId;
+	public Integer getState() {
+		return state;
 	}
 
-	public void setCategoryId(Long categoryId) {
-		this.categoryId = categoryId;
+	public void setState(Integer state) {
+		this.state = state;
 	}
 
-	public String getData() {
-		return data;
-	}
-
-	public void setData(String data) {
-		this.data = data;
-	}
-
-	public Date getCreateTime() {
-		return createTime;
-	}
-
-	public void setCreateTime(Date createTime) {
-		this.createTime = createTime;
-	}
-
-	public Date getUpdateTime() {
+	public LocalDateTime getUpdateTime() {
 		return updateTime;
 	}
 
-	public void setUpdateTime(Date updateTime) {
+	public void setUpdateTime(LocalDateTime updateTime) {
 		this.updateTime = updateTime;
+	}
+
+	public LocalDateTime getCreateTime() {
+		return createTime;
+	}
+
+	public void setCreateTime(LocalDateTime createTime) {
+		this.createTime = createTime;
 	}
 }

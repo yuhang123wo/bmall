@@ -8,58 +8,47 @@ import io.swagger.annotations.ApiModelProperty;
 
 /**
  * <p>
- * 
+ * 平台属性值关联表
  * </p>
  *
  * @author yuhang
- * @since 2019-06-12
+ * @since 2019-11-13
  */
 @TableName("p_rela_attr")
-@ApiModel(value="PRelaAttr对象", description="")
+@ApiModel(value = "PRelaAttr对象", description = "平台属性值关联表")
 public class PRelaAttr extends Entity {
 
-    private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 1L;
 
-    @ApiModelProperty(value = "属性ID")
-    private Long attrId;
+	@ApiModelProperty(value = "属性id（冗余)")
+	private Long attrId;
 
-    @ApiModelProperty(value = "属性名")
-    private String attrName;
+	@ApiModelProperty(value = "属性值id")
+	private Long valueId;
 
-    @ApiModelProperty(value = "属性值名")
-    private String vName;
+	private Long productId;
 
-    @ApiModelProperty(value = "商品ID")
-    private Long productId;
+	public Long getAttrId() {
+		return attrId;
+	}
 
-    public Long getAttrId() {
-        return attrId;
-    }
+	public void setAttrId(Long attrId) {
+		this.attrId = attrId;
+	}
 
-    public void setAttrId(Long attrId) {
-        this.attrId = attrId;
-    }
-    public String getAttrName() {
-        return attrName;
-    }
+	public Long getValueId() {
+		return valueId;
+	}
 
-    public void setAttrName(String attrName) {
-        this.attrName = attrName;
-    }
-  
-    public String getvName() {
-        return vName;
-    }
+	public void setValueId(Long valueId) {
+		this.valueId = valueId;
+	}
 
-    public void setvName(String vName) {
-        this.vName = vName;
-    }
-    public Long getProductId() {
-        return productId;
-    }
+	public Long getProductId() {
+		return productId;
+	}
 
-    public void setProductId(Long productId) {
-        this.productId = productId;
-    }
-
+	public void setProductId(Long productId) {
+		this.productId = productId;
+	}
 }

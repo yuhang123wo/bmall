@@ -1,35 +1,34 @@
 package cn.yh.pojo.product;
 
-import java.time.LocalDateTime;
-
 import com.baomidou.mybatisplus.annotation.TableName;
 
 import cn.yh.st.common.Entity;
+
+import java.time.LocalDateTime;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
 /**
  * <p>
- * 属性
+ * 
  * </p>
  *
  * @author yuhang
  * @since 2019-11-13
  */
-@TableName("attr")
-@ApiModel(value = "Attr对象", description = "属性")
-public class Attr extends Entity {
+@TableName("key_words")
+@ApiModel(value = "KeyWords对象", description = "")
+public class KeyWords extends Entity {
 
 	private static final long serialVersionUID = 1L;
 
-	@ApiModelProperty(value = "属性名")
+	@ApiModelProperty(value = "关键词")
 	private String name;
 
-	@ApiModelProperty(value = "状态(0:禁用,1:可用)")
-	private Integer state;
-
-	@ApiModelProperty(value = "分类ID")
 	private Long categoryId;
+
+	@ApiModelProperty(value = "状态(0:停用,1:启用)")
+	private Integer state;
 
 	private LocalDateTime createTime;
 
@@ -43,20 +42,20 @@ public class Attr extends Entity {
 		this.name = name;
 	}
 
-	public Integer getState() {
-		return state;
-	}
-
-	public void setState(Integer state) {
-		this.state = state;
-	}
-
 	public Long getCategoryId() {
 		return categoryId;
 	}
 
 	public void setCategoryId(Long categoryId) {
 		this.categoryId = categoryId;
+	}
+
+	public Integer getState() {
+		return state;
+	}
+
+	public void setState(Integer state) {
+		this.state = state;
 	}
 
 	public LocalDateTime getCreateTime() {
@@ -74,4 +73,5 @@ public class Attr extends Entity {
 	public void setUpdateTime(LocalDateTime updateTime) {
 		this.updateTime = updateTime;
 	}
+
 }

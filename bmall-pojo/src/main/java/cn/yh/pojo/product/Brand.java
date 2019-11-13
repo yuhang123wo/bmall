@@ -1,60 +1,55 @@
 package cn.yh.pojo.product;
 
-import java.util.Date;
-
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
-
 import com.baomidou.mybatisplus.annotation.TableName;
 
-import cn.yh.pojo.eumn.State;
 import cn.yh.st.common.Entity;
+
+import java.time.LocalDateTime;
 import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 
 /**
  * <p>
- * 
+ * 品牌
  * </p>
  *
  * @author yuhang
- * @since 2019-06-13
+ * @since 2019-11-13
  */
 @TableName("brand")
-@ApiModel(value = "Brand对象", description = "")
+@ApiModel(value = "Brand对象", description = "品牌")
 public class Brand extends Entity {
 
 	private static final long serialVersionUID = 1L;
 
-	@NotBlank
 	private String name;
 
-	private State state;
-
-	private Date createTime;
-
-	private Date updateTime;
-
-	private String address;
+	@ApiModelProperty(value = "状态(0:禁用,1:启用)")
+	private Integer state;
 
 	private String logo;
 
-	@NotNull
-	private Long userId;
+	private LocalDateTime updateTime;
 
-	public Long getUserId() {
-		return userId;
+	private LocalDateTime createTime;
+
+	@ApiModelProperty(value = "分类ID")
+	private Long categoryId;
+
+	public String getName() {
+		return name;
 	}
 
-	public void setUserId(Long userId) {
-		this.userId = userId;
+	public void setName(String name) {
+		this.name = name;
 	}
 
-	public String getAddress() {
-		return address;
+	public Integer getState() {
+		return state;
 	}
 
-	public void setAddress(String address) {
-		this.address = address;
+	public void setState(Integer state) {
+		this.state = state;
 	}
 
 	public String getLogo() {
@@ -65,36 +60,28 @@ public class Brand extends Entity {
 		this.logo = logo;
 	}
 
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
-
-	public State getState() {
-		return state;
-	}
-
-	public void setState(State state) {
-		this.state = state;
-	}
-
-	public Date getCreateTime() {
-		return createTime;
-	}
-
-	public void setCreateTime(Date createTime) {
-		this.createTime = createTime;
-	}
-
-	public Date getUpdateTime() {
+	public LocalDateTime getUpdateTime() {
 		return updateTime;
 	}
 
-	public void setUpdateTime(Date updateTime) {
+	public void setUpdateTime(LocalDateTime updateTime) {
 		this.updateTime = updateTime;
+	}
+
+	public LocalDateTime getCreateTime() {
+		return createTime;
+	}
+
+	public void setCreateTime(LocalDateTime createTime) {
+		this.createTime = createTime;
+	}
+
+	public Long getCategoryId() {
+		return categoryId;
+	}
+
+	public void setCategoryId(Long categoryId) {
+		this.categoryId = categoryId;
 	}
 
 }

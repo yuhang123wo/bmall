@@ -3,60 +3,42 @@ package cn.yh.pojo.product;
 import com.baomidou.mybatisplus.annotation.TableName;
 
 import cn.yh.st.common.Entity;
-
-import java.util.Date;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
 /**
  * <p>
- * 
+ * 商品props
  * </p>
  *
  * @author yuhang
- * @since 2019-06-12
+ * @since 2019-11-13
  */
 @TableName("p_rela_props")
-@ApiModel(value="PRelaProps对象", description="")
+@ApiModel(value = "PRelaProps对象", description = "商品props")
 public class PRelaProps extends Entity {
 
-    private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 1L;
 
-    private Long productId;
+	@ApiModelProperty(value = "props值")
+	private String data;
 
-    private String data;
+	private Long productId;
 
-    private Date createTime;
+	public String getData() {
+		return data;
+	}
 
-    private Date updateTime;
+	public void setData(String data) {
+		this.data = data;
+	}
 
-    public Long getProductId() {
-        return productId;
-    }
+	public Long getProductId() {
+		return productId;
+	}
 
-    public void setProductId(Long productId) {
-        this.productId = productId;
-    }
-    public String getData() {
-        return data;
-    }
-
-    public void setData(String data) {
-        this.data = data;
-    }
-    public Date getCreateTime() {
-        return createTime;
-    }
-
-    public void setCreateTime(Date createTime) {
-        this.createTime = createTime;
-    }
-    public Date getUpdateTime() {
-        return updateTime;
-    }
-
-    public void setUpdateTime(Date updateTime) {
-        this.updateTime = updateTime;
-    }
+	public void setProductId(Long productId) {
+		this.productId = productId;
+	}
 
 }

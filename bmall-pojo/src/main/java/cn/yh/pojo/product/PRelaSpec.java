@@ -8,57 +8,59 @@ import io.swagger.annotations.ApiModelProperty;
 
 /**
  * <p>
- * 
+ * sku平台属性值关联表
  * </p>
  *
  * @author yuhang
- * @since 2019-06-12
+ * @since 2019-11-13
  */
 @TableName("p_rela_spec")
-@ApiModel(value="PRelaSpec对象", description="")
+@ApiModel(value = "PRelaSpec对象", description = "sku平台属性值关联表")
 public class PRelaSpec extends Entity {
 
-    private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 1L;
 
-    @ApiModelProperty(value = "规格ID")
-    private Long specId;
+	@ApiModelProperty(value = "属性id（冗余)")
+	private Long specId;
 
-    @ApiModelProperty(value = "规格名")
-    private String specName;
+	@ApiModelProperty(value = "属性值id")
+	private Long valueId;
 
-    @ApiModelProperty(value = "规格值名")
-    private String vName;
+	@ApiModelProperty(value = "skuid")
+	private Long skuId;
 
-    @ApiModelProperty(value = "商品ID")
-    private Long productId;
+	private Long productId;
 
-    public Long getSpecId() {
-        return specId;
-    }
+	public Long getSpecId() {
+		return specId;
+	}
 
-    public void setSpecId(Long specId) {
-        this.specId = specId;
-    }
-    public String getSpecName() {
-        return specName;
-    }
+	public void setSpecId(Long specId) {
+		this.specId = specId;
+	}
 
-    public void setSpecName(String specName) {
-        this.specName = specName;
-    }
-    public String getvName() {
-        return vName;
-    }
+	public Long getValueId() {
+		return valueId;
+	}
 
-    public void setvName(String vName) {
-        this.vName = vName;
-    }
-    public Long getProductId() {
-        return productId;
-    }
+	public void setValueId(Long valueId) {
+		this.valueId = valueId;
+	}
 
-    public void setProductId(Long productId) {
-        this.productId = productId;
-    }
+	public Long getSkuId() {
+		return skuId;
+	}
+
+	public void setSkuId(Long skuId) {
+		this.skuId = skuId;
+	}
+
+	public Long getProductId() {
+		return productId;
+	}
+
+	public void setProductId(Long productId) {
+		this.productId = productId;
+	}
 
 }
