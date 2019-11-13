@@ -13,16 +13,17 @@
 		</encoder>
 	</appender>
 	<!--每天记录日志到文件appender -->
-	<property name="APP_NAME" value="mall-user" />
+	<property name="APP_NAME" value="mall-product" />
 	<appender name="FILE"
 		class="ch.qos.logback.core.rolling.RollingFileAppender">
 		<rollingPolicy
 			class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-			<fileNamePattern>/mall/${APP_NAME}-%d{yyyy-MM-dd}.log</fileNamePattern>
+			<fileNamePattern>logs/${APP_NAME}-%d{yyyy-MM-dd}.log</fileNamePattern>
 			<maxHistory>30</maxHistory>
 		</rollingPolicy>
 		<encoder>
-			<pattern>${FILE_LOG_PATTERN}</pattern>
+			<pattern>%d %p (%file:%line\)- %m%n</pattern>
+			<charset>UTF-8</charset>
 		</encoder>
 	</appender>
 	<logger name="cn.yh.product.mapper" level="DEBUG"	additivity="false">

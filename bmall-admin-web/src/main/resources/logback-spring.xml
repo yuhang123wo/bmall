@@ -22,7 +22,8 @@
 			<maxHistory>30</maxHistory>
 		</rollingPolicy>
 		<encoder>
-			<pattern>${FILE_LOG_PATTERN}</pattern>
+			<pattern>%d %p (%file:%line\)- %m%n</pattern>
+			<charset>UTF-8</charset>
 		</encoder>
 	</appender>
 	<root level="INFO">

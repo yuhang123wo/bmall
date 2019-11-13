@@ -18,14 +18,16 @@
 		class="ch.qos.logback.core.rolling.RollingFileAppender">
 		<rollingPolicy
 			class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-			<fileNamePattern>/${APP_NAME}-%d{yyyy-MM-dd}.log</fileNamePattern>
+			<fileNamePattern>logs/${APP_NAME}-%d{yyyy-MM-dd}.log</fileNamePattern>
 			<maxHistory>30</maxHistory>
 		</rollingPolicy>
 		<encoder>
-			<pattern>${FILE_LOG_PATTERN}</pattern>
+			<pattern>%d %p (%file:%line\)- %m%n</pattern>
+			<charset>UTF-8</charset>
 		</encoder>
 	</appender>
-	<logger name="cn.yh.user.mapper" level="DEBUG"	additivity="false">
+	<logger name="cn.yh.user.mapper" level="DEBUG"
+		additivity="false">
 		<appender-ref ref="STDOUT" />
 	</logger>
 	<root level="INFO">

@@ -13,7 +13,7 @@
 		</encoder>
 	</appender>
 	<!--每天记录日志到文件appender -->
-	<property name="APP_NAME" value="mall-user" />
+	<property name="APP_NAME" value="agent-web" />
 	<appender name="FILE"
 		class="ch.qos.logback.core.rolling.RollingFileAppender">
 		<rollingPolicy
@@ -22,7 +22,7 @@
 			<maxHistory>30</maxHistory>
 		</rollingPolicy>
 		<encoder>
-			 <pattern>%d %p (%file:%line\)- %m%n</pattern>
+			<pattern>%d %p (%file:%line\)- %m%n</pattern>
 			<charset>UTF-8</charset>
 		</encoder>
 	</appender>
