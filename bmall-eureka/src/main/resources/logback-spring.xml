@@ -13,19 +13,20 @@
 		</encoder>
 	</appender>
 	<!--每天记录日志到文件appender -->
-	<property name="APP_NAME" value="eureka" />
+	<property name="APP_NAME" value="mall-eureka" />
 	<appender name="FILE"
 		class="ch.qos.logback.core.rolling.RollingFileAppender">
 		<rollingPolicy
 			class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-			<fileNamePattern>/mall/${APP_NAME}-%d{yyyy-MM-dd}.log</fileNamePattern>
+			<fileNamePattern>logs/${APP_NAME}-%d{yyyy-MM-dd}.log</fileNamePattern>
 			<maxHistory>30</maxHistory>
 		</rollingPolicy>
 		<encoder>
-			<pattern>${FILE_LOG_PATTERN}</pattern>
+			<pattern>%d{yyyy-MM-dd HH:mm:ss.SSS}|%level|%logger{36}:%line|%thread|%X{trackNo}|%msg%n</pattern>
 		</encoder>
 	</appender>
 	<root level="INFO">
 		<appender-ref ref="STDOUT" />
+		<appender-ref ref="FILE" />
 	</root>
 </configuration>
