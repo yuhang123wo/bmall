@@ -2,16 +2,16 @@ package cn.yh.product.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 
-import cn.yh.pojo.product.ProductSku;
+import cn.yh.pojo.product.Specs;
 
 /**
  * <p>
- *  Mapper 接口
+ * 商品规格 Mapper 接口
  * </p>
  *
  * @author yuhang
- * @since 2019-06-12
+ * @since 2019-11-13
  */
-public interface ProductSkuMapper extends BaseMapper<ProductSku> {
+public interface SpecsMapper extends BaseMapper<Specs> {
 
 }

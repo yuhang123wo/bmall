@@ -10,11 +10,11 @@ import org.springframework.stereotype.Service;
 
 /**
  * <p>
- * 服务实现类
+ * 商品参数 服务实现类
  * </p>
  *
  * @author yuhang
- * @since 2019-06-12
+ * @since 2019-11-13
  */
 @Service
 public class PropsServiceImpl extends ServiceImpl<PropsMapper, Props> implements IPropsService {

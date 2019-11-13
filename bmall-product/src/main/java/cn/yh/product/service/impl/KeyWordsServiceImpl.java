@@ -2,9 +2,9 @@ package cn.yh.product.service.impl;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 
-import cn.yh.pojo.product.Product;
-import cn.yh.product.mapper.ProductMapper;
-import cn.yh.product.service.IProductService;
+import cn.yh.pojo.product.KeyWords;
+import cn.yh.product.mapper.KeyWordsMapper;
+import cn.yh.product.service.IKeyWordsService;
 
 import org.springframework.stereotype.Service;
 
@@ -17,6 +17,6 @@ import org.springframework.stereotype.Service;
  * @since 2019-11-13
  */
 @Service
-public class ProductServiceImpl extends ServiceImpl<ProductMapper, Product> implements IProductService {
+public class KeyWordsServiceImpl extends ServiceImpl<KeyWordsMapper, KeyWords> implements IKeyWordsService {
 
 }

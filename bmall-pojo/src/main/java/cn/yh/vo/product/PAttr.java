@@ -3,8 +3,6 @@
  */
 package cn.yh.vo.product;
 
-import java.util.List;
-
 /**
  * @author yuhang
  * @date 2019年7月29日

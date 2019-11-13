@@ -10,7 +10,7 @@ import cn.yh.pojo.product.Product;
  * </p>
  *
  * @author yuhang
- * @since 2019-06-12
+ * @since 2019-11-13
  */
 public interface ProductMapper extends BaseMapper<Product> {
 

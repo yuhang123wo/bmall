@@ -6,13 +6,12 @@ import cn.yh.pojo.product.Category;
 
 /**
  * <p>
- *  服务类
+ * 分类 服务类
  * </p>
  *
  * @author yuhang
- * @since 2019-06-12
+ * @since 2019-11-13
  */
 public interface ICategoryService extends IService<Category> {
 
-	void processAddCategory(Category category);
 }

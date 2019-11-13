@@ -6,11 +6,11 @@ import cn.yh.pojo.product.PRelaProps;
 
 /**
  * <p>
- * Mapper 接口
+ * 商品props Mapper 接口
  * </p>
  *
  * @author yuhang
- * @since 2019-06-12
+ * @since 2019-11-13
  */
 public interface PRelaPropsMapper extends BaseMapper<PRelaProps> {
 

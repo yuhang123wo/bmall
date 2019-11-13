@@ -6,11 +6,11 @@ import cn.yh.pojo.product.Category;
 
 /**
  * <p>
- * Mapper 接口
+ * 分类 Mapper 接口
  * </p>
  *
  * @author yuhang
- * @since 2019-06-12
+ * @since 2019-11-13
  */
 public interface CategoryMapper extends BaseMapper<Category> {
 

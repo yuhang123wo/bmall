@@ -10,11 +10,11 @@ import org.springframework.stereotype.Service;
 
 /**
  * <p>
- * 服务实现类
+ * 品牌 服务实现类
  * </p>
  *
  * @author yuhang
- * @since 2019-06-13
+ * @since 2019-11-13
  */
 @Service
 public class BrandServiceImpl extends ServiceImpl<BrandMapper, Brand> implements IBrandService {

@@ -2,16 +2,16 @@ package cn.yh.product.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 
-import cn.yh.pojo.product.CateBrand;
+import cn.yh.pojo.product.SpecsValue;
 
 /**
  * <p>
- *  Mapper 接口
+ * Mapper 接口
  * </p>
  *
  * @author yuhang
- * @since 2019-07-16
+ * @since 2019-11-13
  */
-public interface CateBrandMapper extends BaseMapper<CateBrand> {
+public interface SpecsValueMapper extends BaseMapper<SpecsValue> {
 
 }

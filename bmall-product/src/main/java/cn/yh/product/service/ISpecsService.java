@@ -2,16 +2,16 @@ package cn.yh.product.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
 
-import cn.yh.pojo.product.CateBrand;
+import cn.yh.pojo.product.Specs;
 
 /**
  * <p>
- *  服务类
+ * 商品规格 服务类
  * </p>
  *
  * @author yuhang
- * @since 2019-07-16
+ * @since 2019-11-13
  */
-public interface ICateBrandService extends IService<CateBrand> {
+public interface ISpecsService extends IService<Specs> {
 
 }

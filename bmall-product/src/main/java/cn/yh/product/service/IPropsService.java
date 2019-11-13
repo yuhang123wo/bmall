@@ -6,11 +6,11 @@ import cn.yh.pojo.product.Props;
 
 /**
  * <p>
- *  服务类
+ * 商品参数 服务类
  * </p>
  *
  * @author yuhang
- * @since 2019-06-12
+ * @since 2019-11-13
  */
 public interface IPropsService extends IService<Props> {
 
