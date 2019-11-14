@@ -3,34 +3,22 @@
  */
 package cn.yh.vo.product;
 
-import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
 import cn.yh.pojo.eumn.State;
 
 /**
  * @author yuhang
- * @date 2019年6月12日
+ * @date 2019年11月14日
  * @desc
  */
-public class UpdateStateVo {
+public class UpdateStateVO {
+
 	@NotNull
 	private Long id;
+
 	@NotNull
 	private State state;
-	
-	@NotNull
-	private Long userId;
-	
-	
-
-	public Long getUserId() {
-		return userId;
-	}
-
-	public void setUserId(Long userId) {
-		this.userId = userId;
-	}
 
 	public Long getId() {
 		return id;

@@ -25,6 +25,13 @@ public class ApiResponseEnity<T> {
 		this.msg = codeEnum.getMessage();
 	}
 
+	public ApiResponseEnity<T> fail(String msg) {
+		this.code = CodeEnum.DEAL_ERROR.getCode();
+		this.msg = msg;
+		return this;
+
+	}
+
 	public int getCode() {
 		return code;
 	}

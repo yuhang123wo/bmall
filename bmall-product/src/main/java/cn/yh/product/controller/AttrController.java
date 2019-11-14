@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 
@@ -24,6 +25,7 @@ import cn.yh.st.common.api.CommonResult;
 import cn.yh.st.common.util.SearchToQuery;
 import cn.yh.vo.product.AddAttrVo;
 import cn.yh.vo.product.QueryAttrVo;
+import cn.yh.vo.product.UpdateStateVO;
 
 /**
  * @author yuhang
@@ -73,6 +75,25 @@ public class AttrController extends BaseController {
 	public ApiResponseEnity<?> addAttrAndValue(@Validated @RequestBody AddAttrVo vo) {
 		CommonResult result = attrService.addAttrAndValues(vo);
 		return getReturnData(result);
+	}
+
+	/**
+	 * 
+	 * @param vo
+	 * @return
+	 */
+	@PostMapping("updateAttrState")
+	public ApiResponseEnity<?> updateAttrState(@Validated @RequestBody UpdateStateVO vo) {
+		Attr attr = attrService.getById(vo.getId());
+		if (attr == null) {
+			return new ApiResponseEnity<>().fail("属性不存在");
+		}
+		boolean flag = attrService.update(
+				new LambdaUpdateWrapper<Attr>().eq(Attr::getId, attr.getId()).set(Attr::getState, vo.getState()));
+		if (flag) {
+			return new ApiResponseEnity<>();
+		}
+		return new ApiResponseEnity<>().fail("修改失败");
 	}
 
 }

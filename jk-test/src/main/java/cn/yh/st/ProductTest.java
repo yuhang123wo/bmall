@@ -11,7 +11,9 @@ import org.apache.http.client.ClientProtocolException;
 
 import com.alibaba.fastjson.JSON;
 
+import cn.yh.pojo.eumn.State;
 import cn.yh.vo.product.AddAttrVo;
+import cn.yh.vo.product.UpdateStateVO;
 
 /**
  * @author yuhang
@@ -24,8 +26,8 @@ public class ProductTest {
 
 	public static void main(String[] args) throws ClientProtocolException, IOException {
 		ProductTest test = new ProductTest();
-		String result = test.testAddAttrAndValue();
-
+//		String result = test.testAddAttrAndValue();
+		String result = test.testUpdateAttrState();
 		System.out.println(result);
 
 	}
@@ -39,6 +41,14 @@ public class ProductTest {
 		List<String> strs = new ArrayList<String>();
 		strs.add("a");
 		vo.setList(strs);
+		return PostUtil.postJson(uri, JSON.toJSONString(vo));
+	}
+
+	public String testUpdateAttrState() throws ClientProtocolException, IOException {
+		String uri = testApi + "attr/updateAttrState";
+		UpdateStateVO vo = new UpdateStateVO();
+		vo.setId(1L);
+		vo.setState(State.DISABLE);
 		return PostUtil.postJson(uri, JSON.toJSONString(vo));
 	}
 }

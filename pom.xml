@@ -16,7 +16,6 @@
 		<module>bmall-zuul</module>
 		<module>bmall-product</module>
 		<module>bmall-account</module>
-		<module>bmall-seller</module>
 		<module>bmall-merchant</module>
 		<module>bmall-search</module>
 		<module>bmall-admin-web</module>
