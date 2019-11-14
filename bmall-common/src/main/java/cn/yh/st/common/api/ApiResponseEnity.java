@@ -2,37 +2,29 @@ package cn.yh.st.common.api;
 
 public class ApiResponseEnity<T> {
 
-	public static final String CODE_SUCCESS = "0";
-	public static final String CODE_FAIL = "-1";
-	private String code;
+	private int code;
 	private String msg;
 	private T data;
 
 	public ApiResponseEnity() {
-		this.code = CODE_SUCCESS;
+		this.code = CodeEnum.SUCCESS.getCode();
 	}
 
 	public ApiResponseEnity(T data) {
-		this.code = CODE_SUCCESS;
+		this.code = CodeEnum.SUCCESS.getCode();
 		this.data = data;
 	}
 
-	public ApiResponseEnity(String code, String msg) {
-		this.code = code;
-		this.msg = msg;
+	public ApiResponseEnity(CodeEnum codeEnum) {
+		this.code = codeEnum.getCode();
+		this.msg = codeEnum.getMessage();
 	}
 
-	public ApiResponseEnity<T> fail(String msg) {
-		this.code = CODE_FAIL;
-		this.msg = msg;
-		return this;
-	}
-
-	public String getCode() {
+	public int getCode() {
 		return code;
 	}
 
-	public void setCode(String code) {
+	public void setCode(int code) {
 		this.code = code;
 	}
 

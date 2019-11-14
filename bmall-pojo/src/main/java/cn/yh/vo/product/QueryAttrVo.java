@@ -17,17 +17,12 @@ public class QueryAttrVo extends BasePage {
 
 	@SearchFieldAnnotation(column = "category_id", type = SearchType.eq)
 	private Long categoryId;
-	
-	@SearchFieldAnnotation(column = "name", type = SearchType.likeLeft)
+
+	@SearchFieldAnnotation(column = "name", type = SearchType.likeRight)
 	private String name;
-	
 
 	@SearchFieldAnnotation(column = "state", type = SearchType.eq)
 	private State state;
-	
-	
-	private Long userId;
-	
 
 	public String getName() {
 		return name;
@@ -35,14 +30,6 @@ public class QueryAttrVo extends BasePage {
 
 	public void setName(String name) {
 		this.name = name;
-	}
-
-	public Long getUserId() {
-		return userId;
-	}
-
-	public void setUserId(Long userId) {
-		this.userId = userId;
 	}
 
 	public Long getCategoryId() {

@@ -33,11 +33,6 @@ public class PayService {
 			result = e.getMessage();
 		}
 		Brand entity = new Brand();
-		entity.setAddress("ss");
-		entity.setName("234234");
-		entity.setCreateTime(new Date());
-		entity.setLogo("ggg");
-		entity.setUserId(1L);
 		brandService.save(entity);
 		return result;
 	}

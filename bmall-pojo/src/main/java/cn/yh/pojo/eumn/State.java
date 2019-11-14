@@ -11,7 +11,7 @@ import com.baomidou.mybatisplus.annotation.EnumValue;
  * @desc
  */
 public enum State {
-	DISABLE(0, "禁用"), ENABLE(1, "启用");
+	DISABLE(0, "禁用"), ENABLE(1, "启用"), DEL(-1, "删除");
 
 	State(int code, String remark) {
 		this.code = code;

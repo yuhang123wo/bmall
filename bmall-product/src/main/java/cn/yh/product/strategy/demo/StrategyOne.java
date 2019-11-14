@@ -42,10 +42,7 @@ public class StrategyOne implements Strategy {
 		System.out.println(11);
 		Brand entity = new Brand();
 
-		entity.setAddress("ss");
-		entity.setCreateTime(new Date());
 		entity.setLogo("ggg");
-		entity.setUserId(1L);
 		brandService.save(entity);
 //		int i=1/0;
 		return null;
