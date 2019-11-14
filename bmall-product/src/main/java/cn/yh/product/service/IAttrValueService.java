@@ -3,6 +3,7 @@ package cn.yh.product.service;
 import com.baomidou.mybatisplus.extension.service.IService;
 
 import cn.yh.pojo.product.Attr;
+import cn.yh.pojo.product.AttrValue;
 import cn.yh.st.common.api.CommonResult;
 import cn.yh.vo.product.AddAttrVo;
 
@@ -14,12 +15,6 @@ import cn.yh.vo.product.AddAttrVo;
  * @author yuhang
  * @since 2019-11-13
  */
-public interface IAttrService extends IService<Attr> {
+public interface IAttrValueService extends IService<AttrValue> {
 
-	/**
-	 * 添加属性及值
-	 * 
-	 * @param vo
-	 */
-	CommonResult addAttrAndValues(AddAttrVo vo);
 }

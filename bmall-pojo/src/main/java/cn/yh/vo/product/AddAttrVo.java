@@ -9,8 +9,6 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
-import cn.yh.pojo.eumn.State;
-
 /**
  * @author yuhang
  * @date 2019年6月12日
@@ -24,18 +22,12 @@ public class AddAttrVo {
 	@NotNull
 	private Long categoryId;
 
-	@NotNull
-	private State state;
-
 	@NotEmpty
 	private List<String> list;
-	
-	
+
 	@NotNull
 	private Long userId;
 
-	
-	
 	public Long getUserId() {
 		return userId;
 	}
@@ -58,14 +50,6 @@ public class AddAttrVo {
 
 	public void setCategoryId(Long categoryId) {
 		this.categoryId = categoryId;
-	}
-
-	public State getState() {
-		return state;
-	}
-
-	public void setState(State state) {
-		this.state = state;
 	}
 
 	public List<String> getList() {

@@ -21,6 +21,7 @@
 		<module>bmall-search</module>
 		<module>bmall-admin-web</module>
 		<module>bmall-agent-web</module>
+		<module>jk-test</module>
 	</modules>
 	<!-- 配置变量 -->
 	<properties>

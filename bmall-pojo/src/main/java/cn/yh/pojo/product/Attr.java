@@ -4,6 +4,7 @@ import java.time.LocalDateTime;
 
 import com.baomidou.mybatisplus.annotation.TableName;
 
+import cn.yh.pojo.eumn.State;
 import cn.yh.st.common.Entity;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -26,7 +27,7 @@ public class Attr extends Entity {
 	private String name;
 
 	@ApiModelProperty(value = "状态(0:禁用,1:可用)")
-	private Integer state;
+	private State state;
 
 	@ApiModelProperty(value = "分类ID")
 	private Long categoryId;
@@ -43,11 +44,11 @@ public class Attr extends Entity {
 		this.name = name;
 	}
 
-	public Integer getState() {
+	public State getState() {
 		return state;
 	}
 
-	public void setState(Integer state) {
+	public void setState(State state) {
 		this.state = state;
 	}
 

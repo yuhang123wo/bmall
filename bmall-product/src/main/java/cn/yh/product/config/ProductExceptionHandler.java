@@ -32,18 +32,18 @@ public class ProductExceptionHandler {
 	public ApiResponseEnity<?> javaExceptionHandler(Exception ex) {
 		if (ex instanceof DefaultException) {
 			logger.error("接口处理异常", ex);
-			return new ApiResponseEnity<>(CodeEnum.DEAL_ERROR);
+			return new ApiResponseEnity<>(CodeEnum.DEAL_ERROR.getCode(), ex.getMessage());
 		} else if (ex instanceof BindException) {
 
 			BindException gm = (BindException) ex;
 			String message = gm.getFieldErrors().get(0).getDefaultMessage();
 			printData("参数验证失败", message);
-			return new ApiResponseEnity<>(CodeEnum.PARAMS_ERROR);
+			return new ApiResponseEnity<>(CodeEnum.PARAMS_ERROR.getCode(), message);
 		} else if (ex instanceof MethodArgumentNotValidException) {
 			String message = ((MethodArgumentNotValidException) ex).getBindingResult().getAllErrors().get(0)
 					.getDefaultMessage();
 			printData("参数验证失败", message);
-			return new ApiResponseEnity<>(CodeEnum.PARAMS_ERROR);
+			return new ApiResponseEnity<>(CodeEnum.PARAMS_ERROR.getCode(), message);
 		} else {
 			logger.error("未知异常", ex);
 			return new ApiResponseEnity<>(CodeEnum.UNKOWN_ERROR);
