@@ -32,7 +32,7 @@
 		$('#myPage').html('');
 		$.ajax({
 			   type: "GET",
-			   url: '/product/productAttrList',
+			   url: '/attr/queryAttr',
 			   data:params,
 			   dataType:'json',
 			   success: function(result){

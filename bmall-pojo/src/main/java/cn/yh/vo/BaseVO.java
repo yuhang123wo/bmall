@@ -1,7 +1,7 @@
 /**
  * 
  */
-package cn.yh.product.vo;
+package cn.yh.vo;
 
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
