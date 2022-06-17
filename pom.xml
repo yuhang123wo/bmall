@@ -33,7 +33,7 @@
 		<mybatis.plus.version>3.1.0</mybatis.plus.version>
 		<swagger.version>2.9.2</swagger.version>
 		<druid.version>1.1.12</druid.version>
-		<alibaba.fastjson.version>1.2.49</alibaba.fastjson.version>
+		<alibaba.fastjson.version>1.2.83</alibaba.fastjson.version>
 		<common.codec.version>1.12</common.codec.version>
 	</properties>
 	<parent>
